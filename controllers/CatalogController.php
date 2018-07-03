@@ -43,15 +43,15 @@ class CatalogController extends Controller
 		
 		
 		//top section for curient sectio
-		$model->fillTopArrCurSection(); 
+		//$model->fillTopArrCurSection(); 
 	   
 	   ///echo 'alex3';
 	   
 	   
-	   $model->fillBottomArrCurSection();
-		$model->fillQuantitypageforqurientsection();
+	   //$model->fillBottomArrCurSection();
+		//$model->fillQuantitypageforqurientsection();
 		   
-	    $model->fillarrElements();
+	    //$model->fillarrElements();
 			
 			
 			

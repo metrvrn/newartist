@@ -52,11 +52,32 @@ function printSection($arrSection){
 	
 	if(isset($arrSection)&&count($arrSection)>0){
 		 
-		echo '<ul>';
+		echo '<li>';
  
+   
+         echo   '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$arrSection['name'].'</a>'; 
+
+
+
+           	if(isset($arrSection['childArray'])&&      count($arrSection['childArray'])>0){   
+			echo '<ul>';
+			
+				foreach	($arrSection['childArray'] as $andertopsection){
+					
+					
+				echo $andertopsection[id].'<br>';
+				//printSection($andertopsection);  	
+					
+				};		
+			
+	        echo '</ul>';			
+
+
+			};		   
+ 
+		 //echo $arrSection['name'];
 		
-		
-		foreach($arrSection as  $dataArray){
+		/* foreach($arrSection as  $dataArray){
 			
 	
 		
@@ -68,17 +89,17 @@ function printSection($arrSection){
 						echo   '<a  href='.Url::to(['catalog/index', 'section' => $data['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$data['name'].'</a>';    
 						
 				 
-						if(count($data['childArray'])>0){printSection($data['childArray']);};
+						//if(count($data['childArray'])>0){printSection($data['childArray']);};
 							echo '</li>';
 						
 					}
 					
 		
 			
-		}
+		} */
 		
 		
-			echo '</ul>';
+			echo '</li>';
 	
 	} 
 	
@@ -107,9 +128,20 @@ function printSection($arrSection){
 			
 			<?
 			
+					echo '<ul>';
+		 
+					
+			foreach($model->arrSectioons as $topSection){
+				
+			 
+				
+				printSection($topSection);
+				
+				
+			};
 			
-			
-			printSection($model->arrSectioons)?>
+			echo '</ul>'; 
+			 ?>
 			 
 			 
 			
@@ -173,7 +205,7 @@ function printSection($arrSection){
 								echo' <td>            </td>';
 							    echo' <td>             </td>';
 echo '</tr>'; 
- foreach($model->arrElements as $element){
+ /* foreach($model->arrElements as $element){
 	 
 echo '<tr  id ="element_row_'.$element['id'].'">';
                                echo' <td> '.$element['name'].'</td>';
@@ -188,7 +220,7 @@ echo '<tr  id ="element_row_'.$element['id'].'">';
 echo '</tr>'; 
 	
 	 
-};
+}; */
  
  
  ?>
@@ -250,17 +282,17 @@ function mes(mes){
 
 	 <?
  //echo 'сообщение модели'.$model->message;			 
-	 
+	 	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 //echo 'секция модели  '.$model->section;		
-       //print_r($model->arrSectioons);
+    // print_r($model->arrSectioons);
 		
-		echo '<br>';echo '<br>';echo '<br>';echo '<br>';
+	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 			
-	//	print_r($model->arrElements);
+		//print_r($model->sectionNoParentArray);
 		
-		  echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
+		//  echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
 
-	 	 print_r($model->TopArrCurSection);
+	 	// print_r($model->TopArrCurSection);
 		
 	// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
         //echo'BottomArrCurSection     =<br>';
@@ -283,18 +315,18 @@ function mes(mes){
 		
 		// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 
-		  print_r($model->BottomArrCurSection);  echo '<br>';
+		 /// print_r($model->BottomArrCurSection);  echo '<br>';
 		
 		//  $model->elementPerPage.' elementPerPage   ';echo '<br>';echo '<br>';   echo 'page '.$model->page;echo '<br>';echo '<br>';
 		
 
 		
 		//echo $model->message.' message of model';
-		 echo intval( $model->page)*$model->elementPerPage;
+		// echo intval( $model->page)*$model->elementPerPage;
 		 
 		 
-		 echo 'quantityPageForCurSection';
+		// echo 'quantityPageForCurSection';
 		 
-print_r($model->quantityPageForCurSection);
+///print_r($model->quantityPageForCurSection);
 		
 			  ?>

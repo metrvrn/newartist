@@ -124,9 +124,16 @@ class AdminModel extends Model
 						 
 						// print_r($ar);
 						 
-						 if($count==300){break;};
+						 //if($count==300){break;};
 						 
-						 $this->procceccArrayOfStingFromFile($ar);
+						   
+						   if(ltrim($ar[10])==1){  
+
+	                         $this->procceccArrayOfStingFromFile($ar);
+
+						   };
+						 
+					
 						 
 						 	// $mes=$mes.$mytext.$count.'  '.$ar[1].'<br>';       
 						  $mes=$mes.'  '.$ar[0].'<br>';    
@@ -145,15 +152,13 @@ class AdminModel extends Model
 					  fclose($fp);
 		 
 		 
-		 //$this->MakeSections();
+		 $this->MakeSections();
 		 
 		 
-		 //$this->fillidpInSectionTable();
+		 $this->fillidpInSectionTable();
 		 
-	
-	
 		 
-		  $this->message=$this->message.$mes;
+		  //$this->message=$this->message.$mes;
 		 
 		 
 		 
@@ -165,30 +170,33 @@ class AdminModel extends Model
 			$mes=$el->code ;
 		
 			$section = Section::find()
-    ->where(['code' =>ltrim(  $el->code  )])
-    ->one();
+			->where(['code' =>ltrim(  $el->code  )])
+			->one();
 	
 	if(!$section){
 		
 		$section=new Section();
-		   $section->name= $el->name;
+		     
+			 $section->id= $el->id;
+			 $section->name= $el->name;
 			 $section->code= $el->code;
 			 $section->xmlcode=$el->xmlcode;
+			  $section->xmlcodep=$el->xmlcodep;
 			 $section->active=$el->active;
-			  $section->idp =$el->idp ;
-			  $section->codep =$el->codep;
+			 $section->idp =$el->idp ;
+			 $section->codep =$el->codep;
 			 
 			// $el->quantity ='0';
 		     $section->issection = $el->issection;
 			 $section->index1 = $el->index1;
 			 $section->index2 =$el->index2;
 			 
-		$section->save();
+		    $section->save();
 		
 		
 	};
 		
-		  $this->message=$this->message.$mes;
+		//  $this->message=$this->message.$mes;
 		
 	}
 	
@@ -204,7 +212,7 @@ class AdminModel extends Model
    // ->all();
 	
 	$elements = Element::find()
-	->where( ['issection' =>true])
+	->where( ['issection' =>'1'])
     ->indexBy('id')
     ->all();
 	
@@ -258,14 +266,14 @@ class AdminModel extends Model
 		foreach($sections  as  $section ){
 			
 
-			$mes=$mes."  we finde <br>".$section->codep;
+			//$mes=$mes."  we finde <br>".$section->codep;
 			
-			if(isset($section->codep)){
+			if(isset($section->xmlcodep)){
 				
 		
 				
 				$sectionsp = Section::find()
-                 ->where(['code' =>$section->codep])
+                 ->where(['xmlcode' =>$section->xmlcodep])
                  ->one();
 				 
 				 if(isset($sectionsp)){
@@ -283,14 +291,14 @@ class AdminModel extends Model
 				
 			};
 			
-			  $this->message=$this->message.$mes;
+			 // $this->message=$this->message.$mes;
 		
 			
 		}
 			
 	 
 		$elements = Element::find()
-          ->where(['issection' =>false])	  
+          ->where(['issection' =>1, 'idp'=>null])	  
          ->all();
 	
 	     //array
@@ -299,13 +307,13 @@ class AdminModel extends Model
 		//	if(isset($element->codep)){
 				
 				$sectionsp = Section::find()
-                 ->where(['code' =>$element->codep])
+                 ->where(['xmlcode' =>$element->xmlcodep])
                  ->one();
 				 
 				//if(isset($sectionsp)){
 					 
 					 
-					// $mes=$mes."  we finde <br>";
+					  $mes=$mes."  we finde NULL  <br>";
 					 
 					 $element->idp=$sectionsp->id;
 					 
