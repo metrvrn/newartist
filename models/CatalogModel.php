@@ -98,7 +98,7 @@ class CatalogModel extends Model
 						$idArray[ 'index1']= $section->index1;
 						$idArray[ 'index2']= $section->index2;
 						$idArray[ 'idp']= $section->idp;
-						//$idArray[ 'childArray']= $this->makeTreeForSection($section);
+						$idArray[ 'childArray']= $this->makeTreeForSection($section);
 						
 					
 					$this->sectionNoParentArray[]=$idArray;
@@ -134,25 +134,10 @@ class CatalogModel extends Model
 			          // $mes=$mes.' array'.$this->arrSectioons.' <br> ';
 
 						if ($this->arrSectioons === false) {
-						
 				 
 			
 						$this->fillSectionNoParentArray();
-						  
-						
-                             foreach ($this->sectionNoParentArray as $section){ 
-								 
-
-								  $section['childArray']=$this->makeTreeForSection($section);
-								  
-								  echo '<br>';  echo '<br>';  echo '<br>';  echo '<br>';
-								  
-								  
-								  print_r ( $section);
-								    
-							}
-						 
-						 
+						   
 						     $this->arrSectioons= $this->sectionNoParentArray;
 						  
 						  
@@ -217,22 +202,10 @@ class CatalogModel extends Model
 		  
 		  
         public  function  makeTreeForSection ($sectionLocal)
-		 {      // $mes='<br>fillarrSectioons  <br>';
-		  
-		       // echo  $sectionLocal->xmlcode.'alex makeTreeForSection <br>';
-			   
-			   echo '<br>';   echo '<br>';
-			   
-			  // print_r($sectionLocal);
-			      echo '<br>';   echo '<br>';
-			   
-			   
-			   
-
-				//if(!isset($sectionLocal['xmlcode'])){return;};
+		 {      
 						
 				 	
-		  
+		           if(!isset($sectionLocal->xmlcode)){return;};
 		  
 		         $sections = Section::find()
 				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,])
@@ -248,7 +221,7 @@ class CatalogModel extends Model
 							 
 						$idArray=[];
 							
-						echo  $section->xmlcode.'<br>';
+						//echo  $section->xmlcode.'<br>';
 
 						$idArray[ 'id']= $section->id;
 						$idArray[ 'xmlcodep']= $section->xmlcodep;
@@ -273,7 +246,7 @@ class CatalogModel extends Model
 			
 			
 			
-			return $mainArray;
+			return   $mainArray;
 			
 			
 			
@@ -318,8 +291,15 @@ class CatalogModel extends Model
 			public function fillTopArrCurSection(){
 				
 				///make  key for the section
-				if (!isset($this->section)){$this->section=$this->id_tovar;};
-				$key="top_section_".$this->section;
+				if (!isset($this->section)){
+					$this->TopArrCurSection=[];
+					return;								
+					
+				};
+				
+				
+				
+				$key="top_cur_section_array_".$this->section;
 				
 				
 				$this->TopArrCurSection = Yii::$app->cache->get($key);
@@ -378,7 +358,7 @@ class CatalogModel extends Model
 		   
 		   {	///make  key for the section
 				
-				$key="botton_section_".$this->section;
+				$key="botton_cur_section_array_".$this->section;
 				
 				 
 				$this->BottomArrCurSection = Yii::$app->cache->get($key);
@@ -412,14 +392,11 @@ class CatalogModel extends Model
 		   }
 		   
   public function  getChildrenForSection($sectionId){
-               // echo $sectionId;
-   	 	//$this->BottomArrCurSection[]=$section->id;
-				 //it is curient section if we have the id we have the section
-				 
-				 //$childArray=Array();
+               
+			   
 				$this->BottomArrCurSection[]=intval($sectionId);
-				 // print_r($this->BottomArrCurSection);
-				 
+				
+				
 				 
 				  $sections = Section::find()
                   ->where(['idp' =>$sectionId ])
@@ -428,11 +405,8 @@ class CatalogModel extends Model
 				 if(!$sections){return;};
 				  
 				foreach($sections as $section ){
-					 //$inArray=Array();
-					// $inArray['id']=[$section->id];
-					// $inArray['idchildren']=$this->getChildrenForSection($section->id);
-					
-					//$childArray[]= $inArray;
+			
+			
 					
 					$this->BottomArrCurSection[]=intval($section->id);
 					$this->getChildrenForSection($section->id);

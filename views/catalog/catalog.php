@@ -15,21 +15,19 @@ $session = Yii::$app->session;
 $session->open();
 
 
-/// we have to delete lasta element form  $model->TopArrCurSection   it is our top top super section
-$countTopArray=count($model->TopArrCurSection);
-
-if($countTopArray>0){
-	
-	unset($model->TopArrCurSection[array_search('48', $model->TopArrCurSection)]);
-};
-
+/// we have to delete lasta element form  $model->TopArrCurSection
+  
+$countTopArray=count($model->TopArrCurSection); 
 if($countTopArray>0){
 	
 	unset($model->TopArrCurSection[array_search($model->section, $model->TopArrCurSection)]);
-};
+}; 
 
 
  ///add all of top sections 
+ 
+ 
+
  
 if(isset($model->TopArrCurSection)&&count($model->TopArrCurSection)>0){
 	
@@ -55,8 +53,8 @@ function printSection($arrSection){
 		echo '<li>';
 
 
-		//echo   '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$arrSection['name'].'</a>'; 
-echo 'top sections'.$arrSection;
+		echo   '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$arrSection['name'].'</a>'; 
+//echo 'top sections'.$arrSection;
 
                      
            if(isset($arrSection['childArray']) &&  count( $arrSection['childArray'])>0       ){
@@ -64,7 +62,7 @@ echo 'top sections'.$arrSection;
 
 											foreach	($arrSection['childArray'] as $andertopsection){
 
-													
+													 printSection($andertopsection);
 													
 
 											};		
@@ -207,7 +205,7 @@ echo '</tr>';
                     </table>
 			 
 			 	<br><br><br><br>
-             <?//=print_r($model->TopArrCurSection)?>
+          
 			 
   
   
@@ -262,7 +260,7 @@ function mes(mes){
 	 	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 //echo 'секция модели  '.$model->section;		
    
-  print_r($model->arrSectioons);
+  //print_r($model->arrSectioons);
 	
 
 //foreach($model->arrSectioons as $sec){
@@ -272,20 +270,20 @@ function mes(mes){
 	
 	
 	
-	
+	 
 //};
 	
-	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
+	//echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 			
-		print_r($model->sectionNoParentArray);
+	//	print_r($model->sectionNoParentArray);
 		
-		//  echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
+		 echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
 
-	 	// print_r($model->TopArrCurSection);
+	 	 print_r($model->TopArrCurSection);
 		
 	// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
-        //echo'BottomArrCurSection     =<br>';
-		 //print_r($model->BottomArrCurSection); 
+        echo'BottomArrCurSection     =<br>';
+		 print_r($model->BottomArrCurSection); 
 		
 		
 	//	foreach($model->BottomArrCurSection as $k=>$v)
