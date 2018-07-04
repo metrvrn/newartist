@@ -282,35 +282,46 @@ class AdminModel extends Model
 			
 	 
 		$elements = Element::find()
-          ->where(['issection' =>1, 'idp'=>null])	  
+        //  ->where(['issection' =>1, 'idp'=>null])	  
          ->all();
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  $mes=$mes."fillidpInSectionTable    elements<br>"; 
 	     //array
 		foreach($elements  as  $element ){
 			
-		//	if(isset($element->codep)){
-				
-				$sectionsp = Section::find()
+		 	//if(!isset($element->xmlcodep)){continue;};
+				 
+
+				 $mes=$mes.$element->xmlcodep."  element <br>";
+ 
+				 $sectionsp = Section::find()
                  ->where(['xmlcode' =>$element->xmlcodep])
                  ->one();
 				 
-				//if(isset($sectionsp)){
+				 
+				
+				  if(isset($sectionsp)){
+					  
+					   $mes=$mes.$sectionsp->id."  section <br>";
+				 
 					 
-					 
-					  $mes=$mes."  we finde NULL  <br>";
+					
 					 
 					 $element->idp=$sectionsp->id;
 					 
 					 $element->save();
-					 
-			// };
+					  /*	
+		             */	
+
+					 };
 				
 				
-				
+			
 			};
 			
 			
-			
+			 
 			
 	 
 	 
@@ -412,7 +423,7 @@ class AdminModel extends Model
 		 $this->fillidpInSectionTable();
 		 
 		 
-		  //$this->message=$this->message.$mes;
+		  $this->message=$this->message.$mes;
 		 
 		 
 		 
