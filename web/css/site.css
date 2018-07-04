@@ -122,3 +122,6 @@ table, th, td {
 th, td {
     padding: 2px;
 }
+.site-index-background{
+    background-color: url("/images/header-background.jpg")
+}
