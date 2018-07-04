@@ -10,7 +10,8 @@ use app\models\LokalFileModel;
 
 $this->title = 'My Yii Application';
 ?>
-<div class="site-index site-index-background">
+<div class="site-index-background"></div>
+<div class="site-index">
 
     <div class="jumbotron">
         <h1><?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h1>

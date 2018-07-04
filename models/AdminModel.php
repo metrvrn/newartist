@@ -229,10 +229,7 @@ class AdminModel extends Model
 	 }
 	 
 	
-	////fillidpInSectionTable
-	
-	
-	
+	 
 	
 	
 	 public function fillidpInSectionTable()
@@ -315,24 +312,7 @@ class AdminModel extends Model
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			//$mes=$mes."   idp ".$section->codep.'  <br>';
-			//we have the one section class.
-			
-			
-			
-			
-		//};
-		
-		
-	
-		
-   
+	 
 	 
 	 
 	 
@@ -343,7 +323,39 @@ class AdminModel extends Model
 
 	
 	
+	private function procceccArrayOfStingFromFileArtist($ar){
+		
+		
+		
+		$element = Element::find()
+    ->where(['xmlcode' =>ltrim($ar[2])])
+    ->one();
 	
+	if(!$element){
+		
+				$el=new Element();
+
+				$el->code=ltrim($ar[0]);
+				$el->xmlcode=ltrim($ar[2]);;
+				$el->name= ltrim($ar[4]);
+				$el->artikul=ltrim($ar[6]);;
+				$el->xmlcodep =ltrim($ar[8]);
+
+				$el->active=true;//ltrim($ar[3]);
+				//$el->idp ='';
+
+
+				$el->quantity =0;
+
+				 $el->issection =ltrim($ar[10]); 				
+
+				$el->save();
+		
+		
+	};
+		
+		
+	}
 	
 	 public function Uploadenomartist()
      {
@@ -369,11 +381,11 @@ class AdminModel extends Model
 						 //if($count==300){break;};
 						 
 						   
-						   if(ltrim($ar[10])==1){  
+						   //if(ltrim($ar[10])==1){  
 
-	                         $this->procceccArrayOfStingFromFile($ar);
+	                         $this->procceccArrayOfStingFromFileArtist($ar);
 
-						   };
+						   //};
 						 
 					
 						 

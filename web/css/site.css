@@ -123,5 +123,10 @@ th, td {
     padding: 2px;
 }
 .site-index-background{
-    background-color: url("/images/header-background.jpg")
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-image: url("/images/header-background.jpg")
 }

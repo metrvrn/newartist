@@ -277,13 +277,13 @@ function mes(mes){
 			
 	//	print_r($model->sectionNoParentArray);
 		
-		 echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
-
-	 	 print_r($model->TopArrCurSection);
+		// echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
+//
+	 	// print_r($model->TopArrCurSection);
 		
 	// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
-        echo'BottomArrCurSection     =<br>';
-		 print_r($model->BottomArrCurSection); 
+      //  echo'BottomArrCurSection     =<br>';
+		// print_r($model->BottomArrCurSection); 
 		
 		
 	//	foreach($model->BottomArrCurSection as $k=>$v)
