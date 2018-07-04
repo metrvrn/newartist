@@ -49,9 +49,9 @@ class CatalogController extends Controller
 	   
 	   
 	   $model->fillBottomArrCurSection();
-		//$model->fillQuantitypageforqurientsection();
+		$model->fillQuantitypageforqurientsection();
 		   
-	    //$model->fillarrElements();
+	    $model->fillarrElements();
 			
 			
 			

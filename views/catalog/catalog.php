@@ -180,7 +180,7 @@ function printSection($arrSection){
 								echo' <td>            </td>';
 							    echo' <td>             </td>';
 echo '</tr>'; 
- /* foreach($model->arrElements as $element){
+ foreach($model->arrElements as $element){
 	 
 echo '<tr  id ="element_row_'.$element['id'].'">';
                                echo' <td> '.$element['name'].'</td>';
@@ -195,7 +195,7 @@ echo '<tr  id ="element_row_'.$element['id'].'">';
 echo '</tr>'; 
 	
 	 
-}; */
+};
  
  
  ?>
@@ -312,8 +312,8 @@ function mes(mes){
 		// echo intval( $model->page)*$model->elementPerPage;
 		 
 		 
-		// echo 'quantityPageForCurSection';
+		 echo 'quantityPageForCurSection';
 		 
-///print_r($model->quantityPageForCurSection);
+print_r($model->quantityPageForCurSection);
 		
 			  ?>
