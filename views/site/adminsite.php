@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	
 		 
-		
+			<p><div class="btn btn-default"  id="btn_site_Uploadenomartist"  onclick='btn_site_Uploadenomartist()'        >загрузить номенклатуру ходожника </div></p>
 		
 		
 		
@@ -129,6 +129,20 @@ function btn_site_addadmin() {
 }
 
 
+function btn_site_Uploadenomartist() {
+    
+
+   var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+      mes( this.responseText);
+    }
+  };
+  xhttp.open("GET", "<?=Url::to(['site/uploadenomartist']) ?>", true);
+  xhttp.send();
+
+ console.log("начало ")
+}
 
 
 

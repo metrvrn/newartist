@@ -60,36 +60,23 @@ class AdminModel extends Model
 	
 	if(!$element){
 		
-		$el=new Element();
-		   
-			 $el->code=ltrim($ar[0]);
-			 $el->xmlcode=ltrim($ar[2]);;
-			   $el->name= ltrim($ar[4]);
-			  $el->artikul=ltrim($ar[6]);;
-			    $el->xmlcodep =ltrim($ar[8]);
-			  
-			 $el->active=true;//ltrim($ar[3]);
-			  //$el->idp ='';
-			
-			 
-			 $el->quantity =0;
-			 
-			 //$isSection=ltrim($ar[10]);
-			 //if($isSection=="Нет"){
-				 $el->issection =ltrim($ar[10]); 
-				// }else{
-					// $el->issection=true; 
-					 
-					// }
-					 
-			
-			
-			 
-			 //$el->issection =ltrim($ar[3]);
-			 //$el->index1 ="";
-			 //$el->index2 ="";
-			// $el->active ="";
-		$el->save();
+				$el=new Element();
+
+				$el->code=ltrim($ar[0]);
+				$el->xmlcode=ltrim($ar[2]);;
+				$el->name= ltrim($ar[4]);
+				$el->artikul=ltrim($ar[6]);;
+				$el->xmlcodep =ltrim($ar[8]);
+
+				$el->active=true;//ltrim($ar[3]);
+				//$el->idp ='';
+
+
+				$el->quantity =0;
+
+				 $el->issection =ltrim($ar[10]); 				
+
+				$el->save();
 		
 		
 	};
@@ -354,6 +341,78 @@ class AdminModel extends Model
 	 }
 	
 
+	
+	
+	
+	
+	 public function Uploadenomartist()
+     {
+					  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1c.csv', "r"); // Открываем файл в режиме чтения
+					
+					
+					$count=0;
+					$mes="";
+
+					 if ($fp) 
+					  {$mes='file is '.'<br>';
+						 while (!feof($fp))
+						 {      $count=$count+1; //if($count==20){break;};
+						 $mytext = fgets($fp, 999);
+						 
+					
+						 
+						 
+						 $ar=str_getcsv($mytext,";");
+						 
+						// print_r($ar);
+						 
+						 //if($count==300){break;};
+						 
+						   
+						   if(ltrim($ar[10])==1){  
+
+	                         $this->procceccArrayOfStingFromFile($ar);
+
+						   };
+						 
+					
+						 
+						 	// $mes=$mes.$mytext.$count.'  '.$ar[1].'<br>';       
+						  $mes=$mes.'  '.$ar[0].'<br>';    
+						 
+						  //$inc=0;
+						  //$imes='';
+						 // foreach(   $ar  as $t=>$r ){  $mes=$mes.'  '.$r.'  '.' = '.$t.' ';     };
+						 
+						 
+						 ///$mes=$mes.$count."<br />";
+						 }
+					   }
+					  else $mes="Ошибка при открытии файла";
+					  
+					  
+					  fclose($fp);
+		 
+		 
+		 $this->MakeSections();
+		 
+		 
+		 $this->fillidpInSectionTable();
+		 
+		 
+		  //$this->message=$this->message.$mes;
+		 
+		 
+		 
+		 
+     }
+	
+	
+	
+	
+	
+	
+	
 	
 	
      

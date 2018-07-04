@@ -482,4 +482,28 @@ class SiteController extends Controller
 	
 	
 	
+	 public function actionUploadenomartist()
+    {
+			$this->layout = 'ajaxl';	
+		
+		 $model_admin=new AdminModel();
+		 $model_admin->Uploadenomartist();
+		 
+		  $model=new AjaxModel();
+		  
+		  $model->message=$model_admin->message;
+		  
+			
+		   return $this->render('ajaxv', [
+         'model' => $model,
+			]);
+			
+		
+	   
+    }
+	
+	
+	
+	
+	
 }
