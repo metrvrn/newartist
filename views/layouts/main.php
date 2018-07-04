@@ -12,7 +12,7 @@ use app\assets\AppAsset;
 use yii\helpers\Url;
 use app\models\LokalFileModel;
 
-  
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -31,57 +31,56 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-   NavBar::begin([
-    'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
-    'brandUrl' => Yii::$app->homeUrl,
-    'options' => [
-        'class' => 'navbar-inverse navbar-fixed-top',
-    ],
-]);
- 
-$menuItems = [
-    ['label' => 'Админ', 'url' => [$url = Url::to(['site/adminsite'])]],
-   
-  ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
+    NavBar::begin([
+        'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar navbar-fixed-top a.color',
+        ]
+    ]);
+
+    $menuItems = [
+        ['label' => 'Админ', 'url' => [$url = Url::to(['site/adminsite'])]],
+
+        ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
 
 //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
-   ['label' => 'Главная', 'url' => ['/site/index']],
-    ['label' => 'О компании', 'url' => ['/site/about']],
-    ['label' => 'Контакты ', 'url' => ['/site/contact']],
-	
-];
- 
-if (Yii::$app->user->isGuest) {
-	
-	
-    $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-    $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-	
-	 
-	
-} else {
-	
-	 $menuItems[] =['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
+        ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'О компании', 'url' => ['/site/about']],
+        ['label' => 'Контакты ', 'url' => ['/site/contact']],
+
+    ];
+
+    if (Yii::$app->user->isGuest) {
+
+
+        $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+
+
+
+    } else {
+
+        $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
 	// $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-	
-    $menuItems[] = '<li>'
-        . Html::beginForm(['/site/logout'], 'post')
-        . Html::submitButton(
+
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
             'Выйти (' . Yii::$app->user->identity->username . ')',
             ['class' => 'btn btn-link logout']
         )
-        . Html::endForm()
-        . '</li>';
-};
+            . Html::endForm()
+            . '</li>';
+    };
 
-$menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
- 
-echo Nav::widget([
-    'options' => ['class' => 'navbar-nav navbar-right'],
-    'items' => $menuItems,
-]);
- 
-NavBar::end();
+    $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItems,
+    ]);
+
+    NavBar::end();
     ?>
 
     <div class="container">
@@ -95,7 +94,7 @@ NavBar::end();
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy;   <?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany').date('Y') ?></p>
+        <p class="pull-left">&copy;   <?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany') . date('Y') ?></p>
 
        
     </div>

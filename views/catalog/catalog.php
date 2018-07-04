@@ -26,12 +26,11 @@ if($countTopArray>0){
 
  ///add all of top sections 
  
- 
-
- 
-if(isset($model->TopArrCurSection)&&count($model->TopArrCurSection)>0){
+if(isset($model->TopArrCurSection)&&$countTopArray>0){
 	
-	foreach($model->TopArrCurSection as $val){
+	$reverseArray=array_reverse($model->TopArrCurSection );
+	
+	foreach($reverseArray  as $val){
 	$this->params['breadcrumbs'][] =['label' =>  $model->getSectionNameById($val), 'url' => [Url::to(['catalog/index', 'section' => $val, 'element'=> 'non', 'page'=> 0,])]];
 	
 	};

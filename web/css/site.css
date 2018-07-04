@@ -128,5 +128,14 @@ th, td {
     right: 0;
     left: 0;
     bottom: 0;
-    background-image: url("/images/header-background.gif")
+    background-image: url(/images/header-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.m-header-container{
+    color: #555;
+}
+
+.color{
+    color: #000 !important;
 }
