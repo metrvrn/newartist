@@ -132,10 +132,17 @@ th, td {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.header-title{
+    font-size: 2rem;
+}
 .m-header-container{
     color: #555;
 }
-
-.color{
-    color: #000 !important;
+.navbar-fixed-top a{
+   color: #000;
+   font-size: 1.5rem;
+}
+a.navbar-brand{
+    font-size: 3rem;
+    font-weight: 700;
 }

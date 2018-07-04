@@ -35,7 +35,7 @@ AppAsset::register($this);
         'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-fixed-top a.color',
+            'class' => 'navbar navbar-fixed-top',
         ]
     ]);
 
