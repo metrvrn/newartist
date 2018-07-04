@@ -73,10 +73,10 @@ class m180606_143718_create_user_tableMainTable extends Migration
 		
 		 $this->createTable('price', [
             'id' => $this->primaryKey(),
-			'type'=>integer(),
+			'type'=>$this->integer(),
 			'elementid'=> $this->string(),			 
 			'price'=> $this->string(),
-			'index1'=>integer(),
+			'index1'=>$this->integer(),
 			]);
 		
 		 
@@ -85,10 +85,10 @@ class m180606_143718_create_user_tableMainTable extends Migration
 		
 		 $this->createTable('quantity', [
             'id' => $this->primaryKey(),
-			'type'=>integer(),
+			'type'=>$this->integer(),
 			'elementid'=> $this->string(),			 
-			'quantity'=> $this->string(),
-			'index1'=>integer(),
+			'quantity'=> $this->float(),
+			'index1'=>$this->integer(),
 			]);
 		
 		
