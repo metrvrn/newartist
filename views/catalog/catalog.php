@@ -7,7 +7,7 @@ use yii\helpers\Url;
 
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
-
+ 
 
 
  
@@ -48,60 +48,37 @@ $this->params['breadcrumbs'][] =['label' => $model->getSectionNameById($model->s
 
 function printSection($arrSection){
 	
-	 
+	   if(!isset($arrSection['id'])){return;};
 	
-	if(isset($arrSection)&&count($arrSection)>0){
+	 
 		 
 		echo '<li>';
- 
-   
-         echo   '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$arrSection['name'].'</a>'; 
 
 
+		//echo   '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$arrSection['name'].'</a>'; 
+echo 'top sections'.$arrSection;
 
-           	if(isset($arrSection['childArray'])&&      count($arrSection['childArray'])>0){   
-			echo '<ul>';
-			
-				foreach	($arrSection['childArray'] as $andertopsection){
-					
-					
-				echo $andertopsection[id].'<br>';
-				//printSection($andertopsection);  	
-					
-				};		
-			
-	        echo '</ul>';			
+                     
+           if(isset($arrSection['childArray']) &&  count( $arrSection['childArray'])>0       ){
+					echo '<ul>';
+
+											foreach	($arrSection['childArray'] as $andertopsection){
+
+													
+													
+
+											};		
+
+					echo '</ul>';			
 
 
-			};		   
- 
-		 //echo $arrSection['name'];
-		
-		/* foreach($arrSection as  $dataArray){
-			
+			   
+		   }
+
+
+		echo '</li>';
 	
-		
-		      
-					foreach($dataArray as  $data){
-						
-						echo '<li>';
-						
-						echo   '<a  href='.Url::to(['catalog/index', 'section' => $data['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$data['name'].'</a>';    
-						
-				 
-						//if(count($data['childArray'])>0){printSection($data['childArray']);};
-							echo '</li>';
-						
-					}
-					
-		
-			
-		} */
-		
-		
-			echo '</li>';
-	
-	} 
+	 
 	
 	
 	
@@ -284,11 +261,23 @@ function mes(mes){
  //echo 'сообщение модели'.$model->message;			 
 	 	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 //echo 'секция модели  '.$model->section;		
-    // print_r($model->arrSectioons);
-		
+   
+  print_r($model->arrSectioons);
+	
+
+//foreach($model->arrSectioons as $sec){
+//	echo 'alex'.$sec.'<br>';
+	
+	
+	
+	
+	
+	
+//};
+	
 	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
 			
-		//print_r($model->sectionNoParentArray);
+		print_r($model->sectionNoParentArray);
 		
 		//  echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
 

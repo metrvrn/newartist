@@ -87,7 +87,22 @@ class CatalogModel extends Model
 				  
 				  foreach($sectionsNoPar as $section ){
 					  
-					 $this->sectionNoParentArray[]=$section;
+					// $this->sectionNoParentArray[]=$section;
+					
+						$idArray=[];
+					
+						$idArray[ 'id']= $section->id;
+						$idArray[ 'xmlcodep']= $section->xmlcodep;
+						$idArray[ 'xmlcode']= $section->xmlcode;
+						$idArray[ 'name']= $section->name;
+						$idArray[ 'index1']= $section->index1;
+						$idArray[ 'index2']= $section->index2;
+						$idArray[ 'idp']= $section->idp;
+						//$idArray[ 'childArray']= $this->makeTreeForSection($section);
+						
+					
+					$this->sectionNoParentArray[]=$idArray;
+					
 					  
 					  
 					  
@@ -120,38 +135,27 @@ class CatalogModel extends Model
 
 						if ($this->arrSectioons === false) {
 						
-						//$this->id_tovar=$this->findeSectionByCode('00000000001');
-						
-						//$mes=$mes."00000000001 al = id ".$this->id_tovar.'<br>';
+				 
 			
 						$this->fillSectionNoParentArray();
-						$this->arrSectioons=[];
+						  
 						
-						//print_r($sectionNoParentArray);
-						
-						
-						
-                             foreach ($this->sectionNoParentArray as $section){
+                             foreach ($this->sectionNoParentArray as $section){ 
 								 
-								 
-								 
-								  $treeArray=$this->makeTreeForSection ($section);
+
+								  $section['childArray']=$this->makeTreeForSection($section);
 								  
-								  //print_r($treeArray);
+								  echo '<br>';  echo '<br>';  echo '<br>';  echo '<br>';
 								  
 								  
-								  $this->arrSectioons[]=$treeArray;
-								  
-								 
+								  print_r ( $section);
+								    
 							}
 						 
 						 
-						   
+						     $this->arrSectioons= $this->sectionNoParentArray;
 						  
-						 
 						  
-						    
-							
 							
 						  //Yii::$app->cache->set('arrSectioons', $treeArray);
 				        }
@@ -196,7 +200,8 @@ class CatalogModel extends Model
 						$idArray[ 'index1']= $element->index1;
 						$idArray[ 'index2']= $element->index2;
 						$idArray[ 'idp']= $element->idp;
-						//$idArray[ 'childArray']= '';  ///$this->makeTreeForSection($section->id);
+						
+						
 						$this->arrElements[]=$idArray;
 				};
 				
@@ -214,26 +219,23 @@ class CatalogModel extends Model
         public  function  makeTreeForSection ($sectionLocal)
 		 {      // $mes='<br>fillarrSectioons  <br>';
 		  
-		      // if(!isset($sectionLocal)) {return;};
+		       // echo  $sectionLocal->xmlcode.'alex makeTreeForSection <br>';
+			   
+			   echo '<br>';   echo '<br>';
+			   
+			  // print_r($sectionLocal);
+			      echo '<br>';   echo '<br>';
 			   
 			   
-	// echo  $sectionLocal->xmlcode.'<br>';
-		                $sectionLocalArray=[];
-		                $sectionLocalArray[ 'id']= $sectionLocal->id;
-						$sectionLocalArray[ 'xmlcodep']= $sectionLocal->xmlcodep;
-						$sectionLocalArray[ 'xmlcode']= $sectionLocal->xmlcode;
-						$sectionLocalArray[ 'name']= $sectionLocal->name;
-						$sectionLocalArray[ 'index1']= $sectionLocal->index1;
-						$sectionLocalArray[ 'index2']= $sectionLocal->index2;
-						$sectionLocalArray[ 'idp']= $sectionLocal->idp;
-						//$sectionLocalArray[ 'childArray']= [];
+			   
+
+				//if(!isset($sectionLocal['xmlcode'])){return;};
 						
-		
+				 	
 		  
 		  
-		          //finde all chaild of id.
 		         $sections = Section::find()
-				 ->where(['xmlcodep' =>$sectionLocal->xmlcode])
+				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,])
 				 ->all();
 		  
 		        
@@ -246,7 +248,7 @@ class CatalogModel extends Model
 							 
 						$idArray=[];
 							
-						//echo  $section->xmlcode.'<br>';
+						echo  $section->xmlcode.'<br>';
 
 						$idArray[ 'id']= $section->id;
 						$idArray[ 'xmlcodep']= $section->xmlcodep;
@@ -264,26 +266,14 @@ class CatalogModel extends Model
 						  
 					    };
 				 
-		  
-		     
-			
-				 
-				 
-				  
-		 
-		               
-		 
-					  
-		 
-		 
-	 
-			 
+		   
+			        
 			
 			
 			
-			 	$sectionLocalArray[ 'childArray']= $mainArray;
 			
-			return $sectionLocalArray;
+			
+			return $mainArray;
 			
 			
 			
