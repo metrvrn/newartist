@@ -27,7 +27,6 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <div class="header-sections">
     <div class="container-fluid">
         <div class="row">
                 <div class="col-xs-2">
@@ -46,13 +45,7 @@ AppAsset::register($this);
             </div>
         </div>
     <div class="container-fluid">
-        <?php NavBar::begin([
-                    'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
-                    'brandUrl' => Yii::$app->homeUrl,
-                    'options' => [
-                        'class' => 'navbar',
-                    ],
-                ]);
+        <?php NavBar::begin();
                 $menuItems = [
                     ['label' => 'Админ', 'url' => [$url = Url::to(['site/adminsite'])]],
                     ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
@@ -92,7 +85,6 @@ AppAsset::register($this);
     <div class="container-fluid">
         <?= $content ?>	
     </div>
-</div>
     
     <div class="container">
         <p class="pull-left">&copy;   <?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany').date('Y') ?></p>

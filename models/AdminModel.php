@@ -595,7 +595,23 @@ class AdminModel extends Model
 	   
 	   
 			private function deactiveParetnsElement($element){   ///recursion
-	  
+	                      
+						  //it is section 
+						  //we have to check dos it have the active elements or no.  
+						  //we have to deactivate only emty section element and element 
+						  
+						  $elemenstInCurientSection=Element::find()
+						  ->where(['xmlcodep' =>$element->xmlcode,
+                                    'active'=>1 ])
+						  ->one();
+						  
+						  if($elemenstInCurientSectio){
+							  //we cannot deactive this Element becaus it have the active children
+							  return;} 
+						   
+						  
+						  
+						  
 						$element->active=0;
 						$element->save();
 						
@@ -612,8 +628,7 @@ class AdminModel extends Model
 							 
 						 }
 						 
-						 
-						 
+						  
 							
 							
 						}

@@ -52,6 +52,9 @@ class AdminController extends Controller
      */
     public function actionIndex()
     {
+		
+			   $this->layout = 'oldmain';
+		
          $model=new AdminModel();
 			
 		   return $this->render('adminsite', [

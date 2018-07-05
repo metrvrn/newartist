@@ -136,17 +136,25 @@ th, td {
     background-repeat: no-repeat;
     z-index: -100;
 }
-.header-sections{
-    background-color: #ffffcb;
-}
 .nav > li >  a{
     font-size: 1.4rem;
-    font-weight: 200;
+    font-weight: 700;
+    color: #000;
     text-transform: uppercase;
-    transition: all 0.2 ease;
+    transition: all 0.2s ease;
+}
+.nav > li.active >  a{
+    text-decoration: underline;
 }
 .nav > li >  a:hover{
     text-decoration: underline;
     background-color: transparent;
-    transition: all 0.2 ease;
+    transition: all 0.2s ease;
+}
+.navbar.navbar-default{
+    background: transparent;
+    border: none;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #000
 }
