@@ -2,6 +2,9 @@ html,
 body {
     height: 100%;
 }
+body{
+    color: #333;
+}
 
 .wrap {
     min-height: 100%;
@@ -131,18 +134,16 @@ th, td {
     background-image: url(/images/header-background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: -100;
 }
-.header-title{
-    font-size: 2rem;
+.navbar .navbar-default {
+    color: #000;
 }
-.m-header-container{
-    color: #555;
-}
-.navbar-fixed-top a{
-   color: #000;
-   font-size: 1.5rem;
-}
-a.navbar-brand{
-    font-size: 3rem;
+.navbar-brand{
+    color: inherit;
     font-weight: 700;
+}
+.navbar.navbar-default{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: #eee;
 }
