@@ -39,6 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		
 			<p><div class="btn btn-default"  id="btn_admin_Activedeactivelemensection"  onclick='btn_admin_Activedeactivelemensection()'        >установить активнось элементов каталогов </div></p>
 		
+		
+		
+		
+		
 	
     <code><//?= __FILE__ ?></code>
 </div>

@@ -540,13 +540,9 @@ class AdminModel extends Model
 				   
 				   
 				   if($quantity){
-					   
-					   
-					   
+					    
 					   foreach($quantity as $quan){  // $mes=$mes.$quan['id'].'  <br>';
-						   
-						   
-						   
+						    
 						   	$element = Element::find()
 							->where(['id' =>$quan->elementid])
 							->one();
@@ -558,31 +554,77 @@ class AdminModel extends Model
 								
 								
 							}
-							
-							
-	
-						   
-						    
-						   
+							 
+						     
 					   }
 					   
-					   	
 					   
 					   
 				   }
 				   
+				   ////we have to deactive section
+				   
+				   
+				   	$elements = Element::find()
+							->where(['active' =>0,])
+							->all();
+							
+							
+							if($elements){ 
+							
+							 foreach( $elements as $element){
+								 
+								 $this->deactiveParetnsElement($element);  ///recursion
+								 
+								 
+								};
+								
+								
+							 
+								
+							}
 				   
 				   
 				   
-				   
+				    
 				   
 				   	 $this->message=$this->message.$mes;
 				   
 			   }
 	   
+	   
+	   
+			private function deactiveParetnsElement($element){   ///recursion
+	  
+						$element->active=0;
+						$element->save();
+						
+						if(isset($element->xmlcodep)){
+						 //we have the parent  xmlcodep
+						 
+						 $elementParent=Element::find()
+						 ->where(['xmlcode' =>$element->xmlcodep,])
+						 ->one();
+						 
+						 if($elementParent){
+							 
+							 $this->deactiveParetnsElement($elementParent);
+							 
+						 }
+						 
+						 
+						 
+							
+							
+						}
+						
+	  
+	  
+	  
 	  
 	   
-	   
+				}
+	  
 	 
 	 
 	
