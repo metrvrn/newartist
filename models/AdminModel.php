@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use app\models\Element;
 use app\models\Section;
+use app\models\Quantity;
+use app\models\Price;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -383,32 +385,13 @@ class AdminModel extends Model
 						 $mytext = fgets($fp, 999);
 						 
 					
-						 
-						 
 						 $ar=str_getcsv($mytext,";");
 						 
-						// print_r($ar);
-						 
-						 //if($count==300){break;};
-						 
-						   
-						   //if(ltrim($ar[10])==1){  
+	                         $this->procceccArrayOfStingFromFileArtist($ar); 
 
-	                         $this->procceccArrayOfStingFromFileArtist($ar);
-
-						   //};
-						 
-					
-						 
-						 	// $mes=$mes.$mytext.$count.'  '.$ar[1].'<br>';       
 						  $mes=$mes.'  '.$ar[0].'<br>';    
 						 
-						  //$inc=0;
-						  //$imes='';
-						 // foreach(   $ar  as $t=>$r ){  $mes=$mes.'  '.$r.'  '.' = '.$t.' ';     };
-						 
-						 
-						 ///$mes=$mes.$count."<br />";
+						
 						 }
 					   }
 					  else $mes="Ошибка при открытии файла";
@@ -430,11 +413,125 @@ class AdminModel extends Model
 		 
      }
 	
+	  
+	
+	 public function Uploadequantityprice()
+     {
+					  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1cquantity.csv', "r"); // Открываем файл в режиме чтения
+					
+					
+					$count=0;
+					$mes="";
+
+					 if ($fp) 
+					  {$mes='Uploadequantityprice'.'<br>';
+						 while (!feof($fp))
+						 {      $count=$count+1; //if($count==20){break;};
+						 $mytext = fgets($fp, 999);
+						 
+					
+						 $ar=str_getcsv($mytext,";");
+						 
+	                         $this->procceccArrayOfStingFromFileQuantityPrice($ar);
+
+						    $mes=$mes.'  '.$ar[2].'<br>'; 
+							$mes=$mes.'  '.$ar[9].'<br>'; 
+							$mes=$mes.'  '.$ar[10].'<br>'; 
+							$mes=$mes.'  '.$ar[11].'11<br>'; 						  
+						     $mes=$mes.'  '.$ar[12].'12<br>'; 		
+						
+						 }
+					   }
+					  else $mes=$mes."Ошибка при открытии файла";
+					  
+					  
+					  fclose($fp);
+		 
+		 
+		
+		
+		 
+		 
+		  $this->message=$this->message.$mes;
+		 
+		 
+		 
+		 
+     }
 	
 	
-	
-	
-	
+		 public function procceccArrayOfStingFromFileQuantityPrice($ar)
+		 {
+			 $mes='procceccArrayOfStingFromFileQuantityPrice<br>'.$ar[12].'<br>';
+			 
+			 
+			 	$element = Element::find()
+				->where(['xmlcode' =>ltrim($ar[2])])
+				->one();
+				
+				if($element){
+		         $mes=$mes.'finde element<br>';
+				 
+				$quantity=Quantity::find()
+				->where(['elementid' =>$element->id])
+                 ->one();
+                     // quantity 
+					 if($quantity){
+						   $mes=$mes.'finde quantity<br>';
+						 $quantity->quantity=floatval( str_replace(',','.',$ar[14]));
+						  $quantity->save();
+						 
+					 }else{
+						   $mes=$mes.'make quantity<br>';
+						 $quantity=new Quantity();
+						 $quantity->elementid=$element->id;						 
+						 $quantity->type=1;
+						  $quantity->quantity=floatval(str_replace(',','.',$ar[14]));
+						   $quantity->save();
+						 
+					 }
+                     
+							//   price
+					 	$price=Price::find()
+						->where(['elementid' =>$element->id])
+						->one();
+					 	 if($price){
+									//$mes=$mes.'finde price'.$ar[10].'<br>';
+									$price->price=floatval(str_replace(',','.',$ar[12]));
+									$price->type=2;
+									$price->save();
+
+									//$mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12];
+
+									}else{
+											//$mes=$mes.'make price'.$ar[12].'<br>';
+											$price=new Price();
+											$price->elementid=$element->id;						 
+											$price->type=2;
+											$price->price=floatval(str_replace(',','.',$ar[12]));
+											$price->save();
+											//  $mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12].;
+
+											}
+					 
+					 
+					 
+                 					 
+		
+				};
+			 
+			 
+			 
+			 
+			 $this->message=$this->message.$mes;
+			 
+		 }
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	
 	

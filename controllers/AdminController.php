@@ -160,7 +160,7 @@ class AdminController extends Controller
 		 
 		      $model=new AjaxModel();
 		  
-		     $model->message="cach is clean  function Uploadequantityprice";
+		     $model->message="cach is clean  function Uploadequantityprice".$model_admin->message;
 		  
 			
 		   return $this->render('ajaxv', [
