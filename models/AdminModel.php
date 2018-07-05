@@ -466,7 +466,7 @@ class AdminModel extends Model
 			 
 			 
 			 	$element = Element::find()
-				->where(['xmlcode' =>ltrim($ar[2])])
+				->where(['xmlcode' =>ltrim($ar[2])]) 
 				->one();
 				
 				if($element){
@@ -477,12 +477,12 @@ class AdminModel extends Model
                  ->one();
                      // quantity 
 					 if($quantity){
-						   $mes=$mes.'finde quantity<br>';
+						  // $mes=$mes.'finde quantity<br>';
 						 $quantity->quantity=floatval( str_replace(',','.',$ar[14]));
 						  $quantity->save();
 						 
 					 }else{
-						   $mes=$mes.'make quantity<br>';
+						  // $mes=$mes.'make quantity<br>';
 						 $quantity=new Quantity();
 						 $quantity->elementid=$element->id;						 
 						 $quantity->type=1;
@@ -529,7 +529,60 @@ class AdminModel extends Model
 	 
 	 
 	 
-	 
+			   public function ActiveDeactivElemenSection(){
+				   
+				   $mes='ActiveDeactivElemenSection';
+				   
+				   
+				 $quantity=Quantity::find()
+				 ->where(['quantity' =>0])
+                 ->all();
+				   
+				   
+				   if($quantity){
+					   
+					   
+					   
+					   foreach($quantity as $quan){  // $mes=$mes.$quan['id'].'  <br>';
+						   
+						   
+						   
+						   	$element = Element::find()
+							->where(['id' =>$quan->elementid])
+							->one();
+							
+							if($element){   $mes=$mes.$element['id'].'  <br>';
+								
+								$element->active=0;
+								$element->save();
+								
+								
+							}
+							
+							
+	
+						   
+						    
+						   
+					   }
+					   
+					   	
+					   
+					   
+				   }
+				   
+				   
+				   
+				   
+				   
+				   
+				   	 $this->message=$this->message.$mes;
+				   
+			   }
+	   
+	  
+	   
+	   
 	 
 	 
 	

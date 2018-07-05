@@ -32,12 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	
 		 
-			<p><div class="btn btn-default"  id="btn_site_Uploadenomartist"  onclick='btn_admin_Uploadenomartist()'        >загрузить номенклатуру ходожника </div></p>
+			<p><div class="btn btn-default"  id="btn_admin_Uploadenomartist"  onclick='btn_admin_Uploadenomartist()'        >загрузить номенклатуру ходожника </div></p>
 		
 		
-		<p><div class="btn btn-default"  id="btn_site_Uploadenomartist"  onclick='btn_admin_Uploadequantityprice()'        >загрузить количество цену </div></p>
+		<p><div class="btn btn-default"  id="btn_admin_Uploadequantityprice"  onclick='btn_admin_Uploadequantityprice()'        >загрузить количество цену </div></p>
 		
-		
+			<p><div class="btn btn-default"  id="btn_admin_Activedeactivelemensection"  onclick='btn_admin_Activedeactivelemensection()'        >установить активнось элементов каталогов </div></p>
 		
 	
     <code><//?= __FILE__ ?></code>
@@ -109,6 +109,21 @@ function btn_admin_Uploadequantityprice() {
  console.log("секции ")
 }
 
+
+function btn_admin_Activedeactivelemensection() {
+    
+
+   var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+      mes( this.responseText);
+    }
+  };
+  xhttp.open("GET", "<?=Url::to(['admin/activedeactivelemensection']) ?>", true);
+  xhttp.send();
+
+ console.log("секции ")
+}
 
 
 

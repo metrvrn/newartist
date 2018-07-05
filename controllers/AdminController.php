@@ -168,13 +168,38 @@ class AdminController extends Controller
 			]);
 			 
 		
+		
 	   
     }
 	
 	
 	
 	
+	public function actionActivedeactivelemensection(){
+		
 	
+           $model_admin=new AdminModel();
+		   $model_admin->ActiveDeactivElemenSection();
+		   
+		   
+		   
+			$this->layout = 'ajaxl';	
+		
+		      Yii::$app->cache->flush();
+		 
+		      $model=new AjaxModel();
+		  
+		     $model->message="cach is clean  function Uploadequantityprice".$model_admin->message;
+		  
+			
+		   return $this->render('ajaxv', [
+         'model' => $model,
+			]);
+			 
+		
+
+	
+	}
 	
 	
 	
