@@ -24,6 +24,8 @@ class AdminModel extends Model
 {
     public $message;
 	
+	public $mainParentsArray;
+	
     
 
 
@@ -376,39 +378,39 @@ class AdminModel extends Model
 					  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1c.csv', "r"); // Открываем файл в режиме чтения
 					
 					
-					$count=0;
-					$mes="";
+								$count=0;
+								$mes="";
 
-					 if ($fp) 
-					  {$mes='file is '.'<br>';
-						 while (!feof($fp))
-						 {      $count=$count+1; //if($count==20){break;};
-						 $mytext = fgets($fp, 999);
-						 
-					
-						 $ar=str_getcsv($mytext,";");
-						 
-	                         $this->procceccArrayOfStingFromFileArtist($ar); 
+								 if ($fp) 
+								  {$mes='file is '.'<br>';
+									 while (!feof($fp))
+									 {      $count=$count+1; //if($count==20){break;};
+									 $mytext = fgets($fp, 999);
+									 
+								
+									 $ar=str_getcsv($mytext,";");
+									 
+										 $this->procceccArrayOfStingFromFileArtist($ar); 
 
-						  $mes=$mes.'  '.$ar[0].'<br>';    
-						 
-						
-						 }
-					   }
-					  else $mes="Ошибка при открытии файла";
-					  
-					  
-					  fclose($fp);
-		 
-		 
-		 $this->MakeSections();
-		 
-		 
-		 $this->fillidpInSectionTable();
-		 
-		 
-		  $this->message=$this->message.$mes;
-		 
+									  $mes=$mes.'  '.$ar[0].'<br>';    
+									 
+									
+									 }
+								   }
+								  else $mes="Ошибка при открытии файла";
+								  
+								  
+								  fclose($fp);
+					 
+					 
+					 $this->MakeSections();
+					 
+					 
+					 $this->fillidpInSectionTable();
+					 
+					 
+					  $this->message=$this->message.$mes;
+					 
 		 
 		 
 		 
@@ -418,42 +420,42 @@ class AdminModel extends Model
 	
 	 public function Uploadequantityprice()
      {
-					  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1cquantity.csv', "r"); // Открываем файл в режиме чтения
-					
-					
-					$count=0;
-					$mes="";
+									  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1cquantity.csv', "r"); // Открываем файл в режиме чтения
+									
+									
+									$count=0;
+									$mes="";
 
-					 if ($fp) 
-					  {$mes='Uploadequantityprice'.'<br>';
-						 while (!feof($fp))
-						 {      $count=$count+1; //if($count==20){break;};
-						 $mytext = fgets($fp, 999);
-						 
-					
-						 $ar=str_getcsv($mytext,";");
-						 
-	                         $this->procceccArrayOfStingFromFileQuantityPrice($ar);
+									 if ($fp) 
+									  {$mes='Uploadequantityprice'.'<br>';
+										 while (!feof($fp))
+										 {      $count=$count+1; //if($count==20){break;};
+										 $mytext = fgets($fp, 999);
+										 
+									
+										 $ar=str_getcsv($mytext,";");
+										 
+											 $this->procceccArrayOfStingFromFileQuantityPrice($ar);
 
-						    $mes=$mes.'  '.$ar[2].'<br>'; 
-							$mes=$mes.'  '.$ar[9].'<br>'; 
-							$mes=$mes.'  '.$ar[10].'<br>'; 
-							$mes=$mes.'  '.$ar[11].'11<br>'; 						  
-						     $mes=$mes.'  '.$ar[12].'12<br>'; 		
+											$mes=$mes.'  '.$ar[2].'<br>'; 
+											$mes=$mes.'  '.$ar[9].'<br>'; 
+											$mes=$mes.'  '.$ar[10].'<br>'; 
+											$mes=$mes.'  '.$ar[11].'11<br>'; 						  
+											 $mes=$mes.'  '.$ar[12].'12<br>'; 		
+										
+										 }
+									   }
+									  else $mes=$mes."Ошибка при открытии файла";
+									  
+									  
+									  fclose($fp);
+						 
+						 
 						
-						 }
-					   }
-					  else $mes=$mes."Ошибка при открытии файла";
-					  
-					  
-					  fclose($fp);
-		 
-		 
-		
-		
-		 
-		 
-		  $this->message=$this->message.$mes;
+						
+						 
+						 
+						  $this->message=$this->message.$mes;
 		 
 		 
 		 
@@ -463,133 +465,224 @@ class AdminModel extends Model
 	
 		 public function procceccArrayOfStingFromFileQuantityPrice($ar)
 		 {
-			 $mes='procceccArrayOfStingFromFileQuantityPrice<br>'.$ar[12].'<br>';
-			 
-			 
-			 	$element = Element::find()
-				->where(['xmlcode' =>ltrim($ar[2])]) 
-				->one();
-				
-				if($element){
-		         $mes=$mes.'finde element<br>';
-				 
-				$quantity=Quantity::find()
-				->where(['elementid' =>$element->id])
-                 ->one();
-                     // quantity 
-					 if($quantity){
-						  // $mes=$mes.'finde quantity<br>';
-						 $quantity->quantity=floatval( str_replace(',','.',$ar[14]));
-						  $quantity->save();
-						 
-					 }else{
-						  // $mes=$mes.'make quantity<br>';
-						 $quantity=new Quantity();
-						 $quantity->elementid=$element->id;						 
-						 $quantity->type=1;
-						  $quantity->quantity=floatval(str_replace(',','.',$ar[14]));
-						   $quantity->save();
-						 
-					 }
-                     
-							//   price
-					 	$price=Price::find()
-						->where(['elementid' =>$element->id])
-						->one();
-					 	 if($price){
-									//$mes=$mes.'finde price'.$ar[10].'<br>';
-									$price->price=floatval(str_replace(',','.',$ar[12]));
-									$price->type=2;
-									$price->save();
+								 $mes='procceccArrayOfStingFromFileQuantityPrice<br>'.$ar[12].'<br>';
+								 
+								 
+									$element = Element::find()
+									->where(['xmlcode' =>ltrim($ar[2])]) 
+									->one();
+									
+									if($element){
+									 $mes=$mes.'finde element<br>';
+									 
+									$quantity=Quantity::find()
+									->where(['elementid' =>$element->id])
+									 ->one();
+										 // quantity 
+										 if($quantity){
+											  // $mes=$mes.'finde quantity<br>';
+											 $quantity->quantity=floatval( str_replace(',','.',$ar[14]));
+											  $quantity->save();
+											 
+										 }else{
+											  // $mes=$mes.'make quantity<br>';
+											 $quantity=new Quantity();
+											 $quantity->elementid=$element->id;						 
+											 $quantity->type=1;
+											  $quantity->quantity=floatval(str_replace(',','.',$ar[14]));
+											   $quantity->save();
+											 
+										 }
+										 
+												//   price
+											$price=Price::find()
+											->where(['elementid' =>$element->id])
+											->one();
+											 if($price){
+														//$mes=$mes.'finde price'.$ar[10].'<br>';
+														$price->price=floatval(str_replace(',','.',$ar[12]));
+														$price->type=2;
+														$price->save();
 
-									//$mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12];
+														//$mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12];
 
-									}else{
-											//$mes=$mes.'make price'.$ar[12].'<br>';
-											$price=new Price();
-											$price->elementid=$element->id;						 
-											$price->type=2;
-											$price->price=floatval(str_replace(',','.',$ar[12]));
-											$price->save();
-											//  $mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12].;
+														}else{
+																//$mes=$mes.'make price'.$ar[12].'<br>';
+																$price=new Price();
+																$price->elementid=$element->id;						 
+																$price->type=2;
+																$price->price=floatval(str_replace(',','.',$ar[12]));
+																$price->save();
+																//  $mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12].;
 
-											}
-					 
-					 
-					 
-                 					 
-		
-				};
-			 
-			 
-			 
-			 
-			 $this->message=$this->message.$mes;
+																}
+										 
+										 
+										 
+														 
+							
+									};
+								 
+								 
+								 
+								 
+								 $this->message=$this->message.$mes;
 			 
 		 }
 	 
 	 
 	 
-			   public function ActiveDeactivElemenSection(){
-				   
-				   $mes='ActiveDeactivElemenSection';
-				   
-				   
-				 $quantity=Quantity::find()
-				 ->where(['quantity' =>0])
-                 ->all();
-				   
-				   
-				   if($quantity){
-					    
-					   foreach($quantity as $quan){  // $mes=$mes.$quan['id'].'  <br>';
-						    
-						   	$element = Element::find()
-							->where(['id' =>$quan->elementid])
-							->one();
+				  private function addEmtyChildren($section){
+					  
+					  $childrens=Section::find()
+				     ->where(['xmlcodep' =>$section->xmlcode, ])
+				     ->all();
+					 
+					 
+						foreach($childrens as $children){
 							
-							if($element){   $mes=$mes.$element['id'].'  <br>';
-								
-								$element->active=0;
-								$element->save();
-								
-								
-							}
-							 
-						     
+							
+							$quantityChildren=Element::find()
+							->where(['xmlcodep' =>$children-xmlcode, ])
+							->count();
+							
+							if($quantityChildren>0){}else{$this->mainParentsArray[]=$children->xmlcode;}
+							
+						}
+						
+						foreach($childrens as $children){
+							
+							
+						//this->addEmtyChildren($children);
+							
+						}
+						
+						
+						
+							
+					  
+					  
+					  
+					  
+				  }
+				  
+				  
+	           public function FillmainParentsArray(){
+				   $this->mainParentsArray=[];
+				   
+				   $sectionsTop=Section::find()
+				   ->where(['xmlcodep' =>null,'issection' =>1])
+				   ->all();
+				   if($sectionsTop){
+					   
+					   foreach($sectionsTop as $section){
+						   
+						   
+						   $this->addEmtyChildren($section);
+						   
+						   
 					   }
 					   
 					   
 					   
 				   }
 				   
-				   ////we have to deactive section
 				   
 				   
-				   	$elements = Element::find()
-							->where(['active' =>0,])
-							->all();
-							
-							
-							if($elements){ 
-							
-							 foreach( $elements as $element){
-								 
-								 $this->deactiveParetnsElement($element);  ///recursion
-								 
-								 
-								};
-								
-								
+				   
+			   }
+	 
+			   public function ActiveDeactivElemenSection(){
+				   
+							   $mes='ActiveDeactivElemenSection';
+							   
+							   $this->FillmainParentsArray();
+							   
+							   
+								 Yii::$app->db->createCommand('UPDATE element SET indexp=1')
+								->execute();			   
+							   
+							   
+							   
+							   
+							   
+							 $quantity=Quantity::find()
+							 ->where(['quantity' =>0])
+							 ->all();
+							   
+							   
+							   if($quantity){
+									
+								   foreach($quantity as $quan){  // $mes=$mes.$quan['id'].'  <br>';
+										
+										$element = Element::find()
+										->where(['id' =>$quan->elementid])
+										->one();
+										
+										if($element){   $mes=$mes.$element['id'].'  <br>';
+											
+											$element->indexp=0;
+											$element->save();
+											
+											
+										}
+																 
+								   }
+								  
+							   }
 							 
+							   
+							   ///finde first parent to zero!!!
+							   
+							   $arrayMainParent=[];
+									$elements_indexp = Element::find()
+										->where(['issection' =>0,])
+										->all();
+										
+										
+										if($elements_indexp){ 
+										
+										 foreach( $elements_indexp as $element_){  $mes=$mes.$element_->xmlcodep.'make array arrayMainParent <br>';
+											 
+											 $arrayMainParent[]= $element_->xmlcodep;
+																									 
+											};
+																 
+											
+										}
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+									$elements = Element::find()
+										->where(['xmlcode' =>$arrayMainParent,])
+										->all();
+							 
+			 
+									  if($elements){ 
+												
+												 foreach( $elements as $element){  $mes=$mes.$element['id'].'in to recursion <br>';
+													 
+													
+													$this->deactiveParetnsElement($element);
+													
+																											 
+													}
+																		 
+													
+												}
+										
 								
-							}
-				   
-				   
-				   
-				    
-				   
-				   	 $this->message=$this->message.$mes;
+								
+										
+										
+										
+										
+							   
+								 $this->message=$this->message.$mes;
 				   
 			   }
 	   
@@ -597,47 +690,48 @@ class AdminModel extends Model
 	   
 			private function deactiveParetnsElement($element){   ///recursion
 	                      
-						  //it is section 
-						  //we have to check dos it have the active elements or no.  
-						  //we have to deactivate only emty section element and element 
+						  	   $this->message=$this->message.$element->id.'deactiveParetnsElement<br>';
 						  
-						  $elemenstInCurientSection=Element::find()
-						  ->where(['xmlcodep' =>$element->xmlcode,
-                                    'active'=>1 ])
-						  ->one();
+						  //all elemen have the 1 or 0 in indexp 
 						  
-						  if($elemenstInCurientSectio){
-							  //we cannot deactive this Element becaus it have the active children
-							  return;} 
+						  $childrens=Element::find()
+						  ->where(['xmlcodep' =>$element->xmlcode, 'indexp' =>1 ])
+						  ->all();
+						  
+						  if($childrens){ $this->message=$this->message.'have children<br>'; return;}
+						  
+						                else{  $this->message=$this->message.' do not have children<br>';
+								  
+											$element=Element::find()
+											->where(['xmlcode' =>$element->xmlcode])
+											->one();
+
+											if($element){
+
+												$element->indexp=0;
+												$element->save();
+
+											} else{		return;			}
+										}
 						   
-						  
-						  
-						  
-						$element->active=0;
-						$element->save();
+						   //if paren have active children then not to deactive
+						   
+						   if(isset($element->xmlcodep)){
+							   
+							$parent=Element::find()
+						    ->where(['xmlcode' =>$element->xmlcodep,'indexp'=>1])						  
+						   ->one(); 
+						   if($parent){
+
+								$this->deactiveParetnsElement($parent);
+						   }
+							   
+						   }
+						   
+						    
+	 
 						
-						if(isset($element->xmlcodep)){
-						 //we have the parent  xmlcodep
-						 
-						 $elementParent=Element::find()
-						 ->where(['xmlcode' =>$element->xmlcodep,])
-						 ->one();
-						 
-						 if($elementParent){
-							 
-							 $this->deactiveParetnsElement($elementParent);
-							 
-						 }
-						 
-						  
-							
-							
-						}
-						
-	  
-	  
-	  
-	  
+   
 	   
 				}
 	  
@@ -658,7 +752,7 @@ class AdminModel extends Model
 					 if ($fp) 
 					  {   //$mes='Uploadequantityprice'.'<br>';
 						 while (!feof($fp))
-						 {      $count=$count+1; if($count==20){break;};
+						 {      $count=$count+1; //if($count==20){break;};
 						 $mytext = fgets($fp, 999);
 						 
 					

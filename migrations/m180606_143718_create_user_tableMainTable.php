@@ -81,6 +81,7 @@ class m180606_143718_create_user_tableMainTable extends Migration
 			'quantity' => $this->float(),
 			'issection' => $this->boolean(),
 			'index1' => $this->integer(),
+					'indexp' => $this->integer(),
 			'index2' => $this->string(),
 			'active' => $this->boolean(),
 			

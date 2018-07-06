@@ -9,54 +9,31 @@ use yii\widgets\Breadcrumbs;
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
 
-
-
-
 $session = Yii::$app->session;
 $session->open();
-
-
 /// we have to delete lasta element form  $model->TopArrCurSection
-
 $countTopArray = count($model->TopArrCurSection);
 
 if ($countTopArray > 0) {
 
 	unset($model->TopArrCurSection[array_search($model->section, $model->TopArrCurSection)]);
 }; 
-
-
  ///add all of top sections 
 
 if (isset($model->TopArrCurSection) && $countTopArray > 0) {
-
 	$reverseArray = array_reverse($model->TopArrCurSection);
-
 	foreach ($reverseArray as $val) {
 		$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($val), 'url' => [Url::to(['catalog/index', 'section' => $val, 'element' => 'non', 'page' => 0, ])]];
 
 	};
-
 };
-
-
 $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, ])]];
-
-
-
-
 function printSection($arrSection)
 {
-
 	if (!isset($arrSection['id'])) {
 		return;
 	};
-
-
-
 	echo '<li>';
-
-
 	echo '<a  href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'] . '</a>'; 
 //echo 'top sections'.$arrSection;
 	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
@@ -72,68 +49,34 @@ function printSection($arrSection)
 
 <div class="row"> 
 <h1><?= Html::encode($this->title) ?></h1>		
-    
 	</div>
 	<div class="row"> 
-	
 	<div class="col-sm-4"  >
-
 			<div class="site-catalog-left">
-			
-
-			
-			
 			</div>
-			
 			<?
-
 		echo '<ul>';
 
 
 		foreach ($model->arrSectioons as $topSection) {
-
-
-
 			printSection($topSection);
-
-
 		};
-
 		echo '</ul>';
 		?>
-			 
-			 
-			
-
 	</div>
-	
-	
 	<div class="col-sm-8" >
-
 			<div class="site-catalog-right">
-			  
-		
-		
 		          <h1 id="section_name" ><?= $model->getSectionNameById($model->section) ?></h1>
 					<?php
-
 				if ($model->quantityPageForCurSection > 1) {
 
 					for ($x = 0; $x < $model->quantityPageForCurSection; $x++) {
 
 						$pn = $x + 1;
 						echo '<a  href=' . Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => $x, ]) . ' > ' . $pn . '  </a>';
-
-
-
-
 					};
-
 				};
 				?>
-
-			
-            
 			 <table id="list"   style="width:100%" >
                         <thead>
                             <tr>
@@ -145,8 +88,6 @@ function printSection($arrSection)
 								<td> добавить   </td>
 								<td>    </td>
                             </tr>
-                           
-						   
                         </thead>
                         <tbody>
 
@@ -204,16 +145,10 @@ foreach ($model->arrElements as $element) {
 
 <script>
 function btn_catalog_add_to_basket(data) {
-    
-
    var xhttp = new XMLHttpRequest();
-   
    var dataF = new FormData();
    dataF.append('elementid', data);
    dataF.append('quanty', '1');
-   
-   
-   
    xhttp.onreadystatechange = function() {
    if (this.readyState == 4 && this.status == 200) {
       mes( this.responseText);
@@ -223,9 +158,8 @@ function btn_catalog_add_to_basket(data) {
   xhttp.send(dataF);
   t='input_'+data;
   quan=document.getElementById('input_'+data).value;
-  
-   console.log(quan)
- console.log(data)
+	console.log(quan)
+console.log(data)
  console.log("btn_catalog_add_to_bascet ")
 }
 

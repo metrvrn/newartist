@@ -2,42 +2,26 @@
 
 /* @var $this yii\web\View */
 
-
 use yii\helpers\Html;
-
 use yii\helpers\Url;
 use app\models\LokalFileModel;
+LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
 
-$this->title = 'My Yii Application';
+$this->title = 'Художник';
 ?>
-<div class="site-index-background"></div>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1><?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h1>
-
-        <p class="lead"> <?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?> </p> 
-
-         
-    </div>
-
-    <div class="body-content">
-
+<div class="index-btn-align">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                
-				     <p>   <a 	href="<?=Url::to(['catalog/index',])?> ">     <h2>КАТАЛОГ </h2>  </a>          </p>
-				
+            <div class="col-lg-3 col-lg-offset-2">
+                <a href="<?=Url::toRoute("catalog/index")?>" class="btn btn-lg btn-default">
+                    <h2><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h2>
+                </a>
             </div>
-            <div class="col-lg-6">
-                 <p>   <a 	href="<?=Url::to(['site/about',])?> ">     <h2>О КОМПАНИИ </h2>  </a>          </p>
-
-                 
-
-                
+            <div class="col-lg-3 col-lg-offset-2">
+                <a href="<?=Url::toRoute("about/index")?>" class="btn btn-lg btn-default">
+                    <h2><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h2>
+                </a>
             </div>
-        
         </div>
-
     </div>
 </div>

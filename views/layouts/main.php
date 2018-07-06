@@ -24,55 +24,44 @@ $this->beginPage() ?>
     <?php $this->head() ?>
 </head>
 <body>
-<div class="site-index-background"></div> 
-<?php $this->beginBody() ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-xs-12">
-                <a href="/">
-                    <img src="/images/header-logo.png" alt="" class="image-responsive">
-                </a>
+<div class="site-index-background"></div>
+<div class="container">
+    <?php NavBar::begin([
+        'brandImage' => "/images/header-logo.png"]);
+        $menuItems = [
+            ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
+            //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
+            ['label' => 'Главная', 'url' => ['/site/index']],
+            ['label' => 'О компании', 'url' => ['/site/about']],
+            ['label' => 'Контакты ', 'url' => ['/site/contact']],
+        ];
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+        } else {
+        $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
+    // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+            'Выйти (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn btn-link logout']
+        )
+            . Html::endForm()
+            . '</li>';
+        };
+        $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav'],
+            'items' => $menuItems,
+        ]);
+    NavBar::end(); ?>
+            <div class="row">
+                <div class="col-xs-12">
+                    <?= $content ?>
+                </div>	
             </div>
-            <div class="col-lg-9 col-xs-12">
-            <?php NavBar::begin();
-            $menuItems = [
-                ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
-                //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
-                ['label' => 'Главная', 'url' => ['/site/index']],
-                ['label' => 'О компании', 'url' => ['/site/about']],
-                ['label' => 'Контакты ', 'url' => ['/site/contact']],
-            ];
-            if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-            } else {
-                $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
-            // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-                $menuItems[] = '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                    . Html::endForm()
-                    . '</li>';
-            };
-            $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav'],
-                'items' => $menuItems,
-            ]);
-            NavBar::end(); ?>
-            </div>
-            </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <?= $content ?>
-            </div>	
-        </div>
-    </div>
+</div>
 <?php $this->endBody() ?>
 </body>
 </html>

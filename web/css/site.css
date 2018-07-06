@@ -159,3 +159,8 @@ th, td {
 .navbar-default .navbar-nav > li > a {
     color: #000
 }
+.index-btn-align{
+    position: absolute;
+    width: 100%;
+    top: calc(100% + 200px);
+}
