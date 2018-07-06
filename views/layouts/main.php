@@ -9,7 +9,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 use app\models\LokalFileModel;
-  
+
 AppAsset::register($this);
 
 $this->beginPage() ?>
@@ -24,42 +24,47 @@ $this->beginPage() ?>
     <?php $this->head() ?>
 </head>
 <body>
+<div class="site-index-background"></div> 
 <?php $this->beginBody() ?>
     <div class="container">
-            <?php NavBar::begin([
-                'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
-                'brandImage' => '/images/header-logo.png']); ?>
-            <?echo Nav::widget($menuItems);
-                $menuItems = [
-                    ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
-                    //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
-                    ['label' => 'Главная', 'url' => ['/site/index']],
-                    ['label' => 'О компании', 'url' => ['/site/about']],
-                    ['label' => 'Контакты ', 'url' => ['/site/contact']],    
-                ] ;
-                if (Yii::$app->user->isGuest) {
-                    $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-                    $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-                } else {   
-                    $menuItems[] =['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
-                    // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-                    $menuItems[] = '<li>'
-                        . Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Выйти (' . Yii::$app->user->identity->username . ')',
-                            ['class' => 'btn btn-link logout']
-                        )
-                        . Html::endForm()
-                        . '</li>';
-                };
-                    $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-                    
-                    echo Nav::widget([
-                        'options' => ['class' => 'navbar-nav navbar-right'],
-                        'items' => $menuItems,
-                    ]);
-                
-                NavBar::end();?>
+        <div class="row">
+            <div class="col-lg-3 col-xs-12">
+                <a href="/">
+                    <img src="/images/header-logo.png" alt="" class="image-responsive">
+                </a>
+            </div>
+            <div class="col-lg-9 col-xs-12">
+            <?php NavBar::begin();
+            $menuItems = [
+                ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
+                //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
+                ['label' => 'Главная', 'url' => ['/site/index']],
+                ['label' => 'О компании', 'url' => ['/site/about']],
+                ['label' => 'Контакты ', 'url' => ['/site/contact']],
+            ];
+            if (Yii::$app->user->isGuest) {
+                $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+                $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+            } else {
+                $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
+            // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+                $menuItems[] = '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                    'Выйти (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                    . Html::endForm()
+                    . '</li>';
+            };
+            $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav'],
+                'items' => $menuItems,
+            ]);
+            NavBar::end(); ?>
+            </div>
+            </div>
     </div>
     <div class="container">
         <div class="row">
@@ -68,20 +73,6 @@ $this->beginPage() ?>
             </div>	
         </div>
     </div>
-    <div class="container">
-    <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>		
-    </div>
-    
-    <div class="container">
-        <p class="pull-left">&copy;   <?= LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany').date('Y') ?></p>
-    </div>
-	<?//echo LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');?>
-</footer>
-
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -206,7 +206,31 @@ class AdminController extends Controller
 	
 	
 	
+	public function actionSetimageforelementfromfile(){
+		
 	
+           $model_admin=new AdminModel();
+		   $model_admin->SetImageForElementsFromFile();
+		   
+		   
+		   
+			$this->layout = 'ajaxl';	
+		
+		      Yii::$app->cache->flush();
+		 
+		      $model=new AjaxModel();
+		  
+		     $model->message="cach is clean  function Uploadequantityprice".$model_admin->message;
+		  
+			
+		   return $this->render('ajaxv', [
+         'model' => $model,
+			]);
+			 
+		
+
+	
+	}
 	
 	
 	

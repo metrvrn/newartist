@@ -8,6 +8,7 @@ use app\models\Element;
 use app\models\Section;
 use app\models\Quantity;
 use app\models\Price;
+use app\models\Image;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -640,8 +641,102 @@ class AdminModel extends Model
 	   
 				}
 	  
+	 //SetImageForElement
 	 
-	 
+		public  function SetImageForElementsFromFile(){   
+	               $mes='SetImageForElementsFromFile';       
+						 
+	  
+	  
+	  
+					  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/filecsv.csv', "r"); // Открываем файл в режиме чтения
+					
+					
+					$count=0;
+					$mes="";
+
+					 if ($fp) 
+					  {   //$mes='Uploadequantityprice'.'<br>';
+						 while (!feof($fp))
+						 {      $count=$count+1; if($count==20){break;};
+						 $mytext = fgets($fp, 999);
+						 
+					
+						 $ar=str_getcsv($mytext,";");
+						 
+	                         $this->procceccArrayOfStingFromFileImageFile($ar);
+
+						   //   $mes=$mes.'  '.$ar[12].'12<br>'; 		
+						
+						 }
+					   }
+					  else $mes=$mes."Ошибка при открытии файла";
+					  
+					  
+					  fclose($fp);
+		 
+		 
+		
+		
+		 
+		 
+					$this->message=$this->message.$mes;
+	  
+	   
+	   
+	   
+				}
+	
+	
+				private function  procceccArrayOfStingFromFileImageFile($ar){
+					
+					$mes= 'procceccArrayOfStingFromFileImageFile<br>';
+					
+					
+					$element=Element::find()
+						 ->where(['xmlcode' =>trim($ar[1]),])
+						 ->one();
+					
+					
+					if($element){//$mes=$mes.'find element<br>';
+						
+						 ///finde image for element by type
+						 
+						 $image=Image::find()
+					     ->where(['elementid' =>$element->id,])
+						 ->one();
+						 
+						 if($image){$mes=$mes.'finde image<br>';
+							 
+							 $image->filed=trim($ar[2]);
+							  $image->filep=trim($ar[3]);
+							    $image->save();
+							 
+						 }else{$mes=$mes.'make image<br>';
+							
+							$image=new Image();
+								 $image->elementid=$element->id;
+							 $image->filed=trim($ar[2]);
+							  $image->filep=trim($ar[3]);
+							 
+							  $image->save();
+							 
+						 }
+					 
+						
+					}
+					
+					
+					
+					
+					 $this->message=$this->message.$mes;	
+					
+				}
+	
+	
+	
+	
+	
 	
 	
 	

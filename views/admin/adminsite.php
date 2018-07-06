@@ -40,6 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			<p><div class="btn btn-default"  id="btn_admin_Activedeactivelemensection"  onclick='btn_admin_Activedeactivelemensection()'        >установить активнось элементов каталогов </div></p>
 		
 		
+			<p><div class="btn btn-default"  id="btn_admin_Setimageforelementfromfile"  onclick='btn_admin_Setimageforelementfromfile()'        >установить картинки для элементов </div></p>
+		
+		
 		
 		
 		
@@ -124,6 +127,22 @@ function btn_admin_Activedeactivelemensection() {
     }
   };
   xhttp.open("GET", "<?=Url::to(['admin/activedeactivelemensection']) ?>", true);
+  xhttp.send();
+
+ console.log("секции ")
+}
+
+
+function btn_admin_Setimageforelementfromfile() {
+    
+
+   var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+      mes( this.responseText);
+    }
+  };
+  xhttp.open("GET", "<?=Url::to(['admin/setimageforelementfromfile']) ?>", true);
   xhttp.send();
 
  console.log("секции ")

@@ -14,6 +14,22 @@ class m180606_143718_create_user_tableMainTable extends Migration
     {    $tableOptions = null;
 	
 	
+	
+	
+	 $this->createTable('image', [
+            'id' => $this->primaryKey(),
+			'type'=>$this->integer(),
+			'elementid'=> $this->string(),			 
+			'filed'=> $this->string(),
+			'filep'=> $this->string(),
+			'index1'=>$this->integer(),
+			'index2'=>$this->string(),
+			]);
+		
+		
+		
+		
+	
          $this->createTable('user', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
@@ -176,6 +192,8 @@ class m180606_143718_create_user_tableMainTable extends Migration
      */
     public function safeDown()
     {
+		
+		 $this->dropTable('image');
         $this->dropTable('user');
 		 $this->dropTable('section');
 		 $this->dropTable('element');		 
