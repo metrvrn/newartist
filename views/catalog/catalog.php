@@ -1,87 +1,72 @@
 <?php
 
 /* @var $this yii\web\View */
-
+use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
- 
 
 
- 
+
+
 $session = Yii::$app->session;
 $session->open();
 
 
 /// we have to delete lasta element form  $model->TopArrCurSection
-  
-$countTopArray=count($model->TopArrCurSection); 
-if($countTopArray>0){
-	
+
+$countTopArray = count($model->TopArrCurSection);
+
+if ($countTopArray > 0) {
+
 	unset($model->TopArrCurSection[array_search($model->section, $model->TopArrCurSection)]);
 }; 
 
 
  ///add all of top sections 
- 
-if(isset($model->TopArrCurSection)&&$countTopArray>0){
-	
-	$reverseArray=array_reverse($model->TopArrCurSection );
-	
-	foreach($reverseArray  as $val){
-	$this->params['breadcrumbs'][] =['label' =>  $model->getSectionNameById($val), 'url' => [Url::to(['catalog/index', 'section' => $val, 'element'=> 'non', 'page'=> 0,])]];
-	
+
+if (isset($model->TopArrCurSection) && $countTopArray > 0) {
+
+	$reverseArray = array_reverse($model->TopArrCurSection);
+
+	foreach ($reverseArray as $val) {
+		$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($val), 'url' => [Url::to(['catalog/index', 'section' => $val, 'element' => 'non', 'page' => 0, ])]];
+
 	};
-	
+
 };
 
 
-$this->params['breadcrumbs'][] =['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element'=> 'non', 'page'=> 0,])]];
-
-  
+$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, ])]];
 
 
-function printSection($arrSection){
-	
-	   if(!isset($arrSection['id'])){return;};
-	
-	 
-		 
-		echo '<li>';
 
 
-		echo   '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element'=> 'non', 'page'=> 0,]).' >'.$arrSection['name'].'</a>'; 
+function printSection($arrSection)
+{
+
+	if (!isset($arrSection['id'])) {
+		return;
+	};
+
+
+
+	echo '<li>';
+
+
+	echo '<a  href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'] . '</a>'; 
 //echo 'top sections'.$arrSection;
-
-                     
-           if(isset($arrSection['childArray']) &&  count( $arrSection['childArray'])>0       ){
-					echo '<ul>';
-
-											foreach	($arrSection['childArray'] as $andertopsection){
-
-													 printSection($andertopsection);
-													
-
-											};		
-
-					echo '</ul>';			
-
-
-			   
-		   }
-
-
-		echo '</li>';
-	
-	 
-	
-	
-	
-	
-	
-	
+	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
+		echo '<ul>';
+		foreach ($arrSection['childArray'] as $andertopsection) {
+			printSection($andertopsection);
+		};
+		echo '</ul>';
+	}
+	echo '</li>';
 };
 ?>
 
@@ -101,21 +86,21 @@ function printSection($arrSection){
 			</div>
 			
 			<?
-			
-					echo '<ul>';
-		 
-					
-			foreach($model->arrSectioons as $topSection){
-				
-			 
-				
-				printSection($topSection);
-				
-				
-			};
-			
-			echo '</ul>'; 
-			 ?>
+
+		echo '<ul>';
+
+
+		foreach ($model->arrSectioons as $topSection) {
+
+
+
+			printSection($topSection);
+
+
+		};
+
+		echo '</ul>';
+		?>
 			 
 			 
 			
@@ -129,23 +114,23 @@ function printSection($arrSection){
 			  
 		
 		
-		          <h1 id="section_name" ><?=$model->getSectionNameById($model->section)?></h1>
+		          <h1 id="section_name" ><?= $model->getSectionNameById($model->section) ?></h1>
 					<?php
-					
-					if($model->quantityPageForCurSection>1){
-					
-							for ($x=0; $x<$model->quantityPageForCurSection; $x++) {
-								
-								$pn=$x+1;
-								echo '<a  href='.Url::to(['catalog/index', 'section' => $model->section, 'element'=> 'non', 'page'=> $x,]).' > '.$pn.'  </a>';    
-								
-								
-								
-								
-							};
-					
+
+				if ($model->quantityPageForCurSection > 1) {
+
+					for ($x = 0; $x < $model->quantityPageForCurSection; $x++) {
+
+						$pn = $x + 1;
+						echo '<a  href=' . Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => $x, ]) . ' > ' . $pn . '  </a>';
+
+
+
+
 					};
-					?>
+
+				};
+				?>
 
 			
             
@@ -170,34 +155,34 @@ function printSection($arrSection){
  
  
  <?
- echo '<tr>';
-                               echo' <td>           </td>';
-                                echo'<td>            </td>';
-                                echo'<td>            </td>';
-                                echo'<td>             </td>';  
-                                echo' <td>            </td>';
-								echo' <td>            </td>';
-							    echo' <td>             </td>';
-echo '</tr>'; 
- foreach($model->arrElements as $element){
-	 
-echo '<tr  id ="element_row_'.$element['id'].'">';
-                               echo' <td> '.$element['name'].'</td>';
-                                echo'<td>шт</td>';
-                                echo'<td> </td>';
-                                echo'<td>100</td>';  
-                                echo' <td>0  </td>';
-								echo' <td  ><input  id ="input_'.$element['id'].'"   type="text"  value="1">     </td>';
-							    echo' <td>    <div class="btn btn-default"  id="btn_site_addadmin"  onclick=btn_catalog_add_to_basket('.$element['id'].') >добавить</div>
+echo '<tr>';
+echo ' <td>           </td>';
+echo '<td>            </td>';
+echo '<td>            </td>';
+echo '<td>             </td>';
+echo ' <td>            </td>';
+echo ' <td>            </td>';
+echo ' <td>             </td>';
+echo '</tr>';
+foreach ($model->arrElements as $element) {
+
+	echo '<tr  id ="element_row_' . $element['id'] . '">';
+	echo ' <td> ' . $element['name'] . '</td>';
+	echo '<td>шт</td>';
+	echo '<td> </td>';
+	echo '<td>100</td>';
+	echo ' <td>0  </td>';
+	echo ' <td  ><input  id ="input_' . $element['id'] . '"   type="text"  value="1">     </td>';
+	echo ' <td>    <div class="btn btn-default"  id="btn_site_addadmin"  onclick=btn_catalog_add_to_basket(' . $element['id'] . ') >добавить</div>
 
 	</td>';
-echo '</tr>'; 
-	
-	 
+	echo '</tr>';
+
+
 };
- 
- 
- ?>
+
+
+?>
  
 
                         </tbody>
@@ -234,7 +219,7 @@ function btn_catalog_add_to_basket(data) {
       mes( this.responseText);
     }
   };
-  xhttp.open("POST", "<?=Url::to(['catalog/addtobasketajax']) ?>", true);
+  xhttp.open("POST", "<?= Url::to(['catalog/addtobasketajax']) ?>", true);
   xhttp.send(dataF);
   t='input_'+data;
   quan=document.getElementById('input_'+data).value;
@@ -256,7 +241,10 @@ function mes(mes){
 
 	 <?
  //echo 'сообщение модели'.$model->message;			 
-	 	echo '<br>';echo '<br>';echo '<br>';echo '<br>';
+	echo '<br>';
+	echo '<br>';
+	echo '<br>';
+	echo '<br>';
 //echo 'секция модели  '.$model->section;		
    
   //print_r($model->arrSectioons);
@@ -309,10 +297,16 @@ function mes(mes){
 		
 		//echo $model->message.' message of model';
 		// echo intval( $model->page)*$model->elementPerPage;
-		 
-		 
-		 echo 'quantityPageForCurSection';
-		 
-print_r($model->quantityPageForCurSection);
-		
-			  ?>
+
+
+	echo 'quantityPageForCurSection';
+
+    echo Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+
+	print_r($model->quantityPageForCurSection);
+
+	?>
