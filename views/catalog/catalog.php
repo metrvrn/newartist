@@ -6,11 +6,13 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
+
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
 
 $session = Yii::$app->session;
 $session->open();
+
 /// we have to delete lasta element form  $model->TopArrCurSection
 $countTopArray = count($model->TopArrCurSection);
 
@@ -27,15 +29,17 @@ if (isset($model->TopArrCurSection) && $countTopArray > 0) {
 
 	};
 };
+
 $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, ])]];
+
 function printSection($arrSection)
 {
 	if (!isset($arrSection['id'])) {
 		return;
 	};
-	echo '<li>';
-	echo '<a  href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'] . '</a>'; 
-//echo 'top sections'.$arrSection;
+	echo '<li class="'.$model->TopArrCurSection[$arrSection['id']] ? '' : 'catalog-elem__close'.'"</li>';
+	echo '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'] . '</a>'; 
+	//echo 'top sections'.$arrSection;
 	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
 		echo '<ul>';
 		foreach ($arrSection['childArray'] as $andertopsection) {

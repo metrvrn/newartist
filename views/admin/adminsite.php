@@ -8,13 +8,30 @@ $this->title = 'Административный раздел';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-catalog">
-    <h1><?= Html::encode($this->title) ?></h1>
+ <div class="row"> 
 
+ <h1><?= Html::encode($this->title) ?></h1>
+
+	</div>
+	
+	 <div class="row"> 
+	
+	
     <p>
        'Административный раздел'
     </p>
- <h1>сообщение модели</h1>
+   
  
+ 
+ 	</div>
+ 
+ <div class="col-sm-4"  >
+ 
+ 
+ 	</div>
+ <div class="col-sm-8"  >
+ 
+	 <h1>сообщение модели</h1>
  <h1 id="message_div" >сообщение модели</h1>
 	
 	<p id="btn_site_uploadenom"  > <?=$model->message;?></p> 
@@ -48,6 +65,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		
 	
     <code><//?= __FILE__ ?></code>
+ 
+ 	</div>
+	
+	
 </div>
 <script>
  

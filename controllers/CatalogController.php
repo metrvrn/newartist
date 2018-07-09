@@ -57,7 +57,7 @@ class CatalogController extends Controller
 			
 			
 		   return $this->render('catalog', [
-         'model' => $model,
+         	'model' => $model,
 			]);
 			
     }

@@ -24,7 +24,7 @@ class AdminModel extends Model
 {
     public $message;
 	
-	public $mainParentsArray;
+	public $arrayLastSection;
 	
     
 
@@ -532,80 +532,60 @@ class AdminModel extends Model
 	 
 	 
 	 
-				  private function addEmtyChildren($section){
+				  private function addEmtyChildrenandSetIndexP($section){
 					  
-					  $childrens=Section::find()
-				     ->where(['xmlcodep' =>$section->xmlcode, ])
+					  $childrens=Element::find()
+				     ->where(['xmlcodep' =>$section->xmlcode, 'issection' =>1])
 				     ->all();
 					 
+					 if($childrens){  
 					 
-						foreach($childrens as $children){
-							
-							
-							$quantityChildren=Element::find()
-							->where(['xmlcodep' =>$children-xmlcode, ])
-							->count();
-							
-							if($quantityChildren>0){}else{$this->mainParentsArray[]=$children->xmlcode;}
-							
-						}
+					  $this->message=$this->message.$section->xmlcode.'not add emty children<br>';
+									foreach($childrens as $children){
+
+
+									$this->addEmtyChildrenandSetIndexP($children);}
+
+					 }else{
+							  $this->message=$this->message.$section->xmlcode.'add emty children<br>';
+							  
+										$this->arrayLastSection[$section->xmlcode];
+										/////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!
+										$section->indexp=0;
+										$section->save();
+										
+										
+						}		 
+					
 						
-						foreach($childrens as $children){
-							
-							
-						//this->addEmtyChildren($children);
-							
-						}
-						
-						
-						
-							
-					  
-					  
-					  
-					  
 				  }
 				  
 				  
-	           public function FillmainParentsArray(){
-				   $this->mainParentsArray=[];
+	           public function FillarrayOfLastSection(){
+				  
 				   
-				   $sectionsTop=Section::find()
-				   ->where(['xmlcodep' =>null,'issection' =>1])
+				   $sectionsTop=Element::find()
+				   ->where(['xmlcodep' =>'not','issection' =>1])
 				   ->all();
 				   if($sectionsTop){
 					   
 					   foreach($sectionsTop as $section){
+						    $this->message=$this->message.'  foreach <br>';
 						   
-						   
-						   $this->addEmtyChildren($section);
-						   
-						   
-					   }
+						   $this->addEmtyChildrenandSetIndexP($section);
 					   
-					   
-					   
-				   }
-				   
-				   
-				   
+					   }				   
+				   }  
 				   
 			   }
-	 
-			   public function ActiveDeactivElemenSection(){
+			   
+			   
+			   
+				public function SetIndexpToZero(){
 				   
-							   $mes='ActiveDeactivElemenSection';
-							   
-							   $this->FillmainParentsArray();
-							   
-							   
-								 Yii::$app->db->createCommand('UPDATE element SET indexp=1')
-								->execute();			   
-							   
-							   
-							   
-							   
-							   
+				   
+				   
+						   
 							 $quantity=Quantity::find()
 							 ->where(['quantity' =>0])
 							 ->all();
@@ -613,7 +593,7 @@ class AdminModel extends Model
 							   
 							   if($quantity){
 									
-								   foreach($quantity as $quan){  // $mes=$mes.$quan['id'].'  <br>';
+								   foreach($quantity as $quan){   $mes=$mes.$quan['id'].'SetIndexpToZero  <br>';
 										
 										$element = Element::find()
 										->where(['id' =>$quan->elementid])
@@ -630,35 +610,25 @@ class AdminModel extends Model
 								   }
 								  
 							   }
-							 
-							   
-							   ///finde first parent to zero!!!
-							   
-							   $arrayMainParent=[];
-									$elements_indexp = Element::find()
-										->where(['issection' =>0,])
-										->all();
-										
-										
-										if($elements_indexp){ 
-										
-										 foreach( $elements_indexp as $element_){  $mes=$mes.$element_->xmlcodep.'make array arrayMainParent <br>';
-											 
-											 $arrayMainParent[]= $element_->xmlcodep;
-																									 
-											};
-																 
-											
-										}
-							   
-							   
-							   
-							   
-							   
-							   
+ 	   
+			   }
+			   
+	 
+			   public function ActiveDeactivElemenSection(){
+				   
+							  $mes='ActiveDeactivElemenSection';
+							   					   
+								 Yii::$app->db->createCommand('UPDATE element SET indexp=1')
+								->execute();	
+							  
+							  
+							  $this->FillarrayOfLastSection();
+							   $this->SetIndexpToZero();
+							  
+							  
 							   
 									$elements = Element::find()
-										->where(['xmlcode' =>$arrayMainParent,])
+										->where(['xmlcode' =>$this->arrayLastSection,])
 										->all();
 							 
 			 
@@ -667,7 +637,7 @@ class AdminModel extends Model
 												 foreach( $elements as $element){  $mes=$mes.$element['id'].'in to recursion <br>';
 													 
 													
-													$this->deactiveParetnsElement($element);
+													//$this->deactiveParetnsElement($element);
 													
 																											 
 													}
@@ -695,23 +665,19 @@ class AdminModel extends Model
 						  //all elemen have the 1 or 0 in indexp 
 						  
 						  $childrens=Element::find()
-						  ->where(['xmlcodep' =>$element->xmlcode, 'indexp' =>1 ])
+						  ->where(['xmlcodep' =>$element->xmlcode, 'issection' =>1 ])
 						  ->all();
 						  
-						  if($childrens){ $this->message=$this->message.'have children<br>'; return;}
+						  if($childrens){ $this->message=$this->message.'have children<br>'; return; }  ///we do not have to go up to the brench all up brench have to be indexp 1
 						  
 						                else{  $this->message=$this->message.' do not have children<br>';
-								  
-											$element=Element::find()
-											->where(['xmlcode' =>$element->xmlcode])
-											->one();
-
-											if($element){
-
+								   
 												$element->indexp=0;
 												$element->save();
-
-											} else{		return;			}
+												
+												
+												
+ 
 										}
 						   
 						   //if paren have active children then not to deactive

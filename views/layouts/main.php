@@ -25,7 +25,7 @@ $this->beginPage() ?>
 </head>
 <body>
 <div class="site-index-background"></div>
-<div class="container">
+<div class="container container-colored container-top">
     <?php NavBar::begin([
         'brandImage' => "/images/header-logo.png"]);
         $menuItems = [
@@ -55,12 +55,14 @@ $this->beginPage() ?>
             'options' => ['class' => 'navbar-nav'],
             'items' => $menuItems,
         ]);
-    NavBar::end(); ?>
-            <div class="row">
-                <div class="col-xs-12">
-                    <?= $content ?>
-                </div>	
-            </div>
+        NavBar::end(); ?>
+</div>
+<div class="container container-colored">
+    <div class="row">
+        <div class="col-xs-12">
+            <?= $content ?>
+        </div>	
+    </div>
 </div>
 <?php $this->endBody() ?>
 </body>

@@ -53,12 +53,39 @@ class AdminController extends Controller
     public function actionIndex()
     {
 		
-			   $this->layout = 'oldmain';
+		
+		
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;		  
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		$catalogModel->fillQuantitypageforqurientsection();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 $this->layout = 'oldmain';
 		
          $model=new AdminModel();
 			
 		   return $this->render('adminsite', [
-         'model' => $model,]);
+         'model' => $model,'catalogModel' => $catalogModel]);
     }
 
 	

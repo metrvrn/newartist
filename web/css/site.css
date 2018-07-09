@@ -6,6 +6,9 @@ body {
 body{
     color: #333;
 }
+body{
+    margin-top: 24px;
+}
 
 .wrap {
     min-height: 100%;
@@ -132,9 +135,8 @@ th, td {
     right: 0;
     left: 0;
     bottom: 0;
-    background-image: url(/images/header-background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-image: url(/images/background.jpg);
+    background-size: contain;
     z-index: -100;
 }
 .nav > li >  a{
@@ -163,4 +165,14 @@ th, td {
     position: absolute;
     width: 100%;
     top: calc(100% + 200px);
+}
+.container-colored{
+    background-color: #fff;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.container-top{
+    margin-bottom: 24px;
+}
+.catalog-elem__close{
+    display: none;
 }
