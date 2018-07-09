@@ -10,7 +10,7 @@ use yii\caching\Cache;
 /**
  * ContactForm is the model behind the contact form.
  */
-class CatalogModel extends Model
+class CatalogModelAdmin extends Model
 {   
     
 	//add element to bssket
@@ -79,7 +79,7 @@ class CatalogModel extends Model
 			  
 			  
 			  $sectionsNoPar = Section::find()
-				->where(['xmlcodep' =>'not' ,])  
+				->where(['xmlcodep' =>'not' ,'active'=>true]) 
 				 ->all();
 				 
 			  if($sectionsNoPar){

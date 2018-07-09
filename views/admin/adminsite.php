@@ -6,7 +6,38 @@ use yii\helpers\Html;
 
 $this->title = 'Административный раздел';
 $this->params['breadcrumbs'][] = $this->title;
+
+
+
+
+function printSection($arrSection)
+{
+	if (!isset($arrSection['id'])) {
+		return;
+	};
+	echo '<li class='.$model->TopArrCurSection[$arrSections['id']] ? '' : "catalog-elem__close".'>';
+	echo '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'].' <br>'.$arrSection['active']  . '</a>'; 
+	//echo 'top sections'.$arrSection;
+	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
+		echo '<ul>';
+		foreach ($arrSection['childArray'] as $andertopsection) {
+			printSection($andertopsection);
+		};
+		echo '</ul>';
+	}
+	echo '</li>';
+};
+
+
+
+
+
 ?>
+
+
+
+
+
 <div class="site-catalog">
  <div class="row"> 
 
@@ -17,16 +48,31 @@ $this->params['breadcrumbs'][] = $this->title;
 	 <div class="row"> 
 	
 	
-    <p>
-       'Административный раздел'
-    </p>
-   
+
  
  
- 	</div>
+ 	
  
  <div class="col-sm-4"  >
- 
+     <p>
+       'Административный раздел каталог' 
+    </p>
+   
+   
+   
+   	<?
+		echo '<ul>';
+
+
+		foreach ($catalogModel->arrSectioons as $topSection) {
+			printSection($topSection);
+		};
+		echo '</ul>';
+		?>
+   
+   
+   
+   
  
  	</div>
  <div class="col-sm-8"  >
@@ -66,6 +112,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	
     <code><//?= __FILE__ ?></code>
  
+ 
+ 
+ 
+ </div>
  	</div>
 	
 	

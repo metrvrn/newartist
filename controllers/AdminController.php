@@ -15,7 +15,7 @@ use app\models\SignupForm;
 use app\models\CatalogModel;
 use app\models\AdminModel;
 use app\models\AjaxModel; 
-
+use app\models\CatalogModelAdmin;
 
 //use app\models\SignupForm;
 use app\models\PasswordResetRequestForm;
@@ -55,13 +55,13 @@ class AdminController extends Controller
 		
 		
 		
-		$catalogModel=new CatalogModel();
+		$catalogModel=new CatalogModelAdmin();
 		 
 		$catalogModel->elementPerPage=50;		  
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
-		$catalogModel->fillQuantitypageforqurientsection();
+		 
 		
 		
 		

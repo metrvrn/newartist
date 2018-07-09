@@ -173,6 +173,15 @@ th, td {
 .container-top{
     margin-bottom: 24px;
 }
-.catalog-elem__close{
+.catalog-menu-item{
     display: none;
+}
+.catalog-menu-item:hover{
+    display: block;
+}
+li.section_open{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+li.section_close{
+    background-color: rgba(0, 0, 0, 0.2);
 }
