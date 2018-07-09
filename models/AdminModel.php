@@ -574,8 +574,8 @@ class AdminModel extends Model
 							  
 										$this->arrayLastSection[]=$section->xmlcode;
 										/////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!
-										$section->indexp=0;
-										$section->save();
+										//$section->indexp=0;
+										//$section->save();
 										
 										
 						}		 
@@ -593,7 +593,7 @@ class AdminModel extends Model
 				   if($sectionsTop){
 					   
 					   foreach($sectionsTop as $section){
-						    $this->message=$this->message.'  foreach <br>';
+						 //   $this->message=$this->message.'  foreach <br>';
 						   
 						   $this->addEmtyChildrenandSetIndexP($section);
 					   
@@ -633,6 +633,10 @@ class AdminModel extends Model
 								   }
 								  
 							   }
+							   
+							   
+							   
+							   
  	   
 			   }
 			   
@@ -644,25 +648,11 @@ class AdminModel extends Model
 								 Yii::$app->db->createCommand('UPDATE element SET indexp=1')
 								->execute();	
 							  
-							 
-							  
-							 
-							  $this->FillarrayOfLastSection();
+							$this->FillarrayOfLastSection();
 							
-							 
-
-
- 
-
-
-
-							 $this->SetIndexpToZero();
+							$this->SetIndexpToZero();
 							 
 							  
-							   
-							 
-							  // print_r($this->arrayLastSection);
-							   
 							   
 									$elements = Element::find()
 										->where(['xmlcode' =>$this->arrayLastSection,])
@@ -674,7 +664,7 @@ class AdminModel extends Model
 												 foreach( $elements as $element){  $mes=$mes.$element['id'].'in to recursion <br>';
 													 
 													
-													$this->deactiveParetnsElement($element);
+													$this->deactiveElement($element);
 													
 																											 
 													}
@@ -729,17 +719,23 @@ class AdminModel extends Model
 	   
 	   
 	   
-			private function deactiveParetnsElement($element){   ///recursion
+			private function deactiveElement($element){   ///recursion
 	                      
 						  	  // $this->message=$this->message.$element->id.'deactiveParetnsElement<br>';
 						  
-						  //all elemen have the 1 or 0 in indexp 
+						  //FINDE CHILDRE WITH INDEXP=1
 						  
 						  $childrens=Element::find()
-						  ->where(['xmlcodep' =>$element->xmlcode, 'indexp'=>1 ])
+						  ->where(['xmlcodep' =>$element->xmlcode, 'indexp'=>true ])
 						  ->all();
 						  
-						  if($childrens){ $this->message=$this->message.'have children<br>'; return; }  ///we do not have to go up to the brench all up brench have to be indexp 1
+						  if($childrens){ $this->message=$this->message.'have children<br>';
+								
+									
+										
+											return;  ///we do not have to go up to the brench all up brench have to be indexp 1
+											
+											 }  
 						  
 						                else{  $this->message=$this->message.' do not have children<br>';
 								   
@@ -748,22 +744,28 @@ class AdminModel extends Model
 												
 												
 												
+												
+												
+												 if(isset($element->xmlcodep)){
+							   
+													$parent=Element::find()
+													->where(['xmlcode' =>$element->xmlcodep,])						  
+												   ->one(); 
+												   if($parent){
+
+														$this->deactiveElement($parent);
+												   }
+													   
+												   }
+																	
+												
+												
  
 										}
 						   
 						   //if paren have active children then not to deactive
 						   
-						   if(isset($element->xmlcodep)){
-							   
-							$parent=Element::find()
-						    ->where(['xmlcode' =>$element->xmlcodep,'indexp'=>1])						  
-						   ->one(); 
-						   if($parent){
-
-								$this->deactiveParetnsElement($parent);
-						   }
-							   
-						   }
+						  
 						   
 						    
 	 

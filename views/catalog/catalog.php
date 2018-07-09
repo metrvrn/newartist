@@ -18,7 +18,7 @@ if ($countTopArray > 0) {
 
 	unset($model->TopArrCurSection[array_search($model->section, $model->TopArrCurSection)]);
 }; 
- ///add all of top sections 
+//add all of top sections 
 
 if (isset($model->TopArrCurSection) && $countTopArray > 0) {
 	$reverseArray = array_reverse($model->TopArrCurSection);
@@ -28,6 +28,7 @@ if (isset($model->TopArrCurSection) && $countTopArray > 0) {
 	};
 };
 $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, ])]];
+$this->topArrCurSection = $model->TopArrCurSection;
 function printSection($arrSection)
 {
 	if (!isset($arrSection['id'])) {
@@ -39,7 +40,10 @@ function printSection($arrSection)
 	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
 		echo '<ul>';
 		foreach ($arrSection['childArray'] as $andertopsection) {
-			printSection($andertopsection);
+			if(array_search($andertopsection['id'], $this->topArrCurSection)){
+				printSection($andertopsection);
+			}
+			
 		};
 		echo '</ul>';
 	}
@@ -58,7 +62,7 @@ function printSection($arrSection)
 		echo '<ul>';
 
 
-		foreach ($model->arrSectioons as $topSection) {
+		foreach ($model->arrSectioons as $key => $topSection) {
 			printSection($topSection);
 		};
 		echo '</ul>';

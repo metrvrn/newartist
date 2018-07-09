@@ -208,7 +208,7 @@ class CatalogModelAdmin extends Model
 		           if(!isset($sectionLocal->xmlcode)){return;};
 		  
 		         $sections = Section::find()
-				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,])
+				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,'active'=>true])
 				 ->all();
 		  
 		        

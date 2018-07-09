@@ -12,16 +12,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
 function printSection($arrSection)
 {
+	
+	
+	 
 	if (!isset($arrSection['id'])) {
 		return;
 	};
-	echo '<li class='.$model->TopArrCurSection[$arrSections['id']] ? '' : "catalog-elem__close".'>';
+	echo '<li>';
 	echo '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'].' <br>'.$arrSection['active']  . '</a>'; 
 	//echo 'top sections'.$arrSection;
 	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
 		echo '<ul>';
 		foreach ($arrSection['childArray'] as $andertopsection) {
-			printSection($andertopsection);
+
+		
+		    //  foreach($model->TopArrCurSection  as $k=>$ar) {
+				//  if($ar==$andertopsection['id']){  printSection($andertopsection); continue; }
+				  
+				  
+			 
+		printSection($andertopsection);
+		
+		//if (  isset(array_search($andertopsection, $model->TopArrCurSection  )    )  		){       }
+		
+			
 		};
 		echo '</ul>';
 	}
