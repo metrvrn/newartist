@@ -150,10 +150,12 @@ function printSection($arrSection,$cursection)
 									</tr>
 								</tbody>
 							</table>
-							<button data-id="<?=$item['id'];?>" class="basket-control__button clearfix">
-								<input id="q<?=$item['id'];?>" data-ov="1" type="text" class="basket-control__input" placeholder="1" value="1">
-								<div class="product-cart__button-text">Добавить</div>
-							</button>
+							<div class="product-cart__controll clearfix">
+								<button class="product-cart__btn-mns">-</button>
+								<input type="text" class="product-cart__q-input">
+								<button class="product-cart__btn-pls">+</button>
+								<button class="product-cart__add-basket">Добавить</button>
+							</div>
 						</div>
 					</div>
 				<?php endforeach; ?>

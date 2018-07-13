@@ -203,8 +203,10 @@ nav.navbar{
     color: #fff;
 }
 .product-cart{
+    position: relative;
     border: 1px solid #ddd;
     border-radius: 2px;
+    height: 240px;
     margin-bottom: 24px;
 }
 .product-cart__title{
@@ -219,36 +221,42 @@ nav.navbar{
     border: 1px solid #eee;
     text-align: center;
 }
-.basket-control__input{
-    display: block;
+.product-cart__controll{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+}
+.product-cart__btn-pls{
     float: left;
-    width: 40px;
-    margin-right: 20%;
-    text-align: center;
-}
-.basket-control__input:focus{
-    outline: none;
-}
-.basket-control__button{
     display: block;
-    width: 100%;
-    padding: 8px 24px;
-    border: none;
-    background-color: #ffcd99;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 16.6%;
 }
-.basket-control__button:hover{
-    background-color: rgb(243, 176, 88);
-    transition: all 0.2s ease;
+.product-cart__q-input{
+    float: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 33.3%;
 }
-.basket-control__button:focus{
-    outline: none;
+.product-cart__btn-mns{
+    float: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 16.6%;
 }
-.product-cart__button-text{
-    float: right;
-    font-size: 1.6rem;
-    padding-top: 2px;
+.product-cart__add-basket{
+    float: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 33.3%;
 }
