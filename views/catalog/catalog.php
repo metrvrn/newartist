@@ -150,11 +150,17 @@ function printSection($arrSection,$cursection)
 									</tr>
 								</tbody>
 							</table>
-							<div class="product-cart__controll clearfix">
-								<button class="product-cart__btn-mns">-</button>
-								<input type="text" class="product-cart__q-input">
-								<button class="product-cart__btn-pls">+</button>
-								<button class="product-cart__add-basket">Добавить</button>
+							<div id="<?=$item['id']?>"  class="product-cart__controll clearfix">
+								<button class="product-cart__btn-mns">
+									<i class="fas fa-minus"></i>
+								</button>
+								<input value="1" data-old="1" id="input-<?=$item['id'];?>" data-available="<?=$item['quantity'];?>" type="text" class="product-cart__q-input">
+								<button class="product-cart__btn-pls">
+									<i class="fas fa-plus"></i>
+								</button>
+								<button class="product-cart__add-basket">
+									<i class="fas fa-cart-plus"></i>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -165,29 +171,95 @@ function printSection($arrSection,$cursection)
 </div>
 
 <script>
-
+//detect action
 (function(w){
-	w.addEventListener('click', function(e){
-		var t = e.target;
-		while(t.className !== "basket-control__button clearfix"){
-			t = t.parentElement
-			if(t.className === "product-cart") return;
-		}
-		var itemID = Number(t.dataset.id);
-		var inputID = "q"+itemID;
-		var input = document.getElementById(inputID);
-		var quantity = Number(input.value);
-		console.log("Number: " + quantity);
-		if(quantity === 0 || isNaN(quantity)){
-			console.log(quantity);
-			console.log("Error");
-		}else{
-			btn_catalog_add_to_basket(itemID, quantity);
+	w.addEventListener("click", function(e){
+		var target = e.target;
+		var inSearch = true;
+		var counterUpper = 0;
+		while(inSearch){
+			className = target.className;
+			switch (className){
+				case "product-cart__btn-mns":
+					minusBtn(target);
+					inSearch = false;
+					break;
+				case  "product-cart__btn-pls":
+					plusBtn(target);
+					inSearch = false;
+					break;
+				case "product-cart__add-basket":
+					console.log('basket');
+					inSearch = false;
+					break;
+				case "product-cart__controll clearfix" || "product-cart__q-input":
+					inSearch = false;
+					return;
+					break;
+				default:
+					counterUpper++;
+					if(counterUpper > 3) inSearch = false;
+					target = target.parentElement;
+			}
 		}
 	});
-})(window);
+	w.addEventListener('input', function(e){
+		handleInput(e.target);
+	});
+})(window)
 
-function btn_catalog_add_to_basket(id, q) {
+//return product id by control element
+function getElementID(controlElem)
+{
+	return Number(controlElem.parentElement.id);
+}
+//return input element by control element
+function getInput(controlElem)
+{
+	var id = getElementID(controlElem);
+	inputID = "input-"+id;
+	return document.getElementById(inputID);
+}
+//handle plus button
+function plusBtn(controlElem)
+{
+	input = getInput(controlElem);
+	var newVal = Number(input.value) + 1;
+	if(Number(input.dataset.available) < Number(newVal)){
+		return;
+	}
+	input.value++;
+}
+//handle minus button
+function minusBtn(controlElem)
+{
+	input = getInput(controlElem);
+	if(Number(input.value) === 1){
+		return;
+	}
+	input.value--;
+}
+//validate 
+function handleInput(input)
+{
+	var newVal = Number(input.value);
+	var available = Number(input.dataset.available);
+	var oldVal = Number(input.dataset.old);
+	switch(newVal){
+		case NaN:
+			input.value = oldValue;
+			break;
+		case newVal < 1:
+			input.value = 1;
+			break;
+		case newVal > available:
+			input.value = oldVal;
+			break
+	}
+}
+
+function btn_catalog_add_to_basket(id, q)
+{
 	var xhttp = new XMLHttpRequest();
 	var dataF = new FormData();
 	dataF.append('elementid', id);

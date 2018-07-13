@@ -870,6 +870,75 @@ class AdminModel extends Model
 	
 	
 	
+	public function  killXmlcodepForBadSection(){
+					//to b17cf5b5-b563-11e5-8c42-74d435abdf35 товары для художников и творчество
+					$mes= 'procceccArrayOfStingFromFileImageFile<br>';
+					 
+					 $arr=[
+'b59c3595-b561-11e5-8c42-74d435abdf35',
+'21289e31-b562-11e5-8c42-74d435abdf35',
+'39113138-b562-11e5-8c42-74d435abdf35',
+'68dd78db-b562-11e5-8c42-74d435abdf35',
+'b68ceeca-b562-11e5-8c42-74d435abdf35',
+'e066117f-b562-11e5-8c42-74d435abdf35',
+//'b17cf5b5-b563-11e5-8c42-74d435abdf35',
+'170af77e-b564-11e5-8c42-74d435abdf35',
+'22ff5a05-b564-11e5-8c42-74d435abdf35',
+'9a844ceb-b564-11e5-8c42-74d435abdf35',
+'a07d0eac-b564-11e5-8c42-74d435abdf35',
+'a6763c77-b564-11e5-8c42-74d435abdf35',
+'b85f30a6-b564-11e5-8c42-74d435abdf35',
+'000c3e11-b565-11e5-8c42-74d435abdf35',
+'000c3e57-b565-11e5-8c42-74d435abdf35',
+'a5a08b7e-b56c-11e5-8c42-74d435abdf35',
+];
+					 
+					 
+					 $elemetnTovar=Element::find()
+					 ->where(['xmlcode'=>'b17cf5b5-b563-11e5-8c42-74d435abdf35'])
+					 ->one();
+					 
+					 
+					 $SectionTovar=Element::find()
+					 ->where(['xmlcode'=>'b17cf5b5-b563-11e5-8c42-74d435abdf35'])
+					 ->one();
+					 
+					 
+					 
+					 $elemetns=Element::find()
+					 ->where(['xmlcode'=>$arr])
+					 ->all();
+					 
+					 if($elemetns){
+						 
+						 foreach($elemetns as $element){
+							 
+							 $element->xmlcodep=$elemetnTovar->xmlcode;
+							 $element->xmlcodep=$SectionTovar->xmlcode;
+							 
+							 
+						 }
+						 
+						 
+						 
+						 
+						 
+					 }
+					 
+					 
+					 
+					 
+					 
+					
+					
+					
+					
+					 $this->message=$this->message.$mes;	
+					
+				}
+	
+	
+	
 	
 	
 	

@@ -46,8 +46,8 @@ $this->beginPage() ?>
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
-    $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
-    // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+    $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['sale/index'])]];
+    // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['sale/basket'])]];
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
         . Html::submitButton(
@@ -57,7 +57,7 @@ $this->beginPage() ?>
         . Html::endForm()
         . '</li>';
     };
-    $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+    $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['sale/basket'])]];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
