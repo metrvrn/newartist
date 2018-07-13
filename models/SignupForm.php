@@ -15,6 +15,7 @@ namespace app\models;
         public $password;
         public $adress;
 		public $phone;
+		public $name;
 	 
 	 
         /**
@@ -37,7 +38,7 @@ namespace app\models;
 				
 				 ['adress', 'string', 'max' => 255],
 				 ['phone', 'string', 'max' => 255],
-				
+				 ['name', 'string', 'max' => 255],
 				
             ];
         }
@@ -57,7 +58,10 @@ namespace app\models;
             $user = new User();
             $user->username = $this->username;
 			  $user->phone = $this->phone;
+			   $user->name = $this->name;
+			  
 			    $user->adress = $this->adress;
+				
 			  
             $user->email = $this->email;
             $user->setPassword($this->password);

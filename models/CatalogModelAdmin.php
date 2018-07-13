@@ -33,11 +33,15 @@ class CatalogModelAdmin extends Model
 	
 	private $id_tovar;///the main   grup  tovar;
 	
-	//private $tableSections;
+	private $elementIdArray;
 	//private $tableElements;
 	
 	
 	public   $arrElements; 
+	public   $arrElementsImage; 
+	public   $arrElementsPrice; 
+	public   $arrElementsQuantity; 
+	
     public   $arrSectioons;
 	public   $TopArrCurSection; // we need for every request fo curient section
 	public   $BottomArrCurSection; 
@@ -71,7 +75,30 @@ class CatalogModelAdmin extends Model
 	}
 	
        ///data for view arrSectioons 
-
+          public   function fillElementIdArray(){
+			  
+		  $this->elementIdArray=[];
+			  	
+			  
+			  if(isset($this->arrElements)){
+				  
+				  foreach($this->arrElements as  $element){
+					  
+					  $this->elementIdArray[]=$element['id'];
+					  
+					  
+				  }
+				  
+				  
+				  
+				  
+				  
+				  
+			  };
+			  
+			  
+			  
+		  }
 
 		  public   function fillSectionNoParentArray(){
 			  
@@ -79,7 +106,7 @@ class CatalogModelAdmin extends Model
 			  
 			  
 			  $sectionsNoPar = Section::find()
-				->where(['xmlcodep' =>'not' ,'active'=>true]) 
+				->where(['xmlcodep' =>'not' ,'active'=>true])  
 				 ->all();
 				 
 			  if($sectionsNoPar){
@@ -98,6 +125,7 @@ class CatalogModelAdmin extends Model
 						$idArray[ 'index1']= $section->index1;
 						$idArray[ 'index2']= $section->index2;
 						$idArray[ 'idp']= $section->idp;
+						$idArray['visible']= false;		 
 						$idArray[ 'childArray']= $this->makeTreeForSection($section);
 						
 					
@@ -230,6 +258,7 @@ class CatalogModelAdmin extends Model
 						$idArray[ 'index1']= $section->index1;
 						$idArray[ 'index2']= $section->index2;
 						$idArray[ 'idp']= $section->idp;
+						$idArray['visible']= false;		 
 						$idArray[ 'childArray']= $this->makeTreeForSection($section);
 						
 						$mainArray[]=$idArray;
@@ -494,5 +523,384 @@ class CatalogModelAdmin extends Model
   }
   
   
+  
+  
+  
+  
+  public function fillImageForElementArray(){
+	  
+	    $this->arrElementsImage=[];
+	  
+	 
+	 
+	 /* $elementid=[];
+	  
+	   foreach($this->arrElements as $element){
+		   $elementid[]=$element['id'];
+		  	  
+	  } */
+	  $elementid=$this->elementIdArray;
+	  
+	  
+		if( count($elementid)>0 ){
+				 
+				  
+				  
+				 // $imageAr=[];
+				  
+				  
+				  $images=Image::find()
+				  ->where(['elementid'=>$elementid])
+				  ->all();
+				  
+				  
+					  if($images){
+					           foreach($images as $image  ){
+								   
+								  $this->arrElementsImage[$image['elementid']]=$image['filep'];
+								   
+								   
+							   }
+						 
+					  
+					  
+					  
+					  }
+					  
+				  
+				   
+				   
+				   foreach($this->arrElements  as $key => $element){
+					   
+					   
+					   if( isset(  $this->arrElementsImage[$element['id']])   ){  // $element['image']=
+					   
+					   $this->arrElements[$key]['image']=$this->arrElementsImage[$element['id']];
+					   
+					   
+					 //  echo $element['image'];
+						   
+					   }else{ //echo 'not';
+						      $this->arrElements[$key]['image']='not';
+						   
+						   
+					   }
+					   
+					   
+					   
+				   }
+			 
+					  
+					   
+				  
+					
+			  }
+			  
+		
+  
+  }
+  
+  
+  
+  
+  
+   public function fillPriceForElementArray(){
+	  
+	    $this->arrElementsPrice=[];
+	  
+	  $elementid=[];
+	  
+	  foreach($this->arrElements as $element){
+		   $elementid[]=$element['id'];
+		  	  
+	  }
+	  
+	  
+	  
+		if( count($elementid)>0 ){
+				 
+				  
+				  
+			
+				  
+				  
+				  $prices=Price::find()
+				  ->where(['elementid'=>$elementid])
+				  ->all();
+				  
+				  
+					  if($prices){
 
+					 // print_r($elementid);
+					  
+					           foreach($prices as $price  ){
+								  
+								  $this->arrElementsPrice[$price['elementid']]=$price['price'];
+								   
+								   
+							   }
+						 
+					  
+					  
+					  
+					  }
+					  
+				  
+				   
+				   
+				   foreach($this->arrElements  as $key => $element){
+					   
+					   
+					   if( isset(  $this->arrElementsPrice[$element['id']])   ){  // $element['image']=
+					   
+					   $this->arrElements[$key]['price']=$this->arrElementsPrice[$element['id']];
+					   
+					   
+					 //  echo $element['image'];
+						   
+					   }else{ //echo 'not';
+						      $this->arrElements[$key]['price']='not';
+						   
+						   
+					   }
+					   
+					   
+					   
+				   }
+			 
+					  
+					   
+				  
+					
+			  }
+			  
+		
+  
+  }
+  
+  
+
+  
+	  private function setVisibleHard(&$elementforHard){
+		  
+		  
+		  $elementforHard['visible']=true;
+		  
+		  
+	  }
+	  
+  
+	  private function setVisibleSectionAndChildren(&$elementArraySection){
+	 	  
+		//  echo 'аргумент id = '.$elementArraySection['id'].'  вход в функцию<br>';
+		  
+/* 	   if(array_search($elementArraySection['id'],$this->TopArrCurSection)){
+			
+			 		 	  echo 'установка визибле иф аргумент id = '.$elementArraySection['id'].'перед установкой <br>';  
+			   $elementArraySection['visible']=true;
+	    
+	   
+	   } */
+	   
+	   
+	   $visible=false;
+	   foreach($this->TopArrCurSection as $tarEl){
+		   if($tarEl==$elementArraySection['id']){ //echo ' найден элемент в топарай '.$tarEl.' = '.$elementArraySection['id'].' <br>';
+			     $visible=true;
+				 break;
+			   
+			   
+		   }
+		   
+	   }
+	   
+	   if($visible){  $elementArraySection['visible']=true;
+	   
+		   if( count($elementArraySection['childArray'])>0){
+				  
+				  
+			   foreach($elementArraySection['childArray'] as $keyHard=>$recArryaHard){
+				   
+				   $this->setVisibleHard($elementArraySection['childArray'][$keyHard]);
+				   
+			   }
+		   }
+		   
+	   
+	   
+	   
+	   };
+	   
+	  
+	  
+	  if( count($elementArraySection['childArray'])>0){
+		      
+			  
+			  foreach($elementArraySection['childArray'] as $key=>$recArrya){
+			 
+					 
+			 $this->setVisibleSectionAndChildren($elementArraySection['childArray'][$key]);
+			  
+		  }
+		  
+		  
+		  
+	  }
+	  
+	  
+	  
+  }
+  
+  
+  
+  
+  
+  
+  
+  public function setVisibleForCurienSection(){
+	   
+			
+			
+		 
+ 
+			if(isset($this->section)){ 
+			
+				foreach($this->arrSectioons  as $key=>  $section){							
+							
+					    $this->arrSectioons[$key]['visible']=true;
+			
+						
+					}
+				
+			
+			
+			
+			
+				foreach($this->arrSectioons  as $key2=>$section){ 
+
+				 		 
+						$this->setVisibleSectionAndChildren($this->arrSectioons[$key2]);
+				   
+					  
+			 
+				}
+			
+			
+			
+			
+			
+			}else{
+				
+					foreach($this->arrSectioons  as $key=>  $section){							
+							
+					    $this->arrSectioons[$key]['visible']=true;
+			
+						
+					}
+				
+			}
+			
+				//echo'<br>';echo'<br>';echo'<br>';
+			//print_r($this->TopArrCurSection);
+			//echo'<br>';echo'<br>';echo'<br>';
+			
+			//print_r($this->arrSectioons);
+			
+			
+			
+			}
+			
+			
+			
+			
+			
+			
+			//fillQuantityForElementArray
+			
+			
+			
+			 public function fillQuantityForElementArray(){
+	  
+	    $this->arrElementsQuantity=[];
+	  
+	  $elementid=[];
+	  
+	  foreach($this->arrElements as $element){
+		   $elementid[]=$element['id'];
+		  	  
+	  }
+	  
+	  
+	  
+		if( count($elementid)>0 ){
+				 
+				  
+				  
+			
+				  
+				  
+				  $quantitys=Quantity::find()
+				  ->where(['elementid'=>$elementid])
+				  ->all();
+				  
+				  
+					  if($quantitys){
+
+					 // print_r($elementid);
+					  
+					           foreach($quantitys as $quantity  ){
+								  
+								  $this->arrElementsQuantity[$quantity['elementid']]=$price['quantity'];
+								   
+								   
+							   }
+						 
+					  
+					  
+					  
+					  }
+					  
+				  
+				   
+				   
+				   foreach($this->arrElements  as $key => $element){
+					   
+					   
+					   if( isset(  $this->arrElementsQuantity[$element['id']])   ){   
+					   
+					   $this->arrElements[$key]['quantity']=$this->arrElementsQuantity[$element['id']];
+					   
+					   
+					 
+						   
+					   }else{ //echo 'not';
+						      $this->arrElements[$key]['quantity']='not';
+						   
+						   
+					   }
+					   
+					   
+					   
+				   }
+			 
+					  
+					   
+				  
+					
+			  }
+			  
+		
+  
+  }
+  
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 }

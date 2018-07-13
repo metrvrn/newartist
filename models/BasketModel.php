@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use app\models\Basket;
+use app\models\Image;
+use app\models\Price;
 
 use app\models\Usersessitions;
 
@@ -13,10 +15,13 @@ use app\models\Usersessitions;
  */
 class BasketModel extends Model
 {
+	public $message;
+	
       //add element to bssket
 	public $elementForAddToBasket;
     public $sessionForBasket;
-	 public $userId;
+	public $userId;
+	public $quantityForAddToBasket;
 	 
 	 
 	 public $basketArray;
@@ -29,64 +34,47 @@ class BasketModel extends Model
    public function rules()
     {
         return [
-                [['elementForAddToBasket', 'sessionForBasket', 'userId'], 'safe'],
+                [['elementForAddToBasket', 'sessionForBasket', 'userId','quantityForAddToBasket'], 'safe'],
        ];
     }
 
-    /**
-     * @return array customized attribute labels
-     */
-    // public function attributeLabels()
-    // {
-        // return [
-            // 'verifyCode' => 'Verification Code',
-        // ];
-    // }
-
-    /**
-     * Sends an email to the specified email address using the information collected by this model.
-     * @param string $email the target email address
-     * @return bool whether the model passes validation
-     */
+   
      public function addElementToBasket()
-     {   
+     {   $mes='';
 	 
 	 
 
-           $basket=new Basket();
-		
-		   
-		   
-		   $basket->userid= $this->userId;
-			 $basket->sessionid= $this->sessionForBasket;
-			 $basket->price=12.5;
+         $basket=new Basket();
+		 $basket->userid= $this->userId;
+		 $basket->sessionid= $this->sessionForBasket;
+		  
+		 
+		 $price=Price::find()
+		 ->where(['elementid'=>$this->elementForAddToBasket])
+		 ->one();
+		 if(!$price){			 
+			 $this->message='no price';
+			 return;
+		 }else{
+			 $basket->price=$price['price'];
 			 
-			 $basket->elementid=$this->elementForAddToBasket;
-			 
-			 
-			 
-			// $el->quantity ='0';
-		     $basket->quantity = 1;
-			 //$basket->index1 = $el->index1;
-			 //$basket->index2 =$el->index2;
-			 
-			 
-			 
-			//'id' => $this->primaryKey(),
-			//'userid'=> $this->integer(),
-			//'sessionid'=> $this->string(),
+		 }
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 $basket->elementid=$this->elementForAddToBasket;		 
+		 $basket->quantity = floatval($this->quantityForAddToBasket);
+		 
+		  $basket->sum=$basket->price*$basket->quantity ;
+		 
 			
-			//'elementid'=> $this->integer(),
-			//'price'=> $this->integer(),
-			//'sum'=> $this->float(),
-			//'quantity'=> $this->float(),
-			//'zakazid'=> $this->string(),
-			//'order'=> $this->boolean(), 
-			//'price'=> $this->float(), 
-			   // echo 'alex';
 		$basket->save();
 	 
-         //return false;
+         $this->message='add to basket';
      }
 	 
 	 
@@ -133,17 +121,106 @@ class BasketModel extends Model
 		 
 		 if($baskets){
 			   
+			   
+			   $intArrayOfIdElementInBasket=[];
+			   
+			   
 			   foreach($baskets as $basket){
-				   
-				   $itArray=[];
-				  $itArray['elementid']=$basket->elementid;
-				  $itArray['sessionid']=$basket->sessionid;
-				  
-				  $this->basketArray[]=$itArray;
-				  
-				   
+				    $intArrayOfIdElementInBasket[]=$basket['elementid']; 
+					
+							   
 			   }
 			   
+			   
+			    $imagesArray=[];
+			     $images=Image::find()
+				 ->where(['elementid'=>$intArrayOfIdElementInBasket])
+				 ->all();
+
+				if($images){
+					
+					foreach($images as $image){
+						
+						$imagesArray[$image['elementid']]=$image['filep'];
+						
+					}
+					
+					
+				}	
+				 
+				 
+				 
+				  $nameArray=[];
+			     $elements=Element::find()
+				 ->where(['id'=>$intArrayOfIdElementInBasket])
+				 ->all();
+
+				if($elements){
+					
+					foreach($elements as $element){
+						
+						$nameArray[$element[id]]=$element['name'];
+						
+					}
+					
+					
+				}
+			
+			
+			
+			foreach($baskets as $basket  ){
+				
+				
+				    $intForeach=[];
+					$intForeach['id']=$basket['id'];
+					$intForeach['userid']=$basket['userid'];
+					$intForeach['sessionid']=$basket['sessionid'];
+					$intForeach['elementid']=$basket['elementid'];
+					$intForeach['price']=$basket['price'];
+					$intForeach['sum']=$basket['sum'];
+					$intForeach['quantity']=$basket['quantity'];
+					
+					if(isset($nameArray[$basket['elementid']])){
+						$intForeach['name']=$nameArray[$basket['elementid']];
+						
+					}else{     
+					
+					$intForeach['image']='not';
+					}
+					
+					
+					
+					if(isset($imagesArray[$basket['elementid']])){
+						$intForeach['image']=$imagesArray[$basket['elementid']];
+						
+					}else{     
+					
+					$intForeach['image']='not';
+					}
+					
+					
+					
+					
+					
+				 	$this->basketArray[]=$intForeach;
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			 
 			 

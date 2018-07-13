@@ -14,7 +14,8 @@ use app\models\SignupForm;
 
 use app\models\CatalogModel;
 use app\models\AdminModel;
-use app\models\AjaxModel; 
+use app\models\AjaxModel;
+ 
 use app\models\CatalogModelAdmin;
 
 //use app\models\SignupForm;
@@ -27,7 +28,7 @@ use app\models\ZakazForm;
 use app\models\ AddLogingModel;
 
 use app\models\Usersessitions; 
-
+use app\models\Image;
 
 class AdminController extends Controller
 {
@@ -57,15 +58,29 @@ class AdminController extends Controller
 		
 		$catalogModel=new CatalogModelAdmin();
 		 
-		$catalogModel->elementPerPage=50;		  
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
-		 
+		
+		//$catalogModel->section=438;
+		
+		
+		$catalogModel->fillQuantitypageforqurientsection();		   
+	    $catalogModel->fillarrElements();
+		//fillElementIdArray
+		  $catalogModel->fillElementIdArray();
 		
 		
 		
+		$catalogModel->fillImageForElementArray();
+			 
+		$catalogModel->fillPriceForElementArray();	
+		$catalogModel->fillQuantityForElementArray();	
 		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
 		
 		
 		

@@ -30,22 +30,19 @@ class CatalogController extends Controller
 	
     public function actionIndex()
     {  
-	  //echo 'alex';
+
 		$model=new CatalogModel();
-		//$model->scenario = 'default';
+
 		 $model->elementPerPage=50;
-		 //$model->quantityPageForCurSection;
+
 		 
 		$model->load(Yii::$app->request->get(),'');
-		
-		//main array of sections   
+
 	    $model->fillarrSectioons();
 		
-		
-		//top section for curient sectio
 		$model->fillTopArrCurSection(); 
 	   
-	   ///echo 'alex3';
+     $model->fillElementIdArray();
 	   
 	   
 	   $model->fillBottomArrCurSection();
@@ -53,7 +50,11 @@ class CatalogController extends Controller
 		   
 	    $model->fillarrElements();
 			
-			
+  $model->fillImageForElementArray();
+  $model->fillPriceForElementArray();
+  $model->fillQuantityForElementArray();	
+
+  	$model->setVisibleForCurienSection();
 			
 			
 		   return $this->render('catalog', [
@@ -79,7 +80,8 @@ class CatalogController extends Controller
 	  if(isset ($postArray)){
 	   
                             //element id
-							$model->elementForAddToBasket=$postArray['elementid'];        
+							$model->elementForAddToBasket=$postArray['elementid']; 
+                            $model->quantityForAddToBasket=$postArray['quanty']; 						
 						  
                              //sessionid
 							$session = Yii::$app->session;
@@ -113,6 +115,7 @@ class CatalogController extends Controller
 
 					}
 	  
+	  $AjaxModel->message=$model->message;
 	  
 	  
 		   return $this->render('catalogajax', [

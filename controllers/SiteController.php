@@ -78,9 +78,36 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex()	
     {
-        return $this->render('index');
+		
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        return $this->render('index',['catalogModel' => $catalogModel,]);
     }
 
     /**
@@ -90,6 +117,35 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+		
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -118,7 +174,7 @@ class SiteController extends Controller
 
         $model->password = '';
         return $this->render('login', [
-            'model' => $model,
+            'model' => $model,'catalogModel' => $catalogModel,
         ]);
     }
 
@@ -141,6 +197,31 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+		
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -148,7 +229,7 @@ class SiteController extends Controller
             return $this->refresh();
         }
         return $this->render('contact', [
-            'model' => $model,
+            'model' => $model,'catalogModel' => $catalogModel,
         ]);
     }
 
@@ -202,7 +283,35 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        return $this->render('about',['catalogModel' => $catalogModel,]);
     }
 	
 	
@@ -211,6 +320,31 @@ class SiteController extends Controller
  
     public function actionSignup()
     {
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $model = new SignupForm();
  
         if ($model->load(Yii::$app->request->post())) {
@@ -222,7 +356,7 @@ class SiteController extends Controller
         }
  
         return $this->render('signup', [
-            'model' => $model,
+            'model' => $model,'catalogModel' => $catalogModel,
         ]);
     }
  
@@ -235,6 +369,25 @@ class SiteController extends Controller
 	
 	    public function actionRequestpasswordreset()
     {
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
         $model = new PasswordResetRequestForm();
  
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -247,7 +400,7 @@ class SiteController extends Controller
         }
  
         return $this->render('requestPasswordResetToken', [
-            'model' => $model,
+            'model' => $model,'catalogModel' => $catalogModel,
         ]);
     }
  
@@ -259,7 +412,25 @@ class SiteController extends Controller
      * @throws BadRequestHttpException
      */
     public function actionResetPassword($token)
-    {
+    { 	$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		
+		
+		
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
@@ -272,118 +443,25 @@ class SiteController extends Controller
         }
  
         return $this->render('resetPassword', [
-            'model' => $model,
+            'model' => $model,'catalogModel' => $catalogModel,
       ]);
 	  }
  
 
-	 public function actionCatalog()
-    {
-				
-		
-		if (Yii::$app->request->isGet) {
-			
-	
-			 $model=new CatalogModel();
-				
-	
-			if ($model->load(Yii::$app->request->get()) && $model->validate()) {
-			   
-						   
-			};
-			
-		   return $this->render('catalog', [
-           'model' => $model,
-			]);
-			
-		
-	   
-		
-		};
-		
-		
-        return "second";
-    }
-	
-	
-	 public function actionAdminsite()
-    {
-				
-		
-		 	 $model=new AdminModel();
-			
-		   return $this->render('adminsite', [
-         'model' => $model,
-			]);
-			
-		
-	   
-    }
-	
-	//uploade nim from csv file
-	 public function actionUploadenom()
-    {
-			$this->layout = 'ajaxl';	
-		
-		 $model_admin=new AdminModel();
-		 $model_admin->Uploadenom();
-		 
-		  $model=new AjaxModel();
-		  
-		  $model->message=$model_admin->message;
-		  
-			
-		   return $this->render('ajaxv', [
-         'model' => $model,
-			]);
-			
-		
-	   
-    }
 	
 	
 	
-	 public function actionMakesection()
-    {
-			$this->layout = 'ajaxl';	
-		
-		 $model_admin=new AdminModel();
-		 $model_admin->MakeSections();
-		 
-		  $model=new AjaxModel();
-		  
-		  $model->message=$model_admin->message;
-		  
-			
-		   return $this->render('ajaxv', [
-         'model' => $model,
-			]);
-			
-		
-	   
-    }
 	
 	
 	
-		 public function actionFillidpforsection()
-    {
-			$this->layout = 'ajaxl';	
-		
-		     $model_admin=new AdminModel();
-		     $model_admin->fillidpInSectionTable();
-		 
-		  $model=new AjaxModel();
-		  
-		  $model->message=$model_admin->message;
-		  
-			
-		   return $this->render('ajaxv', [
-         'model' => $model,
-			]);
-			
-		
-	   
-    }
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -391,7 +469,21 @@ class SiteController extends Controller
 	
 	 public function actionBasket()
     {
-			//$this->layout = 'ajaxl';	
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
 		
 		 $modelBasket= new BasketModel();	 
           $modelZakazForm= new ZakazForm();	
@@ -418,8 +510,12 @@ class SiteController extends Controller
 
 									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
 									$modelBasket->userId=Yii::$app->user->id;
-
-
+	                               $modelZakazForm->name=Yii::$app->user->identity->name;
+                                    $modelZakazForm->phone=Yii::$app->user->identity->phone;
+									$modelZakazForm->adress=Yii::$app->user->identity->adress;
+									
+									$modelZakazForm->email=Yii::$app->user->identity->email;
+									//email
 							}
 
 
@@ -427,13 +523,14 @@ class SiteController extends Controller
 		  
 			
 			
-			$modelZakazForm->name='alexandra';
+			//$modelZakazForm->name='alexandra';
 			
 			
 			
 		   return $this->render('basket', [
          'model' => $modelBasket, 
 		 'modelForm'=>$modelZakazForm,
+		 'catalogModel' => $catalogModel,
 			]);
 			
 		
@@ -442,13 +539,33 @@ class SiteController extends Controller
 	
 	 public function actionZakaz()
     {
-			//$this->layout = 'ajaxl';	
+		
+		
+		$catalogModel=new CatalogModel();
+		 
+		$catalogModel->elementPerPage=50;
+	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		
+		//$catalogModel->section=438;		
+		//$catalogModel->fillQuantitypageforqurientsection();		   
+	    // $catalogModel->fillarrElements();
+		//$catalogModel->fillImageForElementArray();
+		//$catalogModel->fillPriceForElementArray();		
+		//echo 'CatalogModelAdmin';
+		$catalogModel->setVisibleForCurienSection();
+		
+		 $modelBasket= new BasketModel();	 
+          $modelZakazForm= new ZakazForm();	
 		
 		 $model= new ZakazModel();	  
 		  
 			
 		   return $this->render('zakaz', [
          'model' => $model,
+		 	 'catalogModel' => $catalogModel,
 			]);
 			
 		
@@ -482,25 +599,7 @@ class SiteController extends Controller
 	
 	
 	
-	 public function actionUploadenomartist()
-    {
-			$this->layout = 'ajaxl';	
-		
-		 $model_admin=new AdminModel();
-		 $model_admin->Uploadenomartist();
-		 
-		  $model=new AjaxModel();
-		  
-		  $model->message=$model_admin->message;
-		  
-			
-		   return $this->render('ajaxv', [
-         'model' => $model,
-			]);
-			
-		
-	   
-    }
+	
 	
 	
 	
