@@ -62,8 +62,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
     ]);
-    NavBar::end();
-    ?>
+    NavBar::end(); ?>
 
     <div class="container">
         <?= Breadcrumbs::widget([

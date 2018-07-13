@@ -24,7 +24,12 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
     ];
     public $css = [
-        'css\site.css',
+        "css/site.css",
+        "css/blueimp-gallery.min.css"
+    ];
+    public $js = [
+        "js/blueimp-gallery.min.js",
+        "js/image-galery.js"
     ];
 
 }

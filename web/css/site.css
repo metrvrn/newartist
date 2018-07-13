@@ -1,33 +1,9 @@
 html,
 body {
     height: 100%;
-    width:  100%;
-}
-body{
-    color: #333;
-}
-body{
-    margin-top: 24px;
-}
-
-.wrap {
     min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
+    width: 100%;
 }
-
-.wrap > .container {
-    padding: 70px 15px 20px;
-}
-
-.footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-
 .jumbotron {
     text-align: center;
     background-color: transparent;
@@ -42,7 +18,6 @@ body{
     color: #c55;
     font-style: italic;
 }
-
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
@@ -120,25 +95,6 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
-
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 2px;
-}
-.site-index-background{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-image: url(/images/background.jpg);
-    background-size: contain;
-    z-index: -100;
-}
 .nav > li >  a{
     font-size: 1.4rem;
     font-weight: 700;
@@ -146,7 +102,7 @@ th, td {
     text-transform: uppercase;
     transition: all 0.2s ease;
 }
-.nav > li.active >  a{
+/* .nav > li.active >  a{
     text-decoration: underline;
 }
 .nav > li >  a:hover{
@@ -157,31 +113,142 @@ th, td {
 .navbar.navbar-default{
     background: transparent;
     border: none;
-}
+} */
 .navbar-default .navbar-nav > li > a {
     color: #000
-}
-.index-btn-align{
-    position: absolute;
-    width: 100%;
-    top: calc(100% + 200px);
 }
 .container-colored{
     background-color: #fff;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-.container-top{
+.catalog-node__open *{
+    display: block
+}
+.container-background{
+    background-color: #fff;
+}
+.wrapper{
+    z-index: -100;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 94px;
+    margin-bottom: -70px;
+}
+.footer{
+    height: 70px;
+    background-color: #505050;
+}
+.footer .container{
+    background-color: transparent;
+    border-right: 1px solid #333;
+    border-left: 1px solid #333;
+}
+.breadcreambs-wrapper{
+    padding-top: 24px;
+}
+.index-background{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/images/header-background.jpg');
+    z-index: -100;
+}
+.index-image-gallery{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    background-color: #ececec;
+}
+.header-background-wrapper{
+    background-image: url("/images/header-background.jpg");
+    height: 250px;
+    background-size: cover;
+}
+nav.navbar{
+    margin-bottom: 0;
+    border-radius: 0;
+    border: 0;
+}
+.sidebar-menu__root{
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 24px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #eee;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.sidebar-menu__root li{
+    width: 100%;
+}
+.sidebar-menu__root li a {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    transition: all 0.1s ease;
+}
+.sidebar-menu__root li a:hover{
+    text-decoration: none;
+    background-color: #bfbfbf;
+    transition: all 0.1s ease;
+    color: #fff;
+}
+.header-text{
+    color: #fff;
+}
+.product-cart{
+    border: 1px solid #ddd;
+    border-radius: 2px;
     margin-bottom: 24px;
 }
-.catalog-menu-item{
-    display: none;
+.product-cart__title{
+    background-color: #eee;
+    padding: 12px;
 }
-.catalog-menu-item:hover{
+.product-cart__table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.product-cart__table td{
+    border: 1px solid #eee;
+    text-align: center;
+}
+.basket-control__input{
     display: block;
+    float: left;
+    width: 40px;
+    margin-right: 20%;
+    text-align: center;
 }
-li.section_open{
-    background-color: rgba(0, 0, 0, 0.8);
+.basket-control__input:focus{
+    outline: none;
 }
-li.section_close{
-    background-color: rgba(0, 0, 0, 0.2);
+.basket-control__button{
+    display: block;
+    width: 100%;
+    padding: 8px 24px;
+    border: none;
+    background-color: #ffcd99;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.basket-control__button:hover{
+    background-color: rgb(243, 176, 88);
+    transition: all 0.2s ease;
+}
+.basket-control__button:focus{
+    outline: none;
+}
+.product-cart__button-text{
+    float: right;
+    font-size: 1.6rem;
+    padding-top: 2px;
 }

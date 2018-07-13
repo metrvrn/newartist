@@ -79,7 +79,7 @@ class CatalogModel extends Model
 			  
 			  
 			  $sectionsNoPar = Section::find()
-				->where(['xmlcodep' =>'not' ,])  
+				->where(['xmlcodep' =>'not' ,'active'=>true])  
 				 ->all();
 				 
 			  if($sectionsNoPar){
@@ -208,7 +208,7 @@ class CatalogModel extends Model
 		           if(!isset($sectionLocal->xmlcode)){return;};
 		  
 		         $sections = Section::find()
-				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,])
+				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,'active'=>true])
 				 ->all();
 		  
 		        

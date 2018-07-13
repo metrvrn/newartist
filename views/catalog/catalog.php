@@ -5,9 +5,11 @@ use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use app\models\CatalogMenuPresenter;
 
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
+
 
 $session = Yii::$app->session;
 $session->open();
@@ -28,223 +30,173 @@ if (isset($model->TopArrCurSection) && $countTopArray > 0) {
 	};
 };
 $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, ])]];
-$this->topArrCurSection = $model->TopArrCurSection;
-function printSection($arrSection)
-{
-	if (!isset($arrSection['id'])) {
-		return;
-	};
-	echo '<li>';
-	echo '<a  href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name'] . '</a>'; 
-//echo 'top sections'.$arrSection;
-	if (isset($arrSection['childArray']) && count($arrSection['childArray']) > 0) {
-		echo '<ul>';
-		foreach ($arrSection['childArray'] as $andertopsection) {
-			if(array_search($andertopsection['id'], $this->topArrCurSection)){
-				printSection($andertopsection);
-			}
-			
-		};
-		echo '</ul>';
-	}
-	echo '</li>';
-};
 ?>
-
-<div class="row"> 
-<h1><?= Html::encode($this->title) ?></h1>		
-	</div>
-	<div class="row"> 
-	<div class="col-sm-4"  >
-			<div class="site-catalog-left">
-			</div>
-			<?
-		echo '<ul>';
-
-
-		foreach ($model->arrSectioons as $key => $topSection) {
-			printSection($topSection);
-		};
-		echo '</ul>';
-		?>
-	</div>
-	<div class="col-sm-8" >
-			<div class="site-catalog-right">
-		          <h1 id="section_name" ><?= $model->getSectionNameById($model->section) ?></h1>
-					<?php
-				if ($model->quantityPageForCurSection > 1) {
-
-					for ($x = 0; $x < $model->quantityPageForCurSection; $x++) {
-
-						$pn = $x + 1;
-						echo '<a  href=' . Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => $x, ]) . ' > ' . $pn . '  </a>';
-					};
-				};
-				?>
-			 <table id="list"   style="width:100%" >
-                        <thead>
-                            <tr>
-                                <td>Наименование</td>
-                                <td>Ед.</td>
-                                <td>Цена, руб.(в т.ч. НДС)</td>
-                                <td>цена</td> 
-                                <td> в корзине</td>
-								<td> добавить   </td>
-								<td>    </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-
- 
- 
- 
- <?
-echo '<tr>';
-echo ' <td>           </td>';
-echo '<td>            </td>';
-echo '<td>            </td>';
-echo '<td>             </td>';
-echo ' <td>            </td>';
-echo ' <td>            </td>';
-echo ' <td>             </td>';
-echo '</tr>';
-foreach ($model->arrElements as $element) {
-
-	echo '<tr  id ="element_row_' . $element['id'] . '">';
-	echo ' <td> ' . $element['name'] . '</td>';
-	echo '<td>шт</td>';
-	echo '<td> </td>';
-	echo '<td>100</td>';
-	echo ' <td>0  </td>';
-	echo ' <td  ><input  id ="input_' . $element['id'] . '"   type="text"  value="1">     </td>';
-	echo ' <td>    <div class="btn btn-default"  id="btn_site_addadmin"  onclick=btn_catalog_add_to_basket(' . $element['id'] . ') >добавить</div>
-
-	</td>';
-	echo '</tr>';
-
-
-};
-
-
-?>
- 
-
-                        </tbody>
-                    </table>
-			 
-			 	<br><br><br><br>
-          
-			 
-  
-  
-			 
-			</div>
-              <h1 id="message_div" >сообщение модели</h1>
+<div class="row">
+	<div class="col-xs-12">
+		<h1><?= Html::encode($this->title)?></h1>
 	</div>
 </div>
+<div class="row"> 
+	<div class="col-sm-12 col-md-3">
+			<?php
+				/* $mr = new CatalogMenuPresenter();
+				$mr->sArr= $model->arrSectioons;
+				$mr->oSecArr = $model->TopArrCurSection;
+				$mr->render(); */
+				
+function printSection($arrSection,$cursection)
+{
+	  	 
+	if (!isset($arrSection['id'])) {return;};
+		
+	if($arrSection['visible']){
+
+		$qv=0;
+		$q=0;
+
+		foreach($arrSection['childArray']  as $k=>$el){
+			if($el[visible])$qv=$qv+1;   
+			
+			$q=$q+1; 
+			;}
 
 
+		echo '<li>';
+		echo '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name']. '</a>'; 
 
+		
+		 
+		
+			if(!$qv==0){
 
-<script>
-function btn_catalog_add_to_basket(data) {
-   var xhttp = new XMLHttpRequest();
-   var dataF = new FormData();
-   dataF.append('elementid', data);
-   dataF.append('quanty', '1');
-   xhttp.onreadystatechange = function() {
-   if (this.readyState == 4 && this.status == 200) {
-      mes( this.responseText);
-    }
-  };
-  xhttp.open("POST", "<?= Url::to(['catalog/addtobasketajax']) ?>", true);
-  xhttp.send(dataF);
-  t='input_'+data;
-  quan=document.getElementById('input_'+data).value;
-	console.log(quan)
-console.log(data)
- console.log("btn_catalog_add_to_bascet ")
-}
+			echo '<ul>';
 
+			foreach($arrSection['childArray'] as $key =>$children){printSection($children,$cursection);}
 
+			echo '</ul>';
 
-function mes(mes){
-	mes_div= document.getElementById('message_div').innerHTML=mes;
+			}else{ if($q>0&&$arrSection['id']==$cursection){
+				
+				echo '<ul>';
+
+				 
+			     foreach($arrSection['childArray'] as $key =>$children){
+					 
+					 
+					 echo '<li>';
+					 echo '<a  href='.Url::to(['catalog/index', 'section' => $children['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $children['name']. '</a>'; 
+					 echo '</li>';
+					 
+				 }
+
+			     echo '</ul>';
+				
+				
+			}
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+		
+		echo '</li>';
 	
-	
-}
-
-</script>
-
-	 <?
- //echo 'сообщение модели'.$model->message;			 
-	echo '<br>';
-	echo '<br>';
-	echo '<br>';
-	echo '<br>';
-//echo 'секция модели  '.$model->section;		
-   
-  //print_r($model->arrSectioons);
-	
-
-//foreach($model->arrSectioons as $sec){
-//	echo 'alex'.$sec.'<br>';
-	
-	
-	
-	
+	}
 	
 	 
-//};
-	
-	//echo '<br>';echo '<br>';echo '<br>';echo '<br>';
-			
-	//	print_r($model->sectionNoParentArray);
-		
-		// echo 'TopArrCurSection   <br>';echo '<br>';echo '<br>';echo '<br>';
-//
-	 	// print_r($model->TopArrCurSection);
-		
-	// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
-      //  echo'BottomArrCurSection     =<br>';
-		// print_r($model->BottomArrCurSection); 
-		
-		
-	//	foreach($model->BottomArrCurSection as $k=>$v)
-	//	{
-		
-	//	echo gettype($v).'<br>';
-			
-			
-			
-			
-			//echo '<br>';
-	//	};
-		// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
-
-				// print_r($model->section);
-		
-		// echo '<br>';echo '<br>';echo '<br>';echo '<br>';
-
-		 /// print_r($model->BottomArrCurSection);  echo '<br>';
-		
-		//  $model->elementPerPage.' elementPerPage   ';echo '<br>';echo '<br>';   echo 'page '.$model->page;echo '<br>';echo '<br>';
-		
-
-		
-		//echo $model->message.' message of model';
-		// echo intval( $model->page)*$model->elementPerPage;
+	 
+};
+				
+				
+				echo '<ul class="sidebar-menu__root">';
 
 
-	echo 'quantityPageForCurSection';
+				foreach ($model->arrSectioons as $topSection) {
+				printSection($topSection,$model->section);
+				};
+				
+				
+				echo '</ul>';
+				
+				
+			?>
+	</div>
+	<div class="col-xs-12 col-sm-9" >
+		<div class="container-fluid">
+			<div class="row">
+				<?php foreach($model->arrElements as $item) : ?>
+					<div class="col-xs-3">
+						<div class="product-cart">
+							<div class="product-cart__title">
+								<span><?=$item['name'];?></span>
+							</div>
+							<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
+							<img class="img-responsive center-block" src="<?=$img;?>" alt="">
+							<table class="product-cart__table">
+								<thead>
+									<tr>
+										<td>Цена</td>
+										<td><?=$item['price'];?></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Остатки</td>
+										<td><?=$item['quantity'];?></td>
+									</tr>
+								</tbody>
+							</table>
+							<button data-id="<?=$item['id'];?>" class="basket-control__button clearfix">
+								<input id="q<?=$item['id'];?>" data-ov="1" type="text" class="basket-control__input" placeholder="1" value="1">
+								<div class="product-cart__button-text">Добавить</div>
+							</button>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>		
+</div>
 
-    echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
+<script>
 
-	print_r($model->quantityPageForCurSection);
+(function(w){
+	w.addEventListener('click', function(e){
+		var t = e.target;
+		while(t.className !== "basket-control__button clearfix"){
+			t = t.parentElement
+			if(t.className === "product-cart") return;
+		}
+		var itemID = Number(t.dataset.id);
+		var inputID = "q"+itemID;
+		var input = document.getElementById(inputID);
+		var quantity = Number(input.value);
+		console.log("Number: " + quantity);
+		if(quantity === 0 || isNaN(quantity)){
+			console.log(quantity);
+			console.log("Error");
+		}else{
+			btn_catalog_add_to_basket(itemID, quantity);
+		}
+	});
+})(window);
 
-	?>
+function btn_catalog_add_to_basket(id, q) {
+	var xhttp = new XMLHttpRequest();
+	var dataF = new FormData();
+	dataF.append('elementid', id);
+	dataF.append('quanty', q);
+	xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		console.log("Response text:------------------");
+		console.log(this.responseText);
+		}
+	};
+  	xhttp.open("POST", "<?= Url::to(['catalog/addtobasketajax']) ?>", true);
+  	xhttp.send(dataF);
+}
+</script>

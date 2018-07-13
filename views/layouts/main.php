@@ -24,46 +24,80 @@ $this->beginPage() ?>
     <?php $this->head() ?>
 </head>
 <body>
-<div class="site-index-background"></div>
-<div class="container container-colored container-top">
+<?php $this->beginBody() ?>
+<!-- <div class="site-index-background"></div> -->
+<div class="wrapper">
     <?php NavBar::begin([
-        'brandImage' => "/images/header-logo.png"]);
-        $menuItems = [
-            ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
-            //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'О компании', 'url' => ['/site/about']],
-            ['label' => 'Контакты ', 'url' => ['/site/contact']],
-        ];
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-        } else {
-        $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
-    // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-            'Выйти (' . Yii::$app->user->identity->username . ')',
-            ['class' => 'btn btn-link logout']
-        )
-            . Html::endForm()
-            . '</li>';
-        };
-        $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav'],
-            'items' => $menuItems,
+            'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar-inverse',
+            ],
         ]);
-        NavBar::end(); ?>
-</div>
-<div class="container container-colored">
-    <div class="row">
-        <div class="col-xs-12">
-            <?= $content ?>
-        </div>	
+
+    $menuItems = [
+        ['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', ])]],  ////(['catalog/index', 'section' => 'main', 'element'=> 'main'])]],            // $url = Url::to(['post/view', 'id' => 100]);
+        //['label' => 'Каталог', 'url' => [$url = Url::to(['catalog/index', 'section' => 'main', 'element'=> 'main' ])]], 
+        // ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'О компании', 'url' => ['/site/about']],
+        ['label' => 'Контакты ', 'url' => ['/site/contact']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+    } else {
+    $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['site/zakaz'])]];
+    // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+    $menuItems[] = '<li>'
+        . Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton(
+        'Выйти (' . Yii::$app->user->identity->username . ')',
+        ['class' => 'btn btn-link logout']
+    )
+        . Html::endForm()
+        . '</li>';
+    };
+    $menuItems[] = ['label' => 'Корзина', 'url' => [Url::to(['site/basket'])]];
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItems,
+    ]);
+    NavBar::end(); ?>
+    <div class="header-background-wrapper image-responsive">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="header-text">
+                        <h1 class="text-center"><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h1>
+                        <h3 class="text-center">Товары для художников и твочества</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="breadcreambs-wrapper">
+                    <?= Breadcrumbs::widget([
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                        ]) ?>
+                    <?= Alert::widget() ?>
+                </div>
+            </div>
+        </div>
+        <?= $content ?>
+        </div>
 </div>
+<footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p><b>Footer</b></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 <?php $this->endBody() ?>
 </body>
 </html>
