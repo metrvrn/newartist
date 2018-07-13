@@ -25,6 +25,7 @@ class BasketModel extends Model
 	 
 	 
 	 public $basketArray;
+	 public $basketSum;
 	
 	
 
@@ -133,6 +134,8 @@ class BasketModel extends Model
 			   
 			   
 			    $imagesArray=[];
+				 $imagesArrayDetail=[];
+				
 			     $images=Image::find()
 				 ->where(['elementid'=>$intArrayOfIdElementInBasket])
 				 ->all();
@@ -142,6 +145,8 @@ class BasketModel extends Model
 					foreach($images as $image){
 						
 						$imagesArray[$image['elementid']]=$image['filep'];
+						
+						$imagesArrayDetail[$image['elementid']]=$image['filed'];
 						
 					}
 					
@@ -166,7 +171,7 @@ class BasketModel extends Model
 					
 				}
 			
-			
+				$this->basketSum=0;
 			
 			foreach($baskets as $basket  ){
 				
@@ -192,15 +197,16 @@ class BasketModel extends Model
 					
 					if(isset($imagesArray[$basket['elementid']])){
 						$intForeach['image']=$imagesArray[$basket['elementid']];
+						$intForeach['imagd']=$imagesArrayDetail[$basket['elementid']];
 						
 					}else{     
-					
+					$intForeach['imagd']='not';
 					$intForeach['image']='not';
 					}
 					
 					
 					
-					
+					$this->basketSum=$this->basketSum+$basket['sum']; 
 					
 				 	$this->basketArray[]=$intForeach;
 				
@@ -208,42 +214,23 @@ class BasketModel extends Model
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			 
+	 
 			 
 		 }
 		 
 		 
 		 
 		 
-		 //finde all chaild of id.
-		     //    $elements = Element::find()
-				 
-				// ->orderBy("name")				
-				// ->offset( intval( $this->page*$this->elementPerPage))
-				//  ->limit(intval($this->elementPerPage))
-				 //->where(['idp' =>ltrim(  $startCode )])
-				// ->all();
-		 
+
 		 
 		 
 		 
 		 
 		 
 	 }
+	 
+	 
+	
 	 
 	 
 	 

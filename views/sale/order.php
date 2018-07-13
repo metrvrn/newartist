@@ -12,7 +12,7 @@ use app\models\LokalFileModel;
 
 
 
-$this->title = 'Корзина';
+$this->title = 'Заказ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row"> 
@@ -128,7 +128,7 @@ function printSection($arrSection,$cursection)
 					<th>Цена</th>
 					<th>Количество</th>
 					<th>Сумма</th>
-					<th>Удалить</th>
+					 
 				</tr>
 			</thead>
 			<tbody>
@@ -142,7 +142,7 @@ function printSection($arrSection,$cursection)
 						<td><?=$item['price']?></td>
 						<td><?=$item['quantity']?></td>
 						<td><?=$item['sum']?></td>
-						<td>X</td>
+						 
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
@@ -151,19 +151,29 @@ function printSection($arrSection,$cursection)
 			стоимость корзины <?=$model->basketSum;   ?>
 			
 			<br>	<br>
+		<?php if ( count($model->basketArray)>0   ): ?>
+			<?php $form = ActiveForm::begin(['id' => 'zakaz-form' ,'action'=>Url::to(['sale/order',]),]); ?>
+			<?= $form->field($modelForm, 'name')->label('Имя')->textInput() ?>
+			<?= $form->field($modelForm, 'email')->label('электронный адрес') ?>
+			<?= $form->field($modelForm, 'phone')->label('телефон') ?>
+			<?= $form->field($modelForm, 'adress')->textarea(['rows' => 6])->label('Адрес')  ?>
 			
 			
-		<a href="<?=Url::to(['sale/order',]);?>" >
-	 	<div class="form-group">
-				<?= Html::submitButton('Оформить заказ', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-		 </div>
-		 	</a>
+			    <div class="form-group">
+				<?= Html::submitButton('Оформить заказ', ['class' => 'btn btn-primary', 'name' => 'contact-button',]) ?>
+				</div>
+			
+			
+			
+			<?php ActiveForm::end(); ?>
+		<?php endif; ?>
+		
 		
 		
 	</div>
 </div>
 <div class="row"> 
 	<div class="col-xs-12">
-	
+		
 	</div>
 </div>

@@ -27,12 +27,21 @@ $this->beginPage() ?>
 <?php $this->beginBody() ?>
 <!-- <div class="site-index-background"></div> -->
 <div class="wrapper">
+    <div class="header-background-wrapper image-responsive">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="header-text">
+                        <h1 class="header-title"><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h1>
+                        <h3 class="header-description"><span>Товары для художников и твочества</span></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php NavBar::begin([
             'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
             'brandUrl' => Yii::$app->homeUrl,
-            'options' => [
-                'class' => 'navbar-inverse',
-            ],
         ]);
 
     $menuItems = [
@@ -47,6 +56,7 @@ $this->beginPage() ?>
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
     $menuItems[] = ['label' => 'Заказы', 'url' => [Url::to(['sale/index'])]];
+	  $menuItems[] = ['label' => 'Профиль', 'url' => [Url::to(['site/profile'])]];
     // $menuItems[] =['label' => 'Корзина', 'url' => [Url::to(['sale/basket'])]];
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
@@ -63,18 +73,6 @@ $this->beginPage() ?>
         'items' => $menuItems,
     ]);
     NavBar::end(); ?>
-    <div class="header-background-wrapper image-responsive">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="header-text">
-                        <h1 class="text-center"><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h1>
-                        <h3 class="text-center">Товары для художников и твочества</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">

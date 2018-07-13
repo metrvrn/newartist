@@ -22,7 +22,7 @@ use app\models\CatalogModelAdmin;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\BasketModel;
-use app\models\OrderModel;
+use app\models\ZakazModel;
 use app\models\ZakazForm;
 
 use app\models\ AddLogingModel;
@@ -56,17 +56,20 @@ class SaleController extends Controller
 		$catalogModel=new CatalogModel();
 		 
 		$catalogModel->elementPerPage=50;
-	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
-	    $catalogModel->fillBottomArrCurSection();
+	    $catalogModel->fillBottomArrCurSection(); 
 		$catalogModel->setVisibleForCurienSection();
 		
-	
+		 $modelBasket= new BasketModel();	 
+         $modelZakazForm= new ZakazForm();	
 		
+		 $model= new ZakazModel();	  
 		  
 			
 		   return $this->render('index', [
+             'model' => $model,
 		 	 'catalogModel' => $catalogModel,
 			]);
 			
@@ -76,16 +79,14 @@ class SaleController extends Controller
 	
 	 public function actionBasket()
     {
-		$catalogModel=new CatalogModel();
+		$catalogModel=new CatalogModel(); 
 		 
 		$catalogModel->elementPerPage=50;
-	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    // $catalogModel->load(Yii::$app->request->get(),'');		
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
-		
-
-		$catalogModel->setVisibleForCurienSection();
+			$catalogModel->setVisibleForCurienSection();
 		
 		 $modelBasket= new BasketModel();	 
           $modelZakazForm= new ZakazForm();	
@@ -138,86 +139,7 @@ class SaleController extends Controller
 		
 	   
     }
-	   public function actionOrder()
-    {
-		$catalogModel=new CatalogModel();
-		 
-		$catalogModel->elementPerPage=50;
-
-	    $catalogModel->fillarrSectioons(); 
-		$catalogModel->fillTopArrCurSection();  
-	    $catalogModel->fillBottomArrCurSection();
-		$catalogModel->setVisibleForCurienSection();
-		
-		 $modelBasket= new BasketModel();	 
-         $modelZakazForm= new ZakazForm();	
-     	
-		  
-			
-	  if ($modelZakazForm->load(Yii::$app->request->post()) && $modelZakazForm->validate()) {
-		  
-		   $model= new OrderModel();	
-		   
-		    $model->makeOrder();
-		 
-		  return $this->render('orderdetail', [
-         'model' => $model, 
-		
-		
-			]);
-		  
-		  
-	  }
-       
-		  
-
-            //sessionid
-							$session = Yii::$app->session;
-							if ($session->isActive){// $AjaxModel->message= $AjaxModel->message.'  isAllaiv';
-
-								//	$AjaxModel->message= $AjaxModel->message.'<br>'.$session ->getId();
-
-									$modelBasket->sessionForBasket=$session ->getId();
-
-							};
-
-							
-							//user id;
-							if (Yii::$app->user->isGuest){
-
-								//$AjaxModel->message= $AjaxModel->message.'<br> user is guest';
-
-							}else{
-
-
-									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
-									$modelBasket->userId=Yii::$app->user->id;
-	                               $modelZakazForm->name=Yii::$app->user->identity->name;
-                                    $modelZakazForm->phone=Yii::$app->user->identity->phone;
-									$modelZakazForm->adress=Yii::$app->user->identity->adress;
-									$modelZakazForm->email=Yii::$app->user->identity->email;
-									//email
-							}
-
-							
-							
-							
-						 
-
-		 $modelBasket->fillBasketArray();
-		  
-			
-			
-			//$modelZakazForm->name='alexandra';
-			
-			
-			
-		   return $this->render('order', [
-         'model' => $modelBasket, 
-		 'modelForm'=>$modelZakazForm,
-		 'catalogModel' => $catalogModel,
-			]);
-    }
+	 
 	
 	
 	

@@ -37,12 +37,8 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 	</div>
 </div>
 <div class="row"> 
-	<div class="col-sm-12 col-md-3">
+	<div class="col-xs-12 col-md-3">
 			<?php
-				/* $mr = new CatalogMenuPresenter();
-				$mr->sArr= $model->arrSectioons;
-				$mr->oSecArr = $model->TopArrCurSection;
-				$mr->render(); */
 				
 function printSection($arrSection,$cursection)
 {
@@ -125,31 +121,26 @@ function printSection($arrSection,$cursection)
 				
 			?>
 	</div>
-	<div class="col-xs-12 col-sm-9" >
+	<div class="col-xs-12 col-md-9" >
 		<div class="container-fluid">
 			<div class="row">
 				<?php foreach($model->arrElements as $item) : ?>
-					<div class="col-xs-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="product-cart">
 							<div class="product-cart__title">
 								<span><?=$item['name'];?></span>
 							</div>
 							<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
-							<img class="img-responsive center-block" src="<?=$img;?>" alt="">
-							<table class="product-cart__table">
-								<thead>
-									<tr>
-										<td>Цена</td>
-										<td><?=$item['price'];?></td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Остатки</td>
-										<td><?=$item['quantity'];?></td>
-									</tr>
-								</tbody>
-							</table>
+							<img data-full="<?=$item['imaged'];?>" class="img-responsive center-block prodcut-cart__image" src="<?=$img;?>" alt="">
+							<div class="prodcut-cart__info clearfix">
+								<div class="prodcut-price__quantitty">
+									<span><?=$item['quantity'];?> шт.</span>
+								</div>
+								<div class="prodcut-cart__price">
+									<span class="product-cart__price-text"><?=$item['price'];?></span>
+									<span class="prodcut-cart__price-icon">&#8381;</span>
+								</div>
+							</div>
 							<div id="<?=$item['id']?>"  class="product-cart__controll clearfix">
 								<button class="product-cart__btn-mns">
 									<i class="fas fa-minus"></i>
@@ -189,7 +180,7 @@ function printSection($arrSection,$cursection)
 					inSearch = false;
 					break;
 				case "product-cart__add-basket":
-					console.log('basket');
+					addBasket(target);
 					inSearch = false;
 					break;
 				case "product-cart__controll clearfix" || "product-cart__q-input":
@@ -206,8 +197,25 @@ function printSection($arrSection,$cursection)
 	w.addEventListener('input', function(e){
 		handleInput(e.target);
 	});
+	w.addEventListener('mouseover', function(e){
+		if(e.target.className !== "img-responsive center-block prodcut-cart__image") return;
+		showDetailImage(e.target);
+	});
 })(window)
 
+function showDetailImage(srcElem)
+{	
+	if(srcElem.dataset.full === 'not') return;
+	var url = srcElem.dataset.full;
+	var img = document.createElement('img');
+	img.classList.add("popup-image");
+	img.classList.add("image-responsive");
+	img.src = "https://metropt.ru/upload/"+url;
+	srcElem.parentElement.appendChild(img);
+	img.addEventListener('mouseleave', function(e){
+		e.target.remove();
+	});
+}
 //return product id by control element
 function getElementID(controlElem)
 {
@@ -245,17 +253,22 @@ function handleInput(input)
 	var newVal = Number(input.value);
 	var available = Number(input.dataset.available);
 	var oldVal = Number(input.dataset.old);
-	switch(newVal){
-		case NaN:
-			input.value = oldValue;
-			break;
-		case newVal < 1:
-			input.value = 1;
-			break;
-		case newVal > available:
-			input.value = oldVal;
-			break
+	if(newVal == NaN){
+		input.value = oldValue;
+	}else if(newVal < 1){
+		input.value = 1;
+	}else if(newVal > available){
+		input.value = available;
+	}else{
+		input.value = newVal;
 	}
+}
+
+function addBasket(controlElem)
+{
+	var id = Number(getElementID(controlElem));
+	var q = Number(getInput(controlElem).value);
+	btn_catalog_add_to_basket(id, q)
 }
 
 function btn_catalog_add_to_basket(id, q)

@@ -1,8 +1,30 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Caveat';
+    src: url('/fonts/Caveat-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 html,
 body {
     height: 100%;
     min-height: 100%;
     width: 100%;
+    font-family: "Roboto", sans-serif;
+}
+.header-title{
+    font-size: 6rem;
+    text-align: center;
+}
+.header-description{
+    text-align: center;
+    font-family: 'Caveat', serif;
+    font-size: 5rem;
 }
 .jumbotron {
     text-align: center;
@@ -96,26 +118,34 @@ a.desc:after {
     outline: none;
 }
 .nav > li >  a{
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 3rem;
     color: #000;
     text-transform: uppercase;
     transition: all 0.2s ease;
+    font-weight: 700;
 }
-/* .nav > li.active >  a{
-    text-decoration: underline;
-}
-.nav > li >  a:hover{
-    text-decoration: underline;
-    background-color: transparent;
-    transition: all 0.2s ease;
-}
-.navbar.navbar-default{
-    background: transparent;
-    border: none;
-} */
 .navbar-default .navbar-nav > li > a {
     color: #000
+}
+.navbar-default{
+    background-color: #ffc670;
+}
+.navbar-default .navbar-brand{
+    font-size: 3rem;
+    line-height: 3rem;
+    color: #000;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus{
+    color: #000;
+    background-color: #ff9e66;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus{
+    color: #000;
+    background-color: #ff9e66;
 }
 .container-colored{
     background-color: #fff;
@@ -210,23 +240,33 @@ nav.navbar{
     margin-bottom: 24px;
 }
 .product-cart__title{
+    height: 62px;
     background-color: #eee;
-    padding: 12px;
+    padding: 2px 4px;
+    margin-bottom: 4px;
 }
-.product-cart__table{
-    width: 100%;
-    border-collapse: collapse;
+.product-cart__title span{
+    display: table-cell;
+    height: 62px;
+    vertical-align: middle;
 }
-.product-cart__table td{
-    border: 1px solid #eee;
-    text-align: center;
+.popup-image{
+    position: absolute;
+    -webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 500;
+    top: 64px;
+    right: -60px;
 }
 .product-cart__controll{
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 32px;
+    height: 42px;
+    padding: 4px;
+    border-top: 1px solid #eee;
 }
 .product-cart__btn-pls{
     float: left;
@@ -235,7 +275,12 @@ nav.navbar{
     margin: 0;
     height: 100%;
     width: 16.66%;
+    margin-right: 4%;
     border: none;
+    border-radius: 50%;
+    background-color: #eee;
+}
+.product-cart__btn-pls:hover{
     background-color: #d3daff;
 }
 .product-cart__q-input{
@@ -244,13 +289,14 @@ nav.navbar{
     padding: 0;
     margin: 0;
     height: 100%;
-    width: 33.33%;
+    width: 22.2%;
+    margin-left: 4%;
+    margin-right: 4%;
     border: none;
     font-size: 1.6rem;
     font-weight: 700;
     text-align: center;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border: 1px solid #eee;
 }
 .product-cart__btn-mns{
     float: left;
@@ -260,6 +306,10 @@ nav.navbar{
     height: 100%;
     width: 16.66%;
     border: none;
+    border-radius: 50%;
+    background-color: #eee;
+}
+.product-cart__btn-mns:hover{
     background-color: #ffd3d3;
 }
 .product-cart__add-basket{
@@ -268,7 +318,38 @@ nav.navbar{
     padding: 0;
     margin: 0;
     height: 100%;
-    width: 33.33%;
+    width: 32.33%;
     border: none;
+    border-radius: 5px;
     background-color: #8ae091;
+}
+.product-cart__add-basket:hover{
+    background-color: #60b367;
+}
+.product-cart__q-input:focus,
+.product-cart__add-basket:focus,
+.product-cart__btn-pls:focus,
+.product-cart__btn-mns:focus{
+    outline: none;
+}
+.prodcut-cart__info{
+    position: absolute;
+    bottom: 42px;
+    left: 0;
+    right: 0;
+    padding: 4px 8px;
+}
+.prodcut-cart__price{
+    font-size: 1.6rem;
+    float: right;
+    font-weight: 700;
+}
+.product-cart__price-text{
+    color: red;
+}
+.prodcut-cart__price-icon{
+
+}
+.prodcut-price__quantitty{
+    float: left;
 }
