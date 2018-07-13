@@ -117,7 +117,7 @@ class BasketModel extends Model
 		 
 		 
 		 $baskets=  Basket::find()
-		  ->where(['sessionid' =>  $sessionIdArray]) 
+		  ->where(['sessionid' =>  $sessionIdArray, 'zakazid'=>null]) 
 		 ->all();
 		 
 		 if($baskets){

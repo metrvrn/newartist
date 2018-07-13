@@ -130,8 +130,11 @@ function printSection($arrSection,$cursection)
 							<div class="product-cart__title">
 								<span><?=$item['name'];?></span>
 							</div>
+							<div data-full="<?=$item['imaged'];?>" class="product-cart__magnifier">
+								<i class="fas fa-search-plus"></i>
+							</div>
 							<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
-							<img data-full="<?=$item['imaged'];?>" class="img-responsive center-block prodcut-cart__image" src="<?=$img;?>" alt="">
+							<img class="img-responsive center-block prodcut-cart__image" src="<?=$img;?>" alt="">
 							<div class="prodcut-cart__info clearfix">
 								<div class="prodcut-price__quantitty">
 									<span><?=$item['quantity'];?> шт.</span>
@@ -183,6 +186,10 @@ function printSection($arrSection,$cursection)
 					addBasket(target);
 					inSearch = false;
 					break;
+				case "product-cart__magnifier":
+					showDetailImage(target);
+					inSearch = false;
+					break;
 				case "product-cart__controll clearfix" || "product-cart__q-input":
 					inSearch = false;
 					return;
@@ -197,24 +204,11 @@ function printSection($arrSection,$cursection)
 	w.addEventListener('input', function(e){
 		handleInput(e.target);
 	});
-	w.addEventListener('mouseover', function(e){
-		if(e.target.className !== "img-responsive center-block prodcut-cart__image") return;
-		showDetailImage(e.target);
-	});
 })(window)
 
 function showDetailImage(srcElem)
 {	
-	if(srcElem.dataset.full === 'not') return;
-	var url = srcElem.dataset.full;
-	var img = document.createElement('img');
-	img.classList.add("popup-image");
-	img.classList.add("image-responsive");
-	img.src = "https://metropt.ru/upload/"+url;
-	srcElem.parentElement.appendChild(img);
-	img.addEventListener('mouseleave', function(e){
-		e.target.remove();
-	});
+	console.log(srcElem.dataset.full);
 }
 //return product id by control element
 function getElementID(controlElem)

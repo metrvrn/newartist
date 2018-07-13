@@ -20,6 +20,7 @@ body {
 .header-title{
     font-size: 6rem;
     text-align: center;
+    font-weight: 700;
 }
 .header-description{
     text-align: center;
@@ -147,6 +148,20 @@ a.desc:after {
     color: #000;
     background-color: #ff9e66;
 }
+.navbar-default .navbar-toggle{
+    border-color: #000
+}
+.navbar-default .navbar-toggle .icon-bar{
+    background-color: #000;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus{
+    background-color: #ff9354
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form{
+    border-color: #000;
+}
 .container-colored{
     background-color: #fff;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -241,7 +256,7 @@ nav.navbar{
 }
 .product-cart__title{
     height: 62px;
-    background-color: #eee;
+    background-color: #ffc670;
     padding: 2px 4px;
     margin-bottom: 4px;
 }
@@ -249,6 +264,14 @@ nav.navbar{
     display: table-cell;
     height: 62px;
     vertical-align: middle;
+}
+.product-cart__magnifier{
+    position: absolute;
+    position: absolute;
+    top: 68px;
+    right: 12px;
+    font-size: 2.4rem;
+    color: #555;
 }
 .popup-image{
     position: absolute;

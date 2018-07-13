@@ -109,7 +109,7 @@ class SaleController extends Controller
 
 							}else{
 
-
+                                   
 									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
 									$modelBasket->userId=Yii::$app->user->id;
 	                               $modelZakazForm->name=Yii::$app->user->identity->name;
@@ -156,7 +156,8 @@ class SaleController extends Controller
 			
 	  if ($modelZakazForm->load(Yii::$app->request->post()) && $modelZakazForm->validate()) {
 		  
-		   $model= new OrderModel();	
+		   $model= new OrderModel();
+   
 		   
 		    $model->makeOrder();
 		 
@@ -191,8 +192,8 @@ class SaleController extends Controller
 
 
 									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
-									$modelBasket->userId=Yii::$app->user->id;
-	                               $modelZakazForm->name=Yii::$app->user->identity->name;
+								  //  $modelZakazForm->userId=Yii::$app->user->id;
+	                                $modelZakazForm->name=Yii::$app->user->identity->name;
                                     $modelZakazForm->phone=Yii::$app->user->identity->phone;
 									$modelZakazForm->adress=Yii::$app->user->identity->adress;
 									$modelZakazForm->email=Yii::$app->user->identity->email;
