@@ -24,6 +24,7 @@ use app\models\ResetPasswordForm;
 use app\models\BasketModel;
 use app\models\OrderModel;
 use app\models\ZakazForm;
+use app\models\SaleModel;
 
 use app\models\ AddLogingModel;
 
@@ -62,11 +63,30 @@ class SaleController extends Controller
 	    $catalogModel->fillBottomArrCurSection();
 		$catalogModel->setVisibleForCurienSection();
 		
+		
+		
+		
+		$model=new SaleModel(); 
+		
+		if (Yii::$app->user->isGuest){
+
+		}else{                                   
+
+	     $model->userId	 =Yii::$app->user->id;
+		 
+		 $model->fillOrdersListForCurientUser();	
+		
+	
+		
+	                               
+		}
+		
 	
 		
 		  
 			
 		   return $this->render('index', [
+		    'model' => $model,
 		 	 'catalogModel' => $catalogModel,
 			]);
 			
@@ -111,13 +131,8 @@ class SaleController extends Controller
 
                                    
 									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
-									//$modelBasket->userId=Yii::$app->user->id;
-	                               //$modelZakazForm->name=Yii::$app->user->identity->name;
-                                    //$modelZakazForm->phone=Yii::$app->user->identity->phone;
-									//$modelZakazForm->adress=Yii::$app->user->identity->adress;
-									
-									//$modelZakazForm->email=Yii::$app->user->identity->email;
-									//email
+									$modelBasket->userId=Yii::$app->user->id;
+	                               
 							}
 
 
@@ -125,13 +140,13 @@ class SaleController extends Controller
 		  
 			
 			
-			//$modelZakazForm->name='alexandra';
+			
 			
 			
 			
 		   return $this->render('basket', [
          'model' => $modelBasket, 
-		 //'modelForm'=>$modelZakazForm,
+		
 		 'catalogModel' => $catalogModel,
 			]);
 			
@@ -157,6 +172,11 @@ class SaleController extends Controller
 	  if ($modelZakazForm->load(Yii::$app->request->post()) && $modelZakazForm->validate()) {
 		  
 		   $model= new OrderModel();
+		   
+		   
+		   
+		   
+		   
    
 		   
 		    $model->makeOrder();
@@ -190,8 +210,9 @@ class SaleController extends Controller
 
 
 									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
-								  //  $modelZakazForm->userId=Yii::$app->user->id;
-	                                $modelZakazForm->name=Yii::$app->user->identity->name;
+								    $modelBasket->userId=Yii::$app->user->id;
+	                               
+								    $modelZakazForm->name=Yii::$app->user->identity->name;
                                     $modelZakazForm->phone=Yii::$app->user->identity->phone;
 									$modelZakazForm->adress=Yii::$app->user->identity->adress;
 									$modelZakazForm->email=Yii::$app->user->identity->email;

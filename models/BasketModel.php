@@ -87,7 +87,11 @@ class BasketModel extends Model
 		 $sessionIdArray=[];
 		 $sessionIdArray[]=$this->sessionForBasket;
 		 
+		 
+		 
 		 if(isset ($this->userId)){
+			 
+		 
 			 
 			 $sessionForUserInDB=Usersessitions::find()
 			  ->where(['userid' =>  $this->userId])
@@ -101,6 +105,8 @@ class BasketModel extends Model
 				  foreach( $sessionForUserInDB as $val  ){
 					  
 					  $sessionIdArray[]=$val->session;  
+					  
+					  
 					  
 				  };
 				  

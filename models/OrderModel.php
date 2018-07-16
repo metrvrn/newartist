@@ -41,19 +41,19 @@ class OrderModel extends Model
       {
 		  
 		  
-		  	$session = Yii::$app->session;
-							if ($session->isActive){ 		 
+					$session = Yii::$app->session;
+					if ($session->isActive){ 		 
 
-									$this->sessionForBasket=$session->getId();
-							};
+							$this->sessionForBasket=$session->getId();
+					};
 
 
 							if (Yii::$app->user->isGuest){							 
 	                         
 							}else{		  	 
-									$this->userId=Yii::$app->user->identity->id;
+									$this->userId=Yii::$app->user->id;
 								 
-								
+								echo  $this->userId.'идентификтор пользователя';
 									
 	                                $this->name=Yii::$app->user->identity->name;
                                     $this->phone=Yii::$app->user->identity->phone;
