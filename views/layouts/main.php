@@ -33,7 +33,7 @@ $this->beginPage() ?>
                 <div class="col-xs-12">
                     <div class="header-text">
                         <h1 class="header-title"><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?></h1>
-                        <h3 class="header-description"><span>Товары для художников и твочества</span></h3>
+                        <h3 class="header-description"><span><?=LokalFileModel::getDataByKeyFromLocalfile('local_data_titleName')?></span></h3>
                     </div>
                 </div>
             </div>
