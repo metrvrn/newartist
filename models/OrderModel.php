@@ -53,7 +53,7 @@ class OrderModel extends Model
 							}else{		  	 
 									$this->userId=Yii::$app->user->id;
 								 
-								echo  $this->userId.'идентификтор пользователя';
+								
 									
 	                                $this->name=Yii::$app->user->identity->name;
                                     $this->phone=Yii::$app->user->identity->phone;
@@ -71,6 +71,8 @@ class OrderModel extends Model
 			$order->userid=$this->userId;	
 				
 			}
+			
+			
 			$order->datatime=date('Y-m-d H:i:s');
 			$order->usersessition=$this->sessionForBasket;	
 			
@@ -225,6 +227,10 @@ class OrderModel extends Model
 			}
 			
 			
+			
+			
+			$order->summ=$this->basketSum;
+			$order->save();
 			
 	 
 			 

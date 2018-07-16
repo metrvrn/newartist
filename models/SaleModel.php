@@ -40,11 +40,26 @@ class SaleModel extends Model
 	   
 			
 	   $orders=Order::find()
-	   ->where(['userid'=>$this->$userId])
+	   ->where(['userid'=>$this->userId])
 	   ->all();
 		 
   
- 
+         if($orders){
+			 
+			 foreach($orders as $order){
+				 
+				 $this->arrOrdersForCurientUser[]=$order;
+				 
+				 
+				 
+				 
+				 
+				 
+			 }
+			 
+			 
+			 
+		 };
  
  
  

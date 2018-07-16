@@ -106,6 +106,22 @@ function printSection($arrSection,$cursection)
     </div>
     <div id="links" class="col-xs-12 col-md-9">
         
+		
+		<?foreach($model->arrOrdersForCurientUser as $order){
+			
+			
+			
+			echo '<div>';
+			echo 'заказ номер '.$order['id'].'  сумма '.$order['summ'].'<br>';
+			echo '</div>';
+			
+			
+			
+			
+			
+		}?>
+		
+		
     </div>
 </div>
 </div>
