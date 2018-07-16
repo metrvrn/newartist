@@ -552,10 +552,7 @@ class SiteController extends Controller
 		 
 		$catalogModel->setVisibleForCurienSection();
 		
-		 $modelBasket= new BasketModel();	 
-          $modelZakazForm= new ZakazForm();	
-		
-		 $model= new ZakazModel();	  
+		   
 		  
 			
 		   return $this->render('profile', [

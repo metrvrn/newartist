@@ -68,7 +68,7 @@ class OrderModel extends Model
 		    $order->coment='coment';
 			if(isset($this->userId)){
 			
-			$order->userId=$this->userId;	
+			$order->userid=$this->userId;	
 				
 			}
 			$order->datatime=date('Y-m-d H:i:s');

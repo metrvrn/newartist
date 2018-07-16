@@ -111,12 +111,12 @@ class SaleController extends Controller
 
                                    
 									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
-									$modelBasket->userId=Yii::$app->user->id;
-	                               $modelZakazForm->name=Yii::$app->user->identity->name;
-                                    $modelZakazForm->phone=Yii::$app->user->identity->phone;
-									$modelZakazForm->adress=Yii::$app->user->identity->adress;
+									//$modelBasket->userId=Yii::$app->user->id;
+	                               //$modelZakazForm->name=Yii::$app->user->identity->name;
+                                    //$modelZakazForm->phone=Yii::$app->user->identity->phone;
+									//$modelZakazForm->adress=Yii::$app->user->identity->adress;
 									
-									$modelZakazForm->email=Yii::$app->user->identity->email;
+									//$modelZakazForm->email=Yii::$app->user->identity->email;
 									//email
 							}
 
@@ -131,7 +131,7 @@ class SaleController extends Controller
 			
 		   return $this->render('basket', [
          'model' => $modelBasket, 
-		 'modelForm'=>$modelZakazForm,
+		 //'modelForm'=>$modelZakazForm,
 		 'catalogModel' => $catalogModel,
 			]);
 			
@@ -176,9 +176,7 @@ class SaleController extends Controller
 							$session = Yii::$app->session;
 							if ($session->isActive){// $AjaxModel->message= $AjaxModel->message.'  isAllaiv';
 
-								//	$AjaxModel->message= $AjaxModel->message.'<br>'.$session ->getId();
-
-									$modelBasket->sessionForBasket=$session ->getId();
+							 		$modelBasket->sessionForBasket=$session ->getId();
 
 							};
 
