@@ -50,9 +50,9 @@ class LokalFileModel
 			}
 		
 		
-		$value=Yii::$app->cache->get("$key");
+		$value=Yii::$app->cache->get($key);
 		
-		
+		Yii::$app->cache->delete($key);
 		 
 		
 		return $value ;
