@@ -616,13 +616,13 @@ class AdminModel extends Model
 							   
 							   if($quantity){
 									
-								   foreach($quantity as $quan){   $mes=$mes.$quan['id'].'SetIndexpToZero  <br>';
+								   foreach($quantity as $quan){   $mes=$mes.$quan['id'].'SetIndexpToZero begin to find  <br>';
 										
 										$element = Element::find()
-										->where(['id' =>$quan->elementid])
+										->where(['id' =>$quan['id']])
 										->one();
 										
-										if($element){   $mes=$mes.$element['id'].'  <br>';
+										if($element){   $mes=$mes.$element['id'].'set index p to zero   <br>';
 											
 											$element->indexp=0;
 											$element->save();
@@ -635,7 +635,7 @@ class AdminModel extends Model
 							   }
 							   
 							   
-							   
+							   $this->message=$this->message.$mes;
 							   
  	   
 			   }

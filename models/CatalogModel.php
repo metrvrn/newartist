@@ -193,7 +193,7 @@ class CatalogModel extends Model
 				
 				
 		         $elements = Element::find()
-				  ->where(['idp' =>$this->BottomArrCurSection ,'issection' =>false]) 
+				  ->where(['idp' =>$this->BottomArrCurSection ,'issection' =>false, 'active'=>1 ]) 
 				 ->orderBy("name")				
 				 ->offset( intval( $this->page*$this->elementPerPage))
 				  ->limit(intval($this->elementPerPage))
