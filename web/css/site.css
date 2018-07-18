@@ -376,3 +376,8 @@ nav.navbar{
 .prodcut-price__quantitty{
     float: left;
 }
+.image-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
