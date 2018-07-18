@@ -1,7 +1,8 @@
 
 (function(w){
     handlePageButtons(w);
-    handleInputs(w);
+	handleInputs(w);
+	w.spinner = document.getElementById('spinner');
 })(window)
 
 function handlePageButtons(w)
@@ -34,14 +35,18 @@ function handlePageButtons(w)
 					return;
 					break;
 				default:
-					counterUpper++;
-					if(counterUpper > 3) inSearch = false;
 					target = target.parentElement;
+					if(target === null){
+						inSearch = false;
+						return false;
+					}
 			}
 		}
 	});
 }
 
+
+//handle counter inputs
 function handleInputs(w)
 {
     w.addEventListener('input', function(e){
@@ -60,14 +65,32 @@ function handleInputs(w)
     });
 }
 
+
+//show pop-up window with detail image
 function showDetailImage(srcElem)
 {	
     if(srcElem.dataset.full === 'not') return;
-    var url = 'https://metropt.ru/upload/'+srcElem.dataset.full;
-    var img = document.createElement('img');
-    img.classList.add('image-modal');
-    img.src = url;
-    document.body.appendChild(img);
+	var url = 'https://metropt.ru/upload/'+srcElem.dataset.full;
+	var imgWrapper = document.createElement('div');
+	//need for vertical align of image
+	var imgWrapperHelper = document.createElement('span');
+	var img = document.createElement('img');
+	imgWrapper.className = 'image-modal__wrapper';
+	imgWrapperHelper.className = 'image-modal__wrapper-helper';
+    img.className = 'image-modal';
+	imgWrapper.appendChild(imgWrapperHelper);
+	var spinner = window.spinner.cloneNode(true);
+	spinner.className = "spinner";
+	imgWrapper.appendChild(spinner);
+	document.body.appendChild(imgWrapper);
+	imgWrapper.addEventListener('click', function(e){
+		imgWrapper.remove();
+	});
+	img.src = url;
+	img.onload = function(){
+		spinner.remove();
+		imgWrapper.appendChild(this);
+	}
 }
 //return product id by control element
 function getElementID(controlElem)

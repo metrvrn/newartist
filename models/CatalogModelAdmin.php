@@ -16,7 +16,7 @@ class CatalogModelAdmin extends Model
 	//add element to bssket
 	public $elementForAddToBasket;
     public $sessionForBasket;
-	public $userId;
+	//public $userId;
 	
 	
 	public $sectionNoParentArray;
@@ -38,11 +38,16 @@ class CatalogModelAdmin extends Model
 	
 	
 	public   $arrElements; 
-	public   $arrElementsImage; 
+	public   $arrElementsImage;
+	public   $arrElementsImageDetail;
 	public   $arrElementsPrice; 
 	public   $arrElementsQuantity; 
 	
     public   $arrSectioons;
+
+	
+	
+	
 	public   $TopArrCurSection; // we need for every request fo curient section
 	public   $BottomArrCurSection; 
 	//public   $BottomArrCurSectionArr;
@@ -74,7 +79,12 @@ class CatalogModelAdmin extends Model
 			return $scenarios;
 	}
 	
-       ///data for view arrSectioons 
+       
+	   
+	   
+	   
+	   
+	   
           public   function fillElementIdArray(){
 			  
 		  $this->elementIdArray=[];
@@ -106,7 +116,7 @@ class CatalogModelAdmin extends Model
 			  
 			  
 			  $sectionsNoPar = Section::find()
-				->where(['xmlcodep' =>'not' ,'active'=>true])  
+				->where(['xmlcodep' =>'b17cf5b5-b563-11e5-8c42-74d435abdf35' ,'active'=>true])  
 				 ->all();
 				 
 			  if($sectionsNoPar){
@@ -170,7 +180,7 @@ class CatalogModelAdmin extends Model
 						  
 						  
 							
-						  //Yii::$app->cache->set('arrSectioons', $treeArray);
+						  //Yii::$app->cache->set('arrSectioons', $this->arrSectioons);
 				        }
 				
 				
@@ -192,7 +202,7 @@ class CatalogModelAdmin extends Model
 				
 				
 		         $elements = Element::find()
-				  ->where(['idp' =>$this->BottomArrCurSection ,'issection' =>false]) 
+				  ->where(['idp' =>$this->BottomArrCurSection ,'issection' =>false, 'active'=>1 ]) 
 				 ->orderBy("name")				
 				 ->offset( intval( $this->page*$this->elementPerPage))
 				  ->limit(intval($this->elementPerPage))
@@ -530,16 +540,16 @@ class CatalogModelAdmin extends Model
   public function fillImageForElementArray(){
 	  
 	    $this->arrElementsImage=[];
+		
+		$this->arrElementsImageDetail=[];
 	  
-	 
-	 
-	 /* $elementid=[];
+	  $elementid=[];
 	  
-	   foreach($this->arrElements as $element){
+	  foreach($this->arrElements as $element){
 		   $elementid[]=$element['id'];
 		  	  
-	  } */
-	  $elementid=$this->elementIdArray;
+	  }
+	  // $elementid=$this->elementIdArray;
 	  
 	  
 		if( count($elementid)>0 ){
@@ -556,7 +566,8 @@ class CatalogModelAdmin extends Model
 				  
 					  if($images){
 					           foreach($images as $image  ){
-								   
+								  
+								  $this->arrElementsImageDetail[$image['elementid']]=$image['filed'];
 								  $this->arrElementsImage[$image['elementid']]=$image['filep'];
 								   
 								   
@@ -577,12 +588,14 @@ class CatalogModelAdmin extends Model
 					   
 					   $this->arrElements[$key]['image']=$this->arrElementsImage[$element['id']];
 					   
+					   $this->arrElements[$key]['imaged']=$this->arrElementsImageDetail[$element['id']];
+					   
 					   
 					 //  echo $element['image'];
 						   
 					   }else{ //echo 'not';
 						      $this->arrElements[$key]['image']='not';
-						   
+						     $this->arrElements[$key]['imaged']='not';
 						   
 					   }
 					   
@@ -680,16 +693,13 @@ class CatalogModelAdmin extends Model
   
   
 
-  
-	  private function setVisibleHard(&$elementforHard){
+		  private function setVisibleHard(&$elementforHard){
 		  
 		  
 		  $elementforHard['visible']=true;
 		  
 		  
-	  }
-	  
-  
+	  }											 
 	  private function setVisibleSectionAndChildren(&$elementArraySection){
 	 	  
 		//  echo 'аргумент id = '.$elementArraySection['id'].'  вход в функцию<br>';
@@ -716,7 +726,8 @@ class CatalogModelAdmin extends Model
 	   
 	   if($visible){  $elementArraySection['visible']=true;
 	   
-		   if( count($elementArraySection['childArray'])>0){
+	   
+	     if( count($elementArraySection['childArray'])>0){
 				  
 				  
 			   foreach($elementArraySection['childArray'] as $keyHard=>$recArryaHard){
@@ -725,7 +736,8 @@ class CatalogModelAdmin extends Model
 				   
 			   }
 		   }
-		   
+	   
+	   
 	   
 	   
 	   
@@ -750,9 +762,6 @@ class CatalogModelAdmin extends Model
 	  
 	  
   }
-  
-  
-  
   
   
   
@@ -809,17 +818,11 @@ class CatalogModelAdmin extends Model
 			
 			
 			}
-			
-			
-			
-			
-			
-			
-			//fillQuantityForElementArray
-			
-			
-			
-			 public function fillQuantityForElementArray(){
+		public function fillQuantityForElementArray(){
+	  
+	  
+	  //echo'alex';
+	  
 	  
 	    $this->arrElementsQuantity=[];
 	  
@@ -849,8 +852,10 @@ class CatalogModelAdmin extends Model
 					 // print_r($elementid);
 					  
 					           foreach($quantitys as $quantity  ){
+								 // echo 'alex';
 								  
-								  $this->arrElementsQuantity[$quantity['elementid']]=$price['quantity'];
+								  
+								  $this->arrElementsQuantity[$quantity['elementid']]=$quantity['quantity'];
 								   
 								   
 							   }
@@ -893,14 +898,4 @@ class CatalogModelAdmin extends Model
   
   }
   
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 }

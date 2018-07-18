@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\models\CatalogMenuPresenter;
+use app\widgets\CatalogMenu;
 
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
@@ -39,86 +40,56 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 <div class="row"> 
 	<div class="col-xs-12 col-md-3">
 			<?php
-				
-function printSection($arrSection,$cursection)
-{
-	  	 
-	if (!isset($arrSection['id'])) {return;};
-		
-	if($arrSection['visible']){
-
-		$qv=0;
-		$q=0;
-
-		foreach($arrSection['childArray']  as $k=>$el){
-			if($el[visible])$qv=$qv+1;   
-			
-			$q=$q+1; 
-			;}
-
-
-		echo '<li>';
-		echo '<a  href='.Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $arrSection['name']. '</a>'; 
-
-		
-		 
-		
-			if(!$qv==0){
-
-			echo '<ul>';
-
-			foreach($arrSection['childArray'] as $key =>$children){printSection($children,$cursection);}
-
-			echo '</ul>';
-
-			}else{ if($q>0&&$arrSection['id']==$cursection){
-				
-				echo '<ul>';
-
-				 
-			     foreach($arrSection['childArray'] as $key =>$children){
-					 
-					 
-					 echo '<li>';
-					 echo '<a  href='.Url::to(['catalog/index', 'section' => $children['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $children['name']. '</a>'; 
-					 echo '</li>';
-					 
-				 }
-
-			     echo '</ul>';
-				
-				
-			}
-				
-				
-				
-				
-			}
-			
-			
-			
-			
-		
-		echo '</li>';
-	
-	}
-	
-	 
-	 
-};
-				
-				
-				echo '<ul class="sidebar-menu__root">';
-
-
-				foreach ($model->arrSectioons as $topSection) {
-				printSection($topSection,$model->section);
+			function printSection($arrSection, $cursection)
+			{
+				if (!isset($arrSection['id'])) {
+					return;
 				};
-				
-				
-				echo '</ul>';
-				
-				
+				if ($arrSection['visible']) {
+					$qv = 0;
+					$q = 0;
+					foreach ($arrSection['childArray'] as $k => $el) {
+						if ($el[visible]) $qv = $qv + 1;
+						$q = $q + 1;
+					}
+					$last = 'notlast';
+					if ($q == 0) {
+						$last = 'last';
+					}
+		
+					echo '<li class="' . $last . '">';
+					echo '<a href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
+					if (isset($last) and ($last === 'notlast')) {
+						echo '<i class="fas fa-plus icon"></i>';
+					}
+					echo $arrSection['name'];
+					echo '</a>';
+					if (!$qv == 0) {
+						echo '<ul>';
+						foreach ($arrSection['childArray'] as $key => $children) {
+							printSection($children, $cursection);
+						}
+						echo '</ul>';
+					} else {
+						if ($q > 0 && $arrSection['id'] == $cursection) {
+							echo '<ul>';
+							foreach ($arrSection['childArray'] as $key => $children) {
+								echo '<li>';
+								echo '<a  href=' . Url::to(['catalog/index', 'section' => $children['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $children['name'] . '</a>';
+								echo '</li>';
+							}
+							echo '</ul>';
+						}
+					}
+					echo '</li>';
+				}
+			} 
+			
+			echo '<ul class="sidebar-menu__root">';
+			foreach ($model->arrSectioons as $topSection) {
+				printSection($topSection, $model->section);
+			};
+			echo '</ul>';
 			?>
 	</div>
 	<div class="col-xs-12 col-md-9" >
@@ -130,9 +101,11 @@ function printSection($arrSection,$cursection)
 							<div class="product-cart__title">
 								<span><?=$item['name'];?></span>
 							</div>
-							<div data-full="<?=$item['imaged'];?>" class="product-cart__magnifier">
-								<i class="fas fa-search-plus"></i>
-							</div>
+							<?php if(isset($item['imaged']) and ($item['imaged'] !== 'not')) : ?>
+								<div data-full="<?=$item['imaged'];?>" class="product-cart__magnifier">
+									<i class="fas fa-search-plus"></i>
+								</div>
+							<?php endif; ?>
 							<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
 							<img class="img-responsive center-block prodcut-cart__image" src="<?=$img;?>" alt="">
 							<div class="prodcut-cart__info clearfix">
@@ -163,4 +136,9 @@ function printSection($arrSection,$cursection)
 		</div>
 	</div>		
 </div>
+<div id="spinner" class="spinner closed">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</div>
 <?php $this->registerJsFile('/js/catalog.js',  ['position' => yii\web\View::POS_END]); ?>

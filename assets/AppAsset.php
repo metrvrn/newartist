@@ -28,9 +28,4 @@ class AppAsset extends AssetBundle
         "css/blueimp-gallery.min.css",
         "css/font-awesome.css"
     ];
-    public $js = [
-        "js/blueimp-gallery.min.js",
-        "js/image-galery.js"
-    ];
-
 }

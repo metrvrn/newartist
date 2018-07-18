@@ -91,3 +91,5 @@ $this->title = 'Художник';
     </div>
 </div>
 </div>
+<?php $this->registerJsFile("js/blueimp-gallery.min.js", ['position' =>  yii\web\View::POS_END]); ?>
+<?php $this->registerJsFile("js/image-galery.js", ['position' =>  yii\web\View::POS_END]); ?>
