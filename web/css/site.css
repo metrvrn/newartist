@@ -479,6 +479,36 @@ nav.navbar{
     float: left;
     max-width: 90%;
 }
+.pagination__wrapper{
+    border-radius: 2px;
+}
+.pagination__link{
+    display: block;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    font-style: normal;
+    font-style: normal;
+    font-size: 1.6rem;
+    color: #000;
+    border: 1px solid #eee;
+    transition: all 0.2s ease;
+}
+.pagination__link:hover{
+    background-color: #ffddaa;
+    text-decoration: none;
+    color: #000;
+    transition: all 0.2s ease;
+}
+.pagination__link:focus{
+    color: #000;
+}
+.pagination__link--active{
+    background-color: #eee;
+}
+.pagination__link--active:hover{
+    background-color: #eee;
+}
 @media screen and (max-width: 320px) {
     .header-title{
         font-size: 5rem;

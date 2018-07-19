@@ -39,7 +39,6 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 		<p>
 			<?="Page: ".$model->page;?>
 			<?="Quantity: ".$model->quantityPageForCurSection;?>
-			<?=$model->section;?>
 		</p>
 		<p>
 			<?php echo PaginatorWidget::widget([

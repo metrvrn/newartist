@@ -16,7 +16,7 @@ class OrderModel extends Model
 	public $newOrderDatetime;
 	public $arrOrderElements;
 	
-	
+	public $orderId;
 	
 	public $basketArray;
 	public $basketSum;
@@ -95,6 +95,8 @@ class OrderModel extends Model
 			$order->save();
 			
 			$this->newOrderId=$order->id;
+			$this->orderId  =$order->id;
+			
 			$this->newOrderDatetime=$order->datatime;;
 			
 			
@@ -304,6 +306,17 @@ class OrderModel extends Model
 		->one();
 
 		if($order){
+			
+			
+			$this->name     =$order->name;
+			$this->email    =$order->email;
+			$this->phone    =$order->phone;
+			$this->adress   =$order->adress;
+			$this->comment  =$order->comment;
+			$this->orderId  =$order->id;
+			
+			
+			
 			
 			
 			  $baskets=Basket::find()

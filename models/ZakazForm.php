@@ -28,7 +28,8 @@ class ZakazForm extends Model
             [['name', 'email', 'phone',], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
-			['comment', 'string'],
+			[['comment','adress',], 'string'],
+			
             // verifyCode needs to be entered correctly string
           //  ['verifyCode', 'captcha'],
         ];

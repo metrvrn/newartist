@@ -19,6 +19,21 @@ $this->title = 'данные заказа';
 	    
 	   <?echo $model->newOrderId;  ?>
 	   
+	   <br>
+	   <?echo $model->name;?>
+	   <br>
+	     <?echo $model->email;?>
+	   <br>
+	     <?echo $model->phone;?>
+	   <br>
+	      <?echo $model->adress;?>
+	   <br>   <?echo $model->comment;?>
+	   <br>
+	   <?echo $model->orderId;  ?>
+	   
+	   <br>
+	   
+	   
 	  <?
 		foreach($model->basketArray as $item){
 			

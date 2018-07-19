@@ -173,6 +173,12 @@ class SaleController extends Controller
 		  
 		   $model= new OrderModel();
 		   
+				$model->name=$modelZakazForm->name;
+				$model->email=$modelZakazForm->email;
+				$model->phone=$modelZakazForm->phone;
+				$model->adress=$modelZakazForm->adress;
+				$model->comment=$modelZakazForm->comment;
+		   
 		   
 		   
 		   
