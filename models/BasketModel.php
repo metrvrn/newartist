@@ -75,7 +75,7 @@ class BasketModel extends Model
 			
 		$basket->save();
 	 
-         $this->message='add to basket';
+         $this->message='{"quantity":"'.$this->quantityForAddToBasket.'" }';
      }
 	 
 	 

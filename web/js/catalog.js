@@ -143,6 +143,6 @@ function btn_catalog_add_to_basket(id, q)
 		console.log(this.responseText);
 		}
 	};
-  	xhttp.open("POST", "<?= Url::to(['catalog/addtobasketajax']) ?>", true);
+  	xhttp.open("POST", addToBasketUrl, true);
   	xhttp.send(dataF);
 }

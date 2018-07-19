@@ -141,4 +141,5 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 		<div class="bounce2"></div>
 		<div class="bounce3"></div>
 	</div>
+<?php $this->registerJsVar("addToBasketUrl", Url::to(['catalog/addtobasketajax']) , yii\web\View::POS_END); ?>
 <?php $this->registerJsFile('/js/catalog.js',  ['position' => yii\web\View::POS_END]); ?>

@@ -71,51 +71,39 @@ class CatalogController extends Controller
 	
 		   $this->layout = 'ajaxl';
 		   $AjaxModel=new AjaxModel();
-	        $AjaxModel->message='addtobasketajax';
+	       $AjaxModel->message='addtobasketajax';
 	
-	//echo 'alex';
 	 
 	 $model=new BasketModel();
 	 $postArray= Yii::$app->request->post();
 	  if(isset ($postArray)){
 	   
-                            //element id
+                           
 							$model->elementForAddToBasket=$postArray['elementid']; 
                             $model->quantityForAddToBasket=$postArray['quanty']; 						
 						  
-                             //sessionid
+                           
 							$session = Yii::$app->session;
-							if ($session->isActive){ $AjaxModel->message= $AjaxModel->message.'  isAllaiv';
-
-									$AjaxModel->message= $AjaxModel->message.'<br>'.$session ->getId();
-
+							if ($session->isActive){
+								
 									$model->sessionForBasket=$session ->getId();
 
 							};
 
 							
-							//user id;
 							if (Yii::$app->user->isGuest){
 
-								$AjaxModel->message= $AjaxModel->message.'<br> user is guest';
-
 							}else{
-
-
-									$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
+ 
 									$model->userId=Yii::$app->user->id;
-
-
+ 
 							}
-							
-							
-							
-							
+							  
 							$model->addElementToBasket();
 
 					}
 	  
-	  $AjaxModel->message=$model->message;
+	       $AjaxModel->message=$model->message;
 	  
 	  
 		   return $this->render('catalogajax', [

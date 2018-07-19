@@ -42,6 +42,12 @@ $this->beginPage() ?>
     <?php NavBar::begin([
             'brandLabel' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),
             'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => ''
+            ],
+            'innerContainerOptions' => [
+                'class' => 'container-fluid'
+            ]
         ]);
 
     $menuItems = [
