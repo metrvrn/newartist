@@ -502,6 +502,7 @@ nav.navbar{
 }
 .pagination__link:focus{
     color: #000;
+    text-decoration: none;
 }
 .pagination__link--active{
     background-color: #eee;

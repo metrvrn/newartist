@@ -1,7 +1,6 @@
 /runtime
 /vagrant
 /vendor
-/widgets
 localdata.txt
 /config/db.php
 /web/images
