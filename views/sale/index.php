@@ -110,11 +110,11 @@ function printSection($arrSection,$cursection)
 		<?foreach($model->arrOrdersForCurientUser as $order){
 			
 			
-			
+			echo '<a href="'.Url::to(['sale/orderdetail', 'md5' => $order['md5'],]).'">';
 			echo '<div>';
-			echo 'заказ номер '.$order['id'].'  сумма '.$order['summ'].'<br>';
+			echo 'заказ номер '.$order['id'].'  сумма '.$order['summ'].'ref = '.$order['md5'].'<br>';
 			echo '</div>';
-			
+			echo '</a>';
 			
 			
 			

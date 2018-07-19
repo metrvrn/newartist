@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\models\CatalogMenuPresenter;
 use app\widgets\CatalogMenu;
+use app\widgets\PaginatorWidget;
 
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = $this->title;
@@ -35,6 +36,19 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 <div class="row">
 	<div class="col-xs-12">
 		<h1><?= Html::encode($this->title)?></h1>
+		<p>
+			<?="Page: ".$model->page;?>
+			<?="Quantity: ".$model->quantityPageForCurSection;?>
+			<?=$model->section;?>
+		</p>
+		<p>
+			<?php echo PaginatorWidget::widget([
+				'perPage' => 50,
+				'curPage' => $model->page,
+				'totalPage' => $model->quantityPageForCurSection,
+				'sectionID' => $model->section
+			]);?>
+		</p>
 	</div>
 </div>
 <div class="row"> 
@@ -58,11 +72,11 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 					}
 		
 					echo '<li class="' . $last . '">';
-					echo '<a href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
+					echo '<a class="catalog-menu__link clearfix" href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
 					if (isset($last) and ($last === 'notlast')) {
-						echo '<i class="fas fa-plus icon"></i>';
+						echo '<div class="catalog-menu__icon"><i class="fas fa-plus icon"></i></div>';
 					}
-					echo $arrSection['name'];
+					echo '<div class="catalog-menu__name">'.$arrSection['name'].'</div>';
 					echo '</a>';
 					if (!$qv == 0) {
 						echo '<ul>';

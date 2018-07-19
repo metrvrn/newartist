@@ -24,7 +24,14 @@ class m180606_143718_create_user_tableMainTable extends Migration
 			'summ'=> $this->string(),
 			'datatime'=> $this->dateTime(),
 			'md5'=> $this->string(),
-			'coment'=> $this->string(),
+			
+			
+			'name'=> $this->string(),
+			'email' => $this->string(),
+			'phone' => $this->string(),
+			'adress'=> $this->string(),
+			'comment'=> $this->string(),
+			
 			'index'=> $this->string(),
 			]);
 

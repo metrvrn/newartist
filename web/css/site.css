@@ -136,6 +136,8 @@ a.desc:after {
     font-size: 3rem;
     line-height: 3rem;
     color: #000;
+    height: 6rem;
+    font-weight: 700;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -226,11 +228,12 @@ nav.navbar{
     padding: 0;
     margin: 0;
     margin-bottom: 24px;
-    border-radius: 5px;
-    background-color: #f5f5f5;
+    border-radius: 2px;
+    background-color: #ffddaa;
     padding-top: 8px;
     padding-bottom: 8px;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.16);
+    transition: all 0.2s ease;
 }
 .sidebar-menu__root li{
     width: 100%;
@@ -246,7 +249,7 @@ nav.navbar{
 }
 .sidebar-menu__root li a:hover{
     text-decoration: none;
-    background-color: #ffddaa;
+    background-color: #ffc367;
     transition: all 0.2s ease;
 }
 .sidebar-menu__root li a .icon{
@@ -410,10 +413,20 @@ nav.navbar{
     vertical-align: middle;
 }
 .image-modal{
+    position: relative;
     vertical-align: middle;
     max-width: 100%;
     max-height: 100%;
     padding: 1rem;
+}
+.image-modal:after{
+    content: "123";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
 }
 .spinner {
     position: absolute;
@@ -453,5 +466,35 @@ nav.navbar{
     } 40% { 
         -webkit-transform: scale(1.0);
         transform: scale(1.0);
+    }
+}
+.catalog-menu__link{
+
+}
+.catalog-menu__icon{
+    float: left;
+    max-width: 10%;
+}
+.catalog-menu__name{
+    float: left;
+    max-width: 90%;
+}
+@media screen and (max-width: 320px) {
+    .header-title{
+        font-size: 5rem;
+    }
+    .header-description{
+        font-size: 3rem;
+    }
+    .header-background-wrapper{
+        height: 180px;
+    }
+}
+@media screen and (max-width: 320px) {
+    .header-description{
+        font-size: 4rem;
+    }
+    .header-background-wrapper{
+        height: 220px;
     }
 }

@@ -157,7 +157,7 @@ function printSection($arrSection,$cursection)
 			<?= $form->field($modelForm, 'email')->label('электронный адрес') ?>
 			<?= $form->field($modelForm, 'phone')->label('телефон') ?>
 			<?= $form->field($modelForm, 'adress')->textarea(['rows' => 6])->label('Адрес')  ?>
-			
+			<?= $form->field($modelForm, 'comment')->textarea(['rows' => 6])->label('Комментарий')  ?>
 			
 			    <div class="form-group">
 				<?= Html::submitButton('Оформить заказ', ['class' => 'btn btn-primary', 'name' => 'contact-button',]) ?>

@@ -240,5 +240,51 @@ class SaleController extends Controller
     }
 	
 	
+	  public function actionOrderdetail()
+    {
+		
+		
+		
+		   
+		   $get=Yii::$app->request->get();
+		   
+		  
+		    if( isset($get['md5'])){
+				
+				
+				$model= new OrderModel();
+					
+				$model->orderMd5=$get['md5'];	
+				$model->fillArrOrderElements();
+				
+				 
+		 
+				  return $this->render('orderdetail', [
+				 'model' => $model,]); 
+				
+				
+				
+			}else{
+				 
+				
+				
+			}
+		   
+		   
+		   
+   
+		   
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 }

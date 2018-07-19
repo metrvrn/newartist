@@ -58,5 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-xs-9">
         <h1><?= Html::encode($this->title) ?></h1>
+        <div class="about__yandex-map">
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Af3c0f4ab82bf419e9feb3355744079183b0fe2429eee26d7fb705cb11b48d007&amp;width=100%25&amp;height=618&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
     </div>
 </div>
