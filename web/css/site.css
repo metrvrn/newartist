@@ -266,10 +266,15 @@ nav.navbar{
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.16);
 }
 .product-cart__title{
+    display: block;
     height: 62px;
     background-color: #ffddaa;
     padding: 2px 4px;
     margin-bottom: 4px;
+    color: #000;
+}
+.product-cart__title:hover{
+    color: #000;
 }
 .product-cart__title span{
     display: table-cell;
@@ -504,10 +509,13 @@ nav.navbar{
     color: #000;
     text-decoration: none;
 }
-.pagination__link--active{
+.pagination__link--current{
+    background-color: #ffddaa;
+}
+.pagination__link--disabled{
     background-color: #eee;
 }
-.pagination__link--active:hover{
+.pagination__link--disabled:hover{
     background-color: #eee;
 }
 @media screen and (max-width: 320px) {

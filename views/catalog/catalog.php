@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 		<p>
 			<?="Page: ".$model->page;?>
 			<?="Quantity: ".$model->quantityPageForCurSection;?>
+			<?=$model->section;?>
 		</p>
 		<p>
 			<?php echo PaginatorWidget::widget([
@@ -111,9 +112,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 				<?php foreach($model->arrElements as $item) : ?>
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="product-cart">
-							<div class="product-cart__title">
+							<a href="<?=Url::to(['catalog/index', 'section' => $model->section, 'element' => $item['id'], 'page' => 0, ])?>" class="product-cart__title">
 								<span><?=$item['name'];?></span>
-							</div>
+							</a>
 							<?php if(isset($item['imaged']) and ($item['imaged'] !== 'not')) : ?>
 								<div data-full="<?=$item['imaged'];?>" class="product-cart__magnifier">
 									<i class="fas fa-search-plus"></i>
