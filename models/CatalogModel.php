@@ -57,7 +57,7 @@ class CatalogModel extends Model
         return [
        
           
-		      [['title', 'element', 'page'], 'safe'],
+		      [['section', 'element', 'page'], 'safe'],
 		  
 		  
 		  
@@ -75,7 +75,7 @@ class CatalogModel extends Model
 			return $scenarios;
 	}
 	
-       ///data for view arrSectioons 
+
           public   function fillElementIdArray(){
 			  
 		  $this->elementIdArray=[];
@@ -89,10 +89,6 @@ class CatalogModel extends Model
 					  
 					  
 				  }
-				  
-				  
-				  
-				  
 				  
 				  
 			  };
@@ -139,20 +135,60 @@ class CatalogModel extends Model
 				  }
 			  }
 			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
-			  
+			   
 		  }
 
+        public  function  makeTreeForSection ($sectionLocal)
+		 {      
+						
+				 	
+		           if(!isset($sectionLocal->xmlcode)){return;};
+		  
+		         $sections = Section::find()
+				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,'active'=>true])
+				 ->all();
+		  
+		        
+				 
+				
+				$mainArray=[];
+				
+				 
+				   foreach($sections  as  $section ){
+							 
+						$idArray=[];
+							
+						//echo  $section->xmlcode.'<br>';
 
+						$idArray[ 'id']= $section->id;
+						$idArray[ 'xmlcodep']= $section->xmlcodep;
+						$idArray[ 'xmlcode']= $section->xmlcode;
+						$idArray[ 'name']= $section->name;
+						$idArray[ 'index1']= $section->index1;
+						$idArray[ 'index2']= $section->index2;
+						$idArray[ 'idp']= $section->idp;
+						$idArray['visible']= false;		 
+						$idArray[ 'childArray']= $this->makeTreeForSection($section);
+						
+						$mainArray[]=$idArray;
+                             
+						//$this->message=$this->message.$section->id.'<br>';
+								 
+						  
+					    };
+				 
+		   
+			        
+			
+			
+			
+			
+			
+			return   $mainArray;
+			
+			
+			
+		 }
 
 		  
 		  public function fillarrSectioons()
@@ -211,6 +247,7 @@ class CatalogModel extends Model
 						// echo 'ffff <br>';
 						$idArray[ 'id']= $element->id;
 						$idArray[ 'name']= $element->name;
+						$idArray[ 'code']= $element->code;
 						$idArray[ 'index1']= $element->index1;
 						$idArray[ 'index2']= $element->index2;
 						$idArray[ 'idp']= $element->idp;
@@ -230,57 +267,7 @@ class CatalogModel extends Model
 		  
 		  
 		  
-        public  function  makeTreeForSection ($sectionLocal)
-		 {      
-						
-				 	
-		           if(!isset($sectionLocal->xmlcode)){return;};
-		  
-		         $sections = Section::find()
-				 ->where(['xmlcodep' =>$sectionLocal->xmlcode,'active'=>true])
-				 ->all();
-		  
-		        
-				 
-				
-				$mainArray=[];
-				
-				 
-				   foreach($sections  as  $section ){
-							 
-						$idArray=[];
-							
-						//echo  $section->xmlcode.'<br>';
 
-						$idArray[ 'id']= $section->id;
-						$idArray[ 'xmlcodep']= $section->xmlcodep;
-						$idArray[ 'xmlcode']= $section->xmlcode;
-						$idArray[ 'name']= $section->name;
-						$idArray[ 'index1']= $section->index1;
-						$idArray[ 'index2']= $section->index2;
-						$idArray[ 'idp']= $section->idp;
-						$idArray['visible']= false;		 
-						$idArray[ 'childArray']= $this->makeTreeForSection($section);
-						
-						$mainArray[]=$idArray;
-                             
-						//$this->message=$this->message.$section->id.'<br>';
-								 
-						  
-					    };
-				 
-		   
-			        
-			
-			
-			
-			
-			
-			return   $mainArray;
-			
-			
-			
-		 }
  
  
  
@@ -320,12 +307,20 @@ class CatalogModel extends Model
  
 			public function fillTopArrCurSection(){
 				
+					$this->TopArrCurSection=[];	
+				
 				///make  key for the section
 				if (!isset($this->section)){
-					$this->TopArrCurSection=[];
+			
 					return;								
 					
 				};
+				if ($this->section=='non'){
+			
+					return;								
+					
+				};
+				
 				
 				
 				
@@ -356,15 +351,7 @@ class CatalogModel extends Model
  
              public function getParentsForSection($sectionId){
 				 
-				 
-				 
-				//$inArray=Array();
-				 //it is curient section if we have the id we have the section
-				// if(isset($sectionId)){  };
-				 
-				 //$this->TopArrCurSection[]=intval($sectionId) ;
-				//echo($sectionId );
-				 // return;
+			
 				 
 				  $section = Section::find()
                   ->where(['id' =>$sectionId ])
@@ -377,7 +364,7 @@ class CatalogModel extends Model
 			       $this->getParentsForSection($section->idp);
 				 
 				 
-				// return $inArray; 
+			
 				 
 				 
 				 
@@ -386,7 +373,21 @@ class CatalogModel extends Model
 
 		   public function fillBottomArrCurSection()
 		   
-		   {	///make  key for the section
+		   {	
+		   	$this->BottomArrCurSection=[];	
+				
+				///make  key for the section
+				if (!isset($this->section)){
+			
+					$this->section='non';								
+					
+				};
+				
+				
+		   
+		   
+		   
+		   
 				
 				$key="botton_cur_section_array_".$this->section;
 				
@@ -399,13 +400,45 @@ class CatalogModel extends Model
 									
 									
 									
+										if ($this->section=='non'){
+									
+									
+									//echo 'non';
+											$sections=Section::find()
+											->where(['active'=>1])
+											->all();
+											
+											if($sections){
+												
+												
+												foreach($sections as $section){
+													
+													$this->BottomArrCurSection[]=$section['id'];
+													
+												}
+												
+												
+												
+											}
+
+												
+											//$this->BottomArrCurSection=$inArray;
+
+									       //Yii::$app->cache->set($key, $treeArray);		
+														
+											
+											return;
+										};
 									
 
 									
                                        $this->getChildrenForSection($this->section);
 									   
 									   
-									  // print_r($this->BottomArrCurSection);
+									  
+									  
+									  
+									  
 									   
 									//$this->BottomArrCurSection=$inArray;
 
@@ -487,9 +520,6 @@ class CatalogModel extends Model
 		   }else{  $this->quantityPageForCurSection = ceil( $count/$this->elementPerPage);};
 			   
 	
-	 //$this->quantityPageForCurSection= ceil(  $count/$this->elementPerPage);
-
-	 //$this->quantityPageForCurSection= ceil(  $count/intval($this->elementPerPage));
 	 
 	 
  }

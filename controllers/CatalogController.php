@@ -33,28 +33,32 @@ class CatalogController extends Controller
 
 		$model=new CatalogModel();
 
-		 $model->elementPerPage=50;
-
-		 
+		$model->elementPerPage=50;		 
+		
 		$model->load(Yii::$app->request->get(),'');
+		
+		
+		
 
 	    $model->fillarrSectioons();
 		
 		$model->fillTopArrCurSection(); 
 	   
-     $model->fillElementIdArray();
+		$model->fillElementIdArray();
+	    
+		$model->fillBottomArrCurSection();
 	   
-	   
-	   $model->fillBottomArrCurSection();
 		$model->fillQuantitypageforqurientsection();
 		   
 	    $model->fillarrElements();
 			
-  $model->fillImageForElementArray();
-  $model->fillPriceForElementArray();
-  $model->fillQuantityForElementArray();	
+		$model->fillImageForElementArray();
+		
+		$model->fillPriceForElementArray();
+		
+		$model->fillQuantityForElementArray();	
 
-  	$model->setVisibleForCurienSection();
+		$model->setVisibleForCurienSection();
 			
 			
 		   return $this->render('catalog', [

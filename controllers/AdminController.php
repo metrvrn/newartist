@@ -127,6 +127,28 @@ class AdminController extends Controller
     }
 	
 	
+	
+	
+	 public function actionMakesectionfillid()
+    {  
+			$this->layout = 'ajaxl';	
+		
+		 $model_admin=new AdminModel();
+		 $model_admin->Makesectionfillid();
+		 
+		  $model=new AjaxModel();
+		  
+		  $model->message=$model_admin->message;
+		  
+			
+		   return $this->render('ajaxv', [
+         'model' => $model,
+			]);
+			
+		
+	   
+    }
+	
 	 public function actionCleancache() 
     {
 			$this->layout = 'ajaxl';	

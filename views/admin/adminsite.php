@@ -161,6 +161,11 @@ function printSection($arrSection,$cursection)
 			<p><div class="btn btn-default"  id="btn_admin_Uploadenomartist"  onclick='btn_admin_Uploadenomartist()'        >загрузить номенклатуру ходожника </div></p>
 		
 		
+		
+		
+			<p><div class="btn btn-default"  id="btn_admin_Makesectionfillid"  onclick='btn_admin_Makesectionfillid()'        >заполнить секции установить id</div></p>
+		
+		
 		<p><div class="btn btn-default"  id="btn_admin_Uploadequantityprice"  onclick='btn_admin_Uploadequantityprice()'        >загрузить количество цену </div></p>
 		
 			<p><div class="btn btn-default"  id="btn_admin_Activedeactivelemensection"  onclick='btn_admin_Activedeactivelemensection()'        >установить активнось элементов каталогов </div></p>
@@ -187,6 +192,25 @@ function printSection($arrSection,$cursection)
  
  
 
+ function btn_admin_Makesectionfillid() {
+    
+
+   var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+      mes( this.responseText);
+    }
+  };
+  xhttp.open("GET", "<?=Url::to(['admin/makesectionfillid']) ?>", true);
+  xhttp.send();
+
+ console.log("секции ")
+}
+
+ 
+ 
+ 
+ 
 function btn_admin_cleancache() {
     
 

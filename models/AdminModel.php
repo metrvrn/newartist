@@ -56,7 +56,7 @@ class AdminModel extends Model
          ];
      }
 
-    
+ /*    
 	private function procceccArrayOfStingFromFile($ar){
 		
 		
@@ -89,7 +89,7 @@ class AdminModel extends Model
 	};
 		
 		
-	}
+	} */
 	
 	//we process the file from server  file is in csv file format 
 	//every string of file must heve next column name  
@@ -97,7 +97,7 @@ class AdminModel extends Model
 	 
 	 
 	
-	 public function Uploadenom()
+	/*  public function Uploadenom()
      {
 					  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1c.csv', "r"); // Открываем файл в режиме чтения
 					
@@ -157,7 +157,7 @@ class AdminModel extends Model
 		 
 		 
 		 
-     }
+     } */
 	
 	
 	public function procceccElementForSection($el){
@@ -426,10 +426,10 @@ class AdminModel extends Model
 								  fclose($fp);
 					 
 					 
-					 $this->MakeSections();
+					// $this->MakeSections();
 					 
 					 
-					 $this->fillidpInSectionTable();
+					 //$this->fillidpInSectionTable();
 					 
 					 
 					  $this->message=$this->message.$mes;
@@ -440,6 +440,29 @@ class AdminModel extends Model
      }
 	
 	  
+	
+		///Makesectionfillid
+	
+	
+	 public function Makesectionfillid()
+     {              $mes='Makesectionfillid';
+		   
+		           $this->MakeSections();
+					 
+					 
+				  $this->fillidpInSectionTable();
+					 
+					 
+					  $this->message=$this->message.$mes;
+		 
+		 
+		 
+	 }
+	
+	
+	
+	
+	
 	
 	 public function Uploadequantityprice()
      {
@@ -460,11 +483,11 @@ class AdminModel extends Model
 										 
 											 $this->procceccArrayOfStingFromFileQuantityPrice($ar);
 
-											$mes=$mes.'  '.$ar[2].'<br>'; 
-											$mes=$mes.'  '.$ar[9].'<br>'; 
-											$mes=$mes.'  '.$ar[10].'<br>'; 
-											$mes=$mes.'  '.$ar[11].'11<br>'; 						  
-											 $mes=$mes.'  '.$ar[12].'12<br>'; 		
+											//$mes=$mes.'  '.$ar[2].'<br>'; 
+											//$mes=$mes.'  '.$ar[9].'<br>'; 
+											//$mes=$mes.'  '.$ar[10].'<br>'; 
+											//$mes=$mes.'  '.$ar[11].'11<br>'; 						  
+											 ///$mes=$mes.'  '.$ar[12].'12<br>'; 		
 										
 										 }
 									   }
@@ -486,9 +509,12 @@ class AdminModel extends Model
      }
 	
 	
+	
+	
+
 		 public function procceccArrayOfStingFromFileQuantityPrice($ar)
 		 {
-								 $mes='procceccArrayOfStingFromFileQuantityPrice<br>'.$ar[12].'<br>';
+								// $mes='procceccArrayOfStingFromFileQuantityPrice<br>'.$ar[12].'<br>';
 								 
 								 
 									$element = Element::find()
@@ -496,7 +522,7 @@ class AdminModel extends Model
 									->one();
 									
 									if($element){
-									 $mes=$mes.'finde element<br>';
+									// $mes=$mes.'finde element<br>';
 									 
 									$quantity=Quantity::find()
 									->where(['elementid' =>$element->id])
@@ -504,7 +530,7 @@ class AdminModel extends Model
 										 // quantity 
 										 if($quantity){
 											  // $mes=$mes.'finde quantity<br>';
-											 $quantity->quantity=floatval( str_replace(',','.',$ar[14]));
+											 $quantity->quantity=floatval( str_replace(' ','', str_replace(',','.',$ar[14])));
 											  $quantity->save();
 											 
 										 }else{
@@ -512,7 +538,7 @@ class AdminModel extends Model
 											 $quantity=new Quantity();
 											 $quantity->elementid=$element->id;						 
 											 $quantity->type=1;
-											  $quantity->quantity=floatval(str_replace(',','.',$ar[14]));
+											  $quantity->quantity=floatval( str_replace(' ','', str_replace(',','.',$ar[14])));
 											   $quantity->save();
 											 
 										 }
@@ -523,7 +549,7 @@ class AdminModel extends Model
 											->one();
 											 if($price){
 														//$mes=$mes.'finde price'.$ar[10].'<br>';
-														$price->price=floatval(str_replace(',','.',$ar[12]));
+														$price->price=floatval( str_replace(' ','', str_replace(',','.',$ar[12])));
 														$price->type=2;
 														$price->save();
 
@@ -534,7 +560,7 @@ class AdminModel extends Model
 																$price=new Price();
 																$price->elementid=$element->id;						 
 																$price->type=2;
-																$price->price=floatval(str_replace(',','.',$ar[12]));
+																$price->price=floatval( str_replace(' ','', str_replace(',','.',$ar[12])));
 																$price->save();
 																//  $mes=$mes.' 10 '.$ar[11].' 11 '.$ar[12].;
 
@@ -549,7 +575,7 @@ class AdminModel extends Model
 								 
 								 
 								 
-								 $this->message=$this->message.$mes;
+								 //$this->message=$this->message.$mes;
 			 
 		 }
 	 
@@ -616,14 +642,16 @@ class AdminModel extends Model
 							   
 							   if($quantity){
 									
-								   foreach($quantity as $quan){   $mes=$mes.$quan['id'].'SetIndexpToZero begin to find  <br>';
+								   foreach($quantity as $quan){  // $mes=$mes.$quan['id'].'SetIndexpToZero begin to find  <br>';
 										
 										$element = Element::find()
-										->where(['id' =>$quan['id']])
+										->where(['id' =>$quan['elementid']])
 										->one();
 										
-										if($element){   $mes=$mes.$element['id'].'set index p to zero   <br>';
+										if($element){  // $mes=$mes.$element['id'].'set index p to zero   <br>';
 											
+											
+											echo $element->xmlcode.'<br>';
 											$element->indexp=0;
 											$element->save();
 											
@@ -635,7 +663,7 @@ class AdminModel extends Model
 							   }
 							   
 							   
-							   $this->message=$this->message.$mes;
+							  // $this->message=$this->message.$mes;
 							   
  	   
 			   }
@@ -643,7 +671,7 @@ class AdminModel extends Model
 	 
 			   public function ActiveDeactivElemenSection(){
 				   
-							  $mes='ActiveDeactivElemenSection';
+							 // $mes='ActiveDeactivElemenSection';
 							   					   
 								 Yii::$app->db->createCommand('UPDATE element SET indexp=1')
 								->execute();	
@@ -661,7 +689,7 @@ class AdminModel extends Model
 			 
 									  if($elements){ 
 												
-												 foreach( $elements as $element){  $mes=$mes.$element['id'].'in to recursion <br>';
+												 foreach( $elements as $element){  //$mes=$mes.$element['id'].'in to recursion <br>';
 													 
 													
 													$this->deactiveElement($element);
@@ -697,7 +725,7 @@ class AdminModel extends Model
 												
 												
 												$elementToDeactive->save();
-												$mes=$mes.'deactive<br>';
+												//$mes=$mes.'deactive<br>';
 											}
 											
 											
@@ -713,7 +741,7 @@ class AdminModel extends Model
 										
 										
 							   
-								 $this->message=$this->message.$mes;
+								 ///$this->message=$this->message.$mes;
 				   
 			   }
 	   
@@ -737,7 +765,7 @@ class AdminModel extends Model
 											
 											 }  
 						  
-						                else{  $this->message=$this->message.' do not have children<br>';
+						                else{ // $this->message=$this->message.' do not have children<br>';
 								   
 												$element->indexp=0;
 												$element->save();

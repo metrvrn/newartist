@@ -248,6 +248,7 @@ nav.navbar{
     transition: all 0.1s ease;
 }
 .sidebar-menu__root li a:hover{
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
     text-decoration: none;
     background-color: #ffc367;
     transition: all 0.2s ease;
