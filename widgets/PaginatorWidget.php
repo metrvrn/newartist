@@ -29,9 +29,9 @@ class PaginatorWidget extends Widget
         parent::init();
         $this->curPage = $this->curPage ?: 0;
         $this->sectionID = is_numeric($this->sectionID) ? $this->sectionID : 'non';
-        printf(
+       /*  printf(
             "Current page in paginator class: %d<br>Current sectionID in paginator class: %s<br>Total pages is pagination class%d",
-            $this->curPage, $this->sectionID, $this->totalPage);
+            $this->curPage, $this->sectionID, $this->totalPage); */
     }
 
     public function run()

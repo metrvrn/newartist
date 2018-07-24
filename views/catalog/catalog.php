@@ -37,9 +37,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 	<div class="col-xs-12">
 		<h1><?= Html::encode($this->title)?></h1>
 		<p>
-			<?="Page: ".$model->page;?>
-			<?="Quantity: ".$model->quantityPageForCurSection;?>
-			<?=$model->section;?>
+			<?//="Page: ".$model->page;?>
+			<?//="Quantity: ".$model->quantityPageForCurSection;?>
+			<?//=$model->section;?>
 		</p>
 		<p>
 			<?php echo PaginatorWidget::widget([
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 </div>
 <div class="row"> 
 	<div class="col-xs-12 col-md-3">
-			<?php
+		<?php
 			function printSection($arrSection, $cursection)
 			{
 				if (!isset($arrSection['id'])) {
@@ -105,6 +105,10 @@ $this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->
 			};
 			echo '</ul>';
 			?>
+		
+		
+		
+		
 	</div>
 	<div class="col-xs-12 col-md-9" >
 		<div class="container-fluid">

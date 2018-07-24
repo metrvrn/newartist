@@ -9,23 +9,13 @@ use Yii;
 
 class CatalogMenu extends \yii\bootstrap\Widget
 {
-    private $model;
+    public $model;
 
-    public function __construct()
+    public function init()
     {
-        $this->model = new CatalogModel();
-        $this->model->elementPerPage = 50;
-        $this->model->load(Yii::$app->request->get(), '');
-        $this->model->fillarrSectioons();
-        $this->model->fillTopArrCurSection();
-        $this->model->fillElementIdArray();
-        $this->model->fillBottomArrCurSection();
-        $this->model->fillQuantitypageforqurientsection();
-        $this->model->fillarrElements();
-        $this->model->fillImageForElementArray();
-        $this->model->fillPriceForElementArray();
-        $this->model->fillQuantityForElementArray();
-        $this->model->setVisibleForCurienSection();
+        if(!isset($this->model)){
+            throw new Exception("Model not loaded on CatalogMenu widget");
+        }
     }
 
     public function run()
@@ -55,17 +45,16 @@ class CatalogMenu extends \yii\bootstrap\Widget
             }
 
             echo '<li class="' . $last . '">';
-            echo '<a href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
+            echo '<a class="catalog-menu__link clearfix" href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
             if (isset($last) and ($last === 'notlast')) {
-                echo '<i class="fas fa-plus icon"></i>';
-                echo $cursection;
+                echo '<div class="catalog-menu__icon"><i class="fas fa-plus icon"></i></div>';
             }
-            echo $arrSection['name'];
+            echo '<div class="catalog-menu__name">'.$arrSection['name'].'</div>';
             echo '</a>';
             if (!$qv == 0) {
                 echo '<ul>';
                 foreach ($arrSection['childArray'] as $key => $children) {
-                    $this->printSection($children, $cursection);
+                    printSection($children, $cursection);
                 }
                 echo '</ul>';
             } else {
