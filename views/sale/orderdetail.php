@@ -5,15 +5,19 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\LokalFileModel;
+use app\widgets\CatalogMenu;
 
 LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
 
 $this->title = 'данные заказа';
 ?>
-<div class="div">
 
 <div class="row">
 	<div class="col-xs-12 col-md-3">
+		<?//=CatalogMenu::widget(['model' => $catalogModel])?>
+  </div>
+	<div class="col-xs-12 col-md-9">
+
 	   <?echo $this->title;  ?>
 	   <br>
 	    
@@ -29,7 +33,7 @@ $this->title = 'данные заказа';
 	      <?echo $model->adress;?>
 	   <br>   <?echo $model->comment;?>
 	   <br>
-	   <?echo $model->orderId;  ?>
+	   <?echo "Model id: ". $model->orderId;  ?>
 	   
 	   <br>
 	   
@@ -54,5 +58,4 @@ $this->title = 'данные заказа';
     <div id="links" class="col-xs-12 col-md-9">
        
     </div>
-</div>
 </div>

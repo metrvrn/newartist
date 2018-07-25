@@ -9,9 +9,8 @@ use app\widgets\CatalogMenu;
 
 LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
 
-$this->title = 'заказы';
+$this->title = 'Заказы';
 ?>
-<div class="div">
 
 <div class="row">
     <div class="col-xs-12 col-md-3">
@@ -19,27 +18,24 @@ $this->title = 'заказы';
     </div>
 	<div class="col-xs-12 col-md-9">
 		<?php if($model) : ?>
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>Номер</th>
-						<th>Дата</th>
-						<th>Комментарий</th>
-						<th>Сумма</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach($model->arrOrdersForCurientUser as $order): ?>
-						<tr class="" onclick="window.location.href="<?=Url::to(['sale/orderdetail', 'md5' => $order['md5'],])?>">
-							<td><?=$order['id']?></td>
-							<td><?=$order['comment']?></td>
-							<td><?=$order['comment']?></td>
-							<td><?=$order['summ']?></td>
-						</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>
+			<div class="container-fluid">
+				<div class="row order-index__row order-index__row-title">
+					<div class="col-xs-3 order-index__col">Номер</div>
+					<div class="col-xs-3 hidden-xs hidden-md order-index__col">Дата</div>
+					<div class="col-xs-3 hidden-xs hidden-md order-index__col">Комментарий</div>
+					<div class="col-xs-3 order-index__col">Сумма</div>
+				</div>
+				<?php foreach($model->arrOrdersForCurientUser as $order) : ?>
+					<a href="<?=Url::to(['sale/orderdetail', 'md5' => $order['md5'],])?>" class="order-index__link">
+						<div class="row order-index__row">
+							<div class="col-xs-3 order-index__col"><?=$order['id']?></div>
+							<div class="col-xs-3 hidden-xs hidden-md order-index__col"><?=$order['datatime']?></div>
+							<div class="col-xs-3 hidden-xs hidden-md order-index__col"><?=$order['comment']?></div>
+							<div class="col-xs-3 order-index__col"><?=$order['summ']?></div>
+						</div>
+					</a>
+				<?php endforeach; ?>
+			</div>
 		<?php endif; ?>
 	</div>
-</div>
 </div>

@@ -519,6 +519,32 @@ nav.navbar{
 .pagination__link--disabled:hover{
     background-color: #eee;
 }
+.order-index__row{
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+.order-index__row:hover{
+    background-color: #eee;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.order-index__row-title{
+    font-weight: 700;
+}
+.order-index__row-title:hover{
+    background-color: transparent;
+    cursor: default;
+}
+.order-index__col{
+    padding: 6px;
+    padding-left: 2rem;
+    border-right: 1px solid #eee;
+}
+.order-index__col:last-child{
+    border-right: none;
+}
 @media screen and (max-width: 320px) {
     .header-title{
         font-size: 5rem;
