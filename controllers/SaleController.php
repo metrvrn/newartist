@@ -248,10 +248,14 @@ class SaleController extends Controller
 	
 	  public function actionOrderdetail()
     {
-		
-		
-		
-		   
+		$catalogModel=new CatalogModel();
+		$catalogModel->elementPerPage=50;
+	    $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();
+		$catalogModel->setVisibleForCurienSection();
+
 		   $get=Yii::$app->request->get();
 		   
 		  
@@ -262,11 +266,10 @@ class SaleController extends Controller
 					
 				$model->orderMd5=$get['md5'];	
 				$model->fillArrOrderElements();
-				
-				 
-		 
 				  return $this->render('orderdetail', [
-				 'model' => $model,]); 
+				 'model' => $model,
+				 'catalogModel' => $catalogModel
+				 ]); 
 				
 				
 				

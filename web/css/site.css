@@ -17,6 +17,18 @@ body {
     width: 100%;
     font-family: "Roboto", sans-serif;
 }
+.header-info{
+    font-size: 1.6rem;
+    padding: 12px 0;
+    background-color: #eee;
+}
+.header-info__item{
+    text-align: center;
+}
+.header-info__icon{
+    margin-right: 0.5rem;
+    font-size: 2rem;
+}
 .header-title{
     font-size: 6rem;
     text-align: center;
@@ -194,6 +206,21 @@ a.desc:after {
     background-color: transparent;
     border-right: 1px solid #333;
     border-left: 1px solid #333;
+}
+.footer-logo{
+    color: #fff;
+}
+.header-logout-btn{
+    font-size: 1.6rem;
+    line-height: 3rem;
+    color: #000 !important;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    font-weight: 700;
+}
+.header-logout-btn:hover{
+    color: #000;
+    background-color: #ff9e66;
 }
 .breadcreambs-wrapper{
     padding-top: 24px;

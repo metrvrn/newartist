@@ -9,12 +9,12 @@ use app\widgets\CatalogMenu;
 
 LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
 
-$this->title = 'данные заказа';
+$this->title = 'Данные заказа';
 ?>
 
 <div class="row">
 	<div class="col-xs-12 col-md-3">
-		<?//=CatalogMenu::widget(['model' => $catalogModel])?>
+		<?=CatalogMenu::widget(['model' => $catalogModel])?>
   </div>
 	<div class="col-xs-12 col-md-9">
 		<div class="panel panel-default">
@@ -33,15 +33,42 @@ $this->title = 'данные заказа';
 					</div>
 				<?php endif; ?>
 				<div class="order-detail__order-sum">
-					<?//=$model->summ;?>
+					<b>
+						Сумма: <?=$model->basketSum;?> &#8381;
+					</b>
 				</div>
 			</div>
 		</div>
-	  <?
-		foreach($model->basketArray as $item){
-			echo $item['name'].' id ='.$item['id'].'<br>';
-			echo $item['image'].' id ='.$item['id'].'<br>';
-		}
-	  ?>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Картинка</th>
+					<th>Название</th>
+					<th>Цена</th>
+					<th>Колличество</th>
+					<th>Сумма</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($model->basketArray as $item) : ?>
+					<tr>
+						<td class="order-detail__picture-td">
+							<img src="https://metropt.ru/upload/<?=$item['image']?>" alt="Картинка товара" class="order-detail__picture"></td>
+						<td>
+							<?=$item['name']?>
+						</td>
+						<td>
+							<?=$item['price'];?> &#8381;
+						</td>
+						<td>
+							<?=$item['quantity'];?>
+						</td>
+						<td>
+							<?=$item['sum'];?> &#8381;
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 	</div>
 </div>
