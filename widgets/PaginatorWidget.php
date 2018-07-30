@@ -46,7 +46,7 @@ class PaginatorWidget extends Widget
                 $links .= $this->getLink($page);
                 continue;
             }
-            if($page = $this->curPage + 2 or $page = $this->curPage - 2){
+            if($page == $this->curPage + 3 or $page == $this->curPage - 3){
                 $links .= $this->getDotted();
             }
             if($page > $this->curPage + 2 or $page < $this->curPage - 2) continue;

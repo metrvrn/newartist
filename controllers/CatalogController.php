@@ -45,12 +45,16 @@ class CatalogController extends Controller
 		$model->fillTopArrCurSection(); 
 	   
 	 
-	    
+	     
 		$model->fillBottomArrCurSection();
 	   
 		$model->fillQuantitypageforqurientsection();
 		   
+		
+		   
 	    $model->fillarrElements();
+			
+			
 			
 		$model->fillImageForElementArray();
 		
@@ -58,8 +62,15 @@ class CatalogController extends Controller
 		
 		$model->fillQuantityForElementArray();	
 
-		$model->setVisibleForCurienSection();
+		
 			
+		
+		$model->setVisibleForCurienSection();
+		  // echo '<br>prrrrrrrrrrrrrrrrrrge '.$model->quantityPageForCurSection.'<br>';
+			//echo 'alex controlersd '.$count.'<br>';
+			
+		 //  return;  
+		
 			
 		   return $this->render('catalog', [
          	'model' => $model,

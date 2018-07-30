@@ -33,8 +33,8 @@ class CatalogModel extends Model
 	
 	private $id_tovar;///the main   grup  tovar;
 	
-	private $elementIdArray;
-	//private $tableElements;
+ 
+ 
 	
 	
 	public   $arrElements; 
@@ -44,9 +44,11 @@ class CatalogModel extends Model
 	public   $arrElementsQuantity; 
 	
     public   $arrSectioons;
-	public   $TopArrCurSection; // we need for every request fo curient section
+	public   $TopArrCurSection;  
 	public   $BottomArrCurSection; 
-	//public   $BottomArrCurSectionArr;
+ 
+	public   $TopArrCurSectionXmlCode;  
+	public   $BottomArrCurSectionXmlCode; 
 	
 	
     public  $arrPages;
@@ -76,26 +78,7 @@ class CatalogModel extends Model
 	}
 	
 
-          public   function fillElementIdArray(){
-			  
-		  $this->elementIdArray=[];
-			  	
-			  
-			  if(isset($this->arrElements)){
-				  
-				  foreach($this->arrElements as  $element){
-					  
-					  $this->elementIdArray[]=$element['id'];
-					  
-					  
-				  }
-				  
-				  
-			  };
-			  
-			  
-			  
-		  }
+   
 
 		  public   function fillSectionNoParentArray(){
 			  
@@ -224,12 +207,33 @@ class CatalogModel extends Model
 			{ $this->arrElements=[];
 				 //we need element only for our group
 				 
-				 $this->BottomArrCurSection[]=intval((trim($this->section)));
+				// $this->BottomArrCurSection[]=intval((trim($this->section)));
+				 $this->BottomArrCurSectionXmlCode=[];
+		   
+		   $sections=Section::find()
+		   ->where(['id'=>$this->BottomArrCurSection])
+		   ->all();
+		   
+		   
+		   
+		   if($sections){
+			      
+			   foreach($sections as $section){
+				 $this->BottomArrCurSectionXmlCode[]= $section->xmlcode; 
+				   
 				 
+			   }
+			   
+		   }
+				
+				
+				
+				
+				
 				
 				
 		         $elements = Element::find()
-				  ->where(['idp' =>$this->BottomArrCurSection ,'issection' =>false, 'active'=>1 ]) 
+				  ->where(['xmlcodep' =>$this->BottomArrCurSectionXmlCode ,'issection' =>false, 'active'=>1 ]) 
 				 ->orderBy("name")				
 				 ->offset( intval( $this->page*$this->elementPerPage))
 				  ->limit(intval($this->elementPerPage))
@@ -309,7 +313,7 @@ class CatalogModel extends Model
 				
 					$this->TopArrCurSection=[];	
 				
-				///make  key for the section
+				
 				if (!isset($this->section)){
 			
 					return;								
@@ -323,7 +327,7 @@ class CatalogModel extends Model
 				
 				
 				
-				
+				///make  key for the section
 				$key="top_cur_section_array_".$this->section;
 				
 				
@@ -376,7 +380,7 @@ class CatalogModel extends Model
 		   {	
 		   	$this->BottomArrCurSection=[];	
 				
-				///make  key for the section
+			
 				if (!isset($this->section)){
 			
 					$this->section='non';								
@@ -384,7 +388,7 @@ class CatalogModel extends Model
 				};
 				
 				
-		   
+		   	///make  key for the section
 		   
 		   
 		   
@@ -442,7 +446,7 @@ class CatalogModel extends Model
 									   
 									//$this->BottomArrCurSection=$inArray;
 
-									//Yii::$app->cache->set($key, $treeArray);
+									//Yii::$app->cache->set($key, $this->BottomArrCurSection);
 				        }
 				
 				
@@ -498,24 +502,40 @@ class CatalogModel extends Model
 	 
  public function fillQuantitypageforqurientsection(){
 	
-
-               $count = Element::find()//->where(['idp' =>$this->BottomArrCurSection  ])->count();
-               ->where(['idp' =>$this->BottomArrCurSection ,'issection' =>false]) 
-				// ->orderBy("name")				
-				 //->offset(100)
-				 // ->limit($this->elementPerPage)
-				 //->where(['idp' =>ltrim(  $startCode )])
-			
-         ->count();
-		 
-		 
-		 //echo $count.'alex';
-		 //print_r ($this->BottomArrCurSection);
-		 
-		 
-		   $this->message='quantitq = '.$count.'quantitq = ';
-		   if(!$count){
+   
+   //we need  ather array. TopArrCurSectionXmlCode
+   
+   
+   $this->BottomArrCurSection[]=intval((trim($this->section)));
+   
+           $this->BottomArrCurSectionXmlCode=[];
+		   
+		   $sections=Section::find()
+		   ->where(['id'=>$this->BottomArrCurSection])
+		   ->all();
+		   
+		   
+		   
+		   if($sections){
+			      
+			   foreach($sections as $section){
+				 $this->BottomArrCurSectionXmlCode[]= $section->xmlcode; 
+				   
+				 
+			   }
 			   
+		   }
+		   
+		     $count = Element::find()
+             ->where(['xmlcodep' =>$this->BottomArrCurSectionXmlCode ,'issection' =>false, 'active'=>1 ,]) 
+			 ->count();
+       
+		  
+	
+	
+		   if(!$count){  
+		  
+			  
 			   $this->quantityPageForCurSection=0;
 		   }else{  $this->quantityPageForCurSection = ceil( $count/$this->elementPerPage);};
 			   
@@ -527,31 +547,8 @@ class CatalogModel extends Model
 
 
   
-  	 
- public function getSectionNameById($id){
-	
-
-               $element = Section::find()
-               ->where(['id' =>$id]) 
-			   ->one();
-		    if($element){
-			return $element->name;};
- 
-	 
-	 
- }
+  	
   
-  
-  
-  public function addElementToBasket(){
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-  }
   
   
   
@@ -790,7 +787,8 @@ class CatalogModel extends Model
   public function setVisibleForCurienSection(){
 	   
 			
-			
+		//echo 'setVisibleForCurienSection<br>';
+		//return;
 		 
  
 			if(isset($this->section)){ 
@@ -830,11 +828,7 @@ class CatalogModel extends Model
 				
 			}
 			
-				//echo'<br>';echo'<br>';echo'<br>';
-			//print_r($this->TopArrCurSection);
-			//echo'<br>';echo'<br>';echo'<br>';
 			
-			//print_r($this->arrSectioons);
 			
 			
 			
@@ -918,5 +912,17 @@ class CatalogModel extends Model
 		
   
   }
-  
+ 
+ public function getSectionNameById($id){
+	
+               $element = Section::find()
+               ->where(['id' =>$id]) 
+			   ->one();
+		    if($element){
+			return $element->name;};
+ 
+	 
+	 
+ }
+ 
 }
