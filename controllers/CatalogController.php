@@ -44,7 +44,7 @@ class CatalogController extends Controller
 		
 		$model->fillTopArrCurSection(); 
 	   
-		$model->fillElementIdArray();
+	 
 	    
 		$model->fillBottomArrCurSection();
 	   

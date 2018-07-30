@@ -14,7 +14,7 @@ class CatalogMenu extends \yii\bootstrap\Widget
     public function init()
     {
         if(!isset($this->model)){
-            throw new Exception("Model not loaded on CatalogMenu widget");
+            throw new \Exception("Model not loaded on CatalogMenu widget");
         }
     }
 
@@ -54,7 +54,7 @@ class CatalogMenu extends \yii\bootstrap\Widget
             if (!$qv == 0) {
                 echo '<ul>';
                 foreach ($arrSection['childArray'] as $key => $children) {
-                    printSection($children, $cursection);
+                    $this->printSection($children, $cursection);
                 }
                 echo '</ul>';
             } else {

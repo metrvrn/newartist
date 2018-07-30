@@ -199,29 +199,12 @@ class SiteController extends Controller
     {
 		
 		$catalogModel=new CatalogModel();
-		 
 		$catalogModel->elementPerPage=50;
-	     $catalogModel->load(Yii::$app->request->get(),'');		
+	    $catalogModel->load(Yii::$app->request->get(),'');		
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
-		
-		//$catalogModel->section=438;		
-		//$catalogModel->fillQuantitypageforqurientsection();		   
-	    // $catalogModel->fillarrElements();
-		//$catalogModel->fillImageForElementArray();
-		//$catalogModel->fillPriceForElementArray();		
-		//echo 'CatalogModelAdmin';
 		$catalogModel->setVisibleForCurienSection();
-		
-		
-		
-		
-		
-		
-		
-		
-		
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');

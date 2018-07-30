@@ -262,6 +262,9 @@ nav.navbar{
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.16);
     transition: all 0.2s ease;
 }
+.sidebar-menu__root ul{
+    list-style: none;
+}
 .sidebar-menu__root li{
     width: 100%;
 }
@@ -514,11 +517,13 @@ nav.navbar{
 }
 .pagination__wrapper{
     border-radius: 2px;
+    margin-bottom: 12px;
 }
 .pagination__link{
     display: block;
     float: left;
     padding: 6px 12px;
+    margin-bottom: 4px;
     margin-left: -1px;
     font-style: normal;
     font-style: normal;
@@ -571,6 +576,16 @@ nav.navbar{
 }
 .order-index__col:last-child{
     border-right: none;
+}
+.button-default{
+    background-color: #ffddaa;
+    transition: all 0.2s ease;
+    color: #000;
+}
+.button-default:hover{
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+    background-color: #ffc367;
+    transition: all 0.2s ease;
 }
 @media screen and (max-width: 320px) {
     .header-title{

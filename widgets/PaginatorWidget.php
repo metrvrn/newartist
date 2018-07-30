@@ -29,142 +29,29 @@ class PaginatorWidget extends Widget
         parent::init();
         $this->curPage = $this->curPage ?: 0;
         $this->sectionID = is_numeric($this->sectionID) ? $this->sectionID : 'non';
-        printf(
-            "Current page in paginator class: %d<br>Current sectionID in paginator class: %s<br>Total pages is pagination class%d",
-            $this->curPage, $this->sectionID, $this->totalPage);
+        // printf(
+        //     "Current page in paginator class: %d<br>Current sectionID in paginator class: %s<br>Total pages is pagination class%d",
+        //     $this->curPage, $this->sectionID, $this->totalPage);
     }
 
     public function run()
     {
         $links = "";
-        if($this->length < $this->totalPage){
-            if($this->curPage < 2){
-                if($this->totalPage > $this->length){
-                    for($fi = 0; $fi < 3; $fi++){
-                        if($this->curPage == $fi){
-                            $links .= $this->getCurrentLink($fi);
-                            continue;
-                        }
-                        $links .= $this->getLink($fi);
-                    }
-                    $links .= $this->getDotted();
-                    for($li = ($this->totalPage - 2); $li <= $this->totalPage; $li++){
-                        if($this->curPage == $li){
-                            $links .= $this->getCurrentLink($li);
-                            continue;
-                        }
-                        $links .= $this->getLink($li);             
-                    }
-                }
+        for($page = 0; $page < $this->totalPage; $page++) {
+            if($this->curPage == $page){
+                $links .= $this->getCurrentLink($page);
+                continue;
             }
-            if($this->curPage >= 2 and $this->curPage <= $this->totalPage - 2){
-                if($this->totalPage > $this->length){
-                    for($fi = 0; $fi < 3; $fi++){
-                        if($this->curPage == $fi){
-                            $links .= $this->getCurrentLink($fi);
-                            continue;
-                        }
-                        $links .= $this->getLink($fi);
-                    }
-                    if($this->curPage == 2){
-                        for($mi = $this->curPage + 1; $mi <= $this->curPage + 3; $mi++){
-                            if($this->curPage == $mi){
-                                $links .= $this->getCurrentLink($mi);
-                                continue;
-                            }
-                            $links .= $this->getLink($mi);     
-                        }
-                    }
-                    elseif($this->curPage == 3){
-                        for($mi = $this->curPage; $mi <= $this->curPage + 3; $mi++){
-                            if($this->curPage == $mi){
-                                $links .= $this->getCurrentLink($mi);
-                                continue;
-                            }
-                            $links .= $this->getLink($mi);     
-                        }
-                        $links .= $this->getDotted();
-                    }
-                    elseif($this->curPage == 4){
-                        for($mi = $this->curPage - 1; $mi <= $this->curPage + 1; $mi++){
-                            if($this->curPage == $mi){
-                                $links .= $this->getCurrentLink($mi);
-                                continue;
-                            }
-                            $links .= $this->getLink($mi);     
-                        }
-                        $links .= $this->getDotted();
-                    }
-                    elseif($this->curPage == $this->totalPage - 2){
-                        $links .= $this->getDotted();
-                        for($li = $this->totalPage - 5; $li < $this->totalPage - 2; $li++){
-                            if($this->curPage == $li){
-                                $links .= $this->getCurrentLink($li);
-                                continue;
-                            }
-                            $links .= $this->getLink($li);             
-                        }
-                    }
-                    elseif($this->curPage == $this->totalPage - 3){
-                        $links .= $this->getDotted();
-                        for($li = $this->totalPage - 6; $li < $this->totalPage - 3; $li++){
-                            if($this->curPage == $li){
-                                $links .= $this->getCurrentLink($li);
-                                continue;
-                            }
-                            $links .= $this->getLink($li);             
-                        }
-                    }
-                    else{
-                        $links .= $this->getDotted();
-                        for($mi = $this->curPage - 1; $mi <= $this->curPage + 1; $mi++){
-                            if($this->curPage == $mi){
-                                $links .= $this->getCurrentLink($mi);
-                                continue;
-                            }
-                            $links .= $this->getLink($mi);     
-                        }
-                        $links .= $this->getDotted();
-                    }
-                    for($li = ($this->totalPage - 2); $li <= $this->totalPage; $li++){
-                        if($this->curPage == $li){
-                            $links .= $this->getCurrentLink($li);
-                            continue;
-                        }
-                        $links .= $this->getLink($li);             
-                    }
-                }
-            }
-            if($this->curPage > $this->totalPage - 2){
-                if($this->totalPage > $this->length){
-                    for($fi = 0; $fi < 3; $fi++){
-                        if($this->curPage == $fi){
-                            $links .= $this->getCurrentLink($fi);
-                            continue;
-                        }
-                        $links .= $this->getLink($fi);
-                    }
-                    $links .= $this->getDotted();
-                    for($mi = $this->curPage - 1; $mi <= $this->curPage + 1; $mi++){
-                        if($this->curPage == $mi){
-                            $links .= $this->getCurrentLink($mi);
-                            continue;
-                        }
-                        $links .= $this->getLink($mi);     
-                    }
-                }
-            }
-        }
-        else{
-            foreach($this->totalPage as $page){
-                if($this->curPage == $this->page){
-                    $links .= $this->getCurrentLink($page);
-                    continue;
-                }
+            if($page == 0 or $page == $this->totalPage - 1){
                 $links .= $this->getLink($page);
+                continue;
             }
+            if($page = $this->curPage + 2 or $page = $this->curPage - 2){
+                $links .= $this->getDotted();
+            }
+            if($page > $this->curPage + 2 or $page < $this->curPage - 2) continue;
+            $links .= $this->getLink($page);
         }
-        //wrap links into div element
         echo $this->wrapLinks($links);
     }
 
