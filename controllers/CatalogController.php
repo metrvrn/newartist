@@ -37,29 +37,49 @@ class CatalogController extends Controller
 		
 		$model->load(Yii::$app->request->get(),'');
 		
+		//if set elementForAddToBasket
 		
 		
-
-	    $model->fillarrSectioons();
 		
-		$model->fillTopArrCurSection(); 
-	   
-	 
-	     
-		$model->fillBottomArrCurSection();
-	   
-		$model->fillQuantitypageforqurientsection();
-		   
+		if(isset($model->element)&&($model->element!=='non')){
+			
+			 
+			
+	    $model->setSectionIdForCurientSection();
+			
+        $model->fillarrSectioons();		
+		$model->fillTopArrCurSection(); 	     
+		$model->fillBottomArrCurSection();	   
+		$model->fillQuantitypageforqurientsection();	
+		$model->setVisibleForCurienSection();
 		
-		   
+		$model->fillArrayDataForCurientElement();
+		
+		
+		
+		return $this->render('detail', [
+         	'model' => $model,
+			]);
+		
+		
+		
+			
+			
+		}
+		
+		
+		
+		
+	    $model->fillarrSectioons();		
+		$model->fillTopArrCurSection();      
+		$model->fillBottomArrCurSection();   
+		$model->fillQuantitypageforqurientsection();			   
 	    $model->fillarrElements();
 			
 			
 			
-		$model->fillImageForElementArray();
-		
-		$model->fillPriceForElementArray();
-		
+		$model->fillImageForElementArray();		
+		$model->fillPriceForElementArray();		
 		$model->fillQuantityForElementArray();	
 
 		
