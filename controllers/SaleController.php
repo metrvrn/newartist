@@ -186,11 +186,10 @@ class SaleController extends Controller
    
 		   
 		    $model->makeOrder();
-		 
+		
 		  return $this->render('orderdetail', [
-         'model' => $model, 
-		
-		
+			 'model' => $model,
+			 'catalogMenu' => $catalogModel
 			]);
 		  
 		  

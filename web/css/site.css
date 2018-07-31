@@ -587,6 +587,11 @@ nav.navbar{
     background-color: #ffc367;
     transition: all 0.2s ease;
 }
+.align-table td{
+    vertical-align: middle !important;
+    text-align: center !important;
+    font-size: 1.5rem;
+}
 @media screen and (max-width: 320px) {
     .header-title{
         font-size: 5rem;

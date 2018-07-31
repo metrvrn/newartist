@@ -14,7 +14,7 @@ $this->title = 'Данные заказа';
 
 <div class="row">
 	<div class="col-xs-12 col-md-3">
-		<?=CatalogMenu::widget(['model' => $catalogModel])?>
+		<?=CatalogMenu::widget(['model' => $catalogMenu])?>
   </div>
 	<div class="col-xs-12 col-md-9">
 		<div class="panel panel-default">
