@@ -132,6 +132,9 @@ unset($this->params['breadcrumbs'][1]);
 								<div class="prodcut-price__quantitty">
 									<span><?=$item['quantity'];?> шт.</span>
 								</div>
+								<div class="product-cart__code">
+									<?=$item['code'];?>
+								</div>
 								<div class="prodcut-cart__price">
 									<span class="product-cart__price-text"><?=$item['price'];?></span>
 									<span class="prodcut-cart__price-icon">&#8381;</span>

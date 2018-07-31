@@ -20,6 +20,7 @@ $this->beginPage() ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&load=Geolink" type="text/javascript"></script>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
@@ -41,14 +42,12 @@ $this->beginPage() ?>
                 </div>
                 <div class="col-xs-4">
                     <div class="header-info__item header-info__address">
-                        <a href="">
-                            <span class="header-info__icon">
-                                <i class="fas fa-map-marked-alt"></i>
-                            </span>
-                            <span class="header-info__text">
-                                <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_adressComppany')?>
-                            </span>
-                        </a>
+                        <span class="header-info__icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </span>
+                        <span class="header-info__text" class="ymaps-geolink">
+                            <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_adressComppany')?>
+                        </span>
                     </div>
                 </div>
                 <div class="col-xs-4">

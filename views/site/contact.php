@@ -23,12 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     E-mail: <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_email')?> <br>
                 </p>
                 <script
+                    id="yandexMap"
                     type="text/javascript"
                     charset="utf-8"
-                    async
                     src="<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_yandex_map')?>">
                 </script>
             </div>
         </div>
     </div>
 </div>
+<div id="spinner" class="spinner closed">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+</div>
+<?php $this->registerJsFile("/js/about.js"); ?>
