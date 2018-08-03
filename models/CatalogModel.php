@@ -7,6 +7,8 @@ use yii\base\Model;
 use yii\caching\Cache;
 
 
+
+
 /**
 * ContactForm is the model behind the contact form.
 */
@@ -35,7 +37,7 @@ class CatalogModel extends Model
 	
 	private $id_tovar;///the main   grup  tovar;
 	
-
+    public $arrProperyMetr;
 
 	
 	
@@ -232,9 +234,21 @@ class CatalogModel extends Model
 		}
 		
 		
+		////differnt way for one and no one
 		
-		
-		
+		if(isset($this->element)&&($this->element!=='non')){
+			
+		$elements = Element::find()
+		->where(['xmlcode' =>$this->elementXmlCode,'issection' =>false, 'active'=>1 ]) 
+		->orderBy("name")				
+		->offset( intval( $this->page*$this->elementPerPage))
+		->limit(intval($this->elementPerPage))
+		//->where(['idp' =>ltrim(  $startCode )])
+		->all();
+			
+			
+		}else{
+			
 		
 		
 		$elements = Element::find()
@@ -246,7 +260,7 @@ class CatalogModel extends Model
 		->all();
 		
 		
-		
+		}
 		
 		foreach($elements as $element){
 			$idArray=Array();
@@ -914,7 +928,7 @@ class CatalogModel extends Model
 	
 	
 	
-	public function setSectionIdForCurientSection(){
+	public function setSectionIdForCurientElement(){
 		
 	$element=Element::find()
 	->where(['id'=>$this->element])
@@ -946,17 +960,119 @@ class CatalogModel extends Model
 		
 	}
 	
-	
-	
-	
-     public function fillArrayDataForCurientElement(){
-		 
-		 
-       		$this->arrayDataForCurientElement='Alex arrayDataForCurientElement ';
 
+	
+	
+	
+     public function fillArrProperyMetr(){
+		 $key='arrProperyMetr';
+		 
+		 	$this->arrProperyMetr = Yii::$app->cache->get($key);
+ 
+
+		if ($this->arrProperyMetr === false) {
+			
+			
+            $this->arrProperyMetr=[];
+			  
+				
+					$url = 'https://metropt.ru/test/metr/newartist/newartistprop.php'; 
+					if($curl = curl_init()) { 
+					curl_setopt($curl,CURLOPT_URL, $url); 
+					curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+					curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
+					curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,30); 
+					curl_setopt($curl,CURLOPT_USERAGENT,'Bot 5555.0');
+					$html = curl_exec($curl);
+					curl_close($curl);
+					}
+					
+					 
+					
+					$arrProp=json_decode($html); 
+					 
+				//print_r($arrProp);
+				//echo '<br>';
+				
+				foreach($arrProp as $prop){
+					 $intArray=[];
+					  $intArray['NAME']=$prop->NAME;
+					   $intArray['CODE']=$prop->CODE;
+					   $intArray['ID']=$prop->ID;
+					 
+					 
+					$this->arrProperyMetr[$prop->ID]= $intArray;
+					 
+					
+				}
+				
+
+				
+		 
+			     //Yii::$app->cache->set($key, $this->arrProperyMetr);
+		}
+		 
+		 //  print_r( $this->arrProperyMetr);
+		   
+		  		   
+	 }
+		 
+		 
+		 
+			
+	
+	 public function fillArrayDataForCurientElement(){
+		 
+		$this->arrayDataForCurientElement=[];
+		 
+		 
 		
 		 
-	 }
+		 
+		 $url = 'https://metropt.ru/test/metr/newartist/newartistpropdata.php?id='.$this->elementXmlCode;; 
+					if($curl = curl_init()) { 
+					curl_setopt($curl,CURLOPT_URL, $url); 
+					curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+					curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
+					curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,30); 
+					curl_setopt($curl,CURLOPT_USERAGENT,'Bot 5555.0');
+					$html = curl_exec($curl);
+					curl_close($curl);
+					}
+					
+					 
+					//echo 	$html;
+					
+					$arrPropData=json_decode($html); 
+					 
+				//print_r($arrPropData);
+				foreach($arrPropData as $PropData){
+					 
+					 $intArray=[];
+					 $intArray['PROPERTY_ID']=$PropData->PROPERTY_ID;
+					 $intArray['NAME']=$PropData->NAME;
+				     $intArray['CODE']=$PropData->CODE;
+					 $intArray['VALUE']=$PropData->VALUE;
+					 
+					 
+					 $intArray['NAME_PROPERTY']=$this->arrProperyMetr[$PropData->PROPERTY_ID]['NAME'];
+					 ;
+					 
+					 
+					$this->arrayDataForCurientElement[]=$intArray;
+					 
+					
+				}
+		 
+		 
+		 
+		 
+		 
+	 } 
+       	
+		
+		 
+	
 
 
 	

@@ -186,10 +186,13 @@ class SaleController extends Controller
    
 		   
 		    $model->makeOrder();
+			$model->fillArrOrderElements();
+			$model->sendOrderToCustomer();
+			
 		
 		  return $this->render('orderdetail', [
 			 'model' => $model,
-			 'catalogMenu' => $catalogModel
+			 'catalogModel' => $catalogModel
 			]);
 		  
 		  

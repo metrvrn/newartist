@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\LokalFileModel;
 
 
 /**
@@ -95,10 +96,10 @@ class OrderModel extends Model
 			$order->save();
 			
 			$this->newOrderId=$order->id;
-			$this->orderId  =$order->id;
+			$this->orderId =$order->id;
 			
 			$this->newOrderDatetime=$order->datatime;;
-			
+			$this->orderMd5=$order->md5;
 			
 			
 		 
@@ -251,37 +252,6 @@ class OrderModel extends Model
 		 
  
 			
-			
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  
  
@@ -427,6 +397,34 @@ class OrderModel extends Model
 		
 		
 	}
+	
+	
+	
+	public function sendOrderToCustomer(){
+	
+	
+	
+	if(isset($this->email)){
+		
+		    Yii::$app
+                ->mailer
+                ->compose(
+                    ['html' => 'sendOrderToCustomer-html', 'text' => 'sendOrderToCustomer-text'],
+                    ['order' => $this]
+                )
+                ->setFrom([LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order') => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'). ' robot'])
+                ->setTo($this->email)
+                ->setSubject('создан заказ ' . Yii::$app->name)
+                ->send();
+		
+	}
+	
+	  
+	
+	
+	
+	}
+	
 	
 	
 	

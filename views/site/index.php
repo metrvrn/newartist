@@ -7,9 +7,7 @@ use yii\helpers\Url;
 use app\models\LokalFileModel;
 use app\widgets\CatalogMenu;
 
-LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
-
-$this->title = 'Художник';
+$this->title = LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
 ?>
 <div class="div">
 <div id="blueimp-gallery" class="blueimp-gallery">

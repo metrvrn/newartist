@@ -47,8 +47,8 @@
         public function rules()
         {
             return [
-                ['password', 'required'],
-                ['password', 'string', 'min' => 6],
+                ['password', 'required', 'message' => 'Пароль не должен быть пустым'],
+                ['password', 'string', 'min' => 6, 'message' => 'Минимальная длина пароля 6 символов'],
             ];
         }
      

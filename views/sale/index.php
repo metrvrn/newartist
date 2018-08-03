@@ -8,16 +8,17 @@ use app\models\LokalFileModel;
 use app\widgets\CatalogMenu;
 
 LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany');
-
 $this->title = 'Заказы';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
+	<div class="col-xs-12"><h1><?= Html::encode($this->title) ?></h1></div>
     <div class="col-xs-12 col-md-3">
 		<?=CatalogMenu::widget(['model' => $catalogModel])?>
     </div>
 	<div class="col-xs-12 col-md-9">
-		<?php if($model) : ?>
+		<?php if($model->arrOrdersForCurientUser ) : ?>
 			<div class="container-fluid">
 				<div class="row order-index__row order-index__row-title">
 					<div class="col-xs-3 order-index__col">Номер</div>
@@ -36,6 +37,8 @@ $this->title = 'Заказы';
 					</a>
 				<?php endforeach; ?>
 			</div>
+		<?php else: ?>
+			<div class="alert alert-danger" role="alert">У вас нет заказов</div>
 		<?php endif; ?>
 	</div>
 </div>

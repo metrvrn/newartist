@@ -45,14 +45,21 @@ class CatalogController extends Controller
 			
 			 
 			
-	    $model->setSectionIdForCurientSection();
+	    $model->setSectionIdForCurientElement();
 			
         $model->fillarrSectioons();		
 		$model->fillTopArrCurSection(); 	     
 		$model->fillBottomArrCurSection();	   
 		$model->fillQuantitypageforqurientsection();	
 		$model->setVisibleForCurienSection();
+		$model->fillarrElements();
+		$model->fillImageForElementArray();		
+		$model->fillPriceForElementArray();		
+		$model->fillQuantityForElementArray();
 		
+		$model->fillArrProperyMetr();
+		
+		  
 		$model->fillArrayDataForCurientElement();
 		
 		

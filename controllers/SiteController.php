@@ -24,7 +24,10 @@ use app\models\BasketModel;
 use app\models\ZakazModel;
 use app\models\ZakazForm;
 
-use app\models\ AddLogingModel;
+use app\models\AddLogingModel;
+
+use app\models\ProfileModel;
+use app\models\ProfileForm;
 
 use app\models\Usersessitions; 
 
@@ -125,13 +128,7 @@ class SiteController extends Controller
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
-		
-		//$catalogModel->section=438;		
-		//$catalogModel->fillQuantitypageforqurientsection();		   
-	    // $catalogModel->fillarrElements();
-		//$catalogModel->fillImageForElementArray();
-		//$catalogModel->fillPriceForElementArray();		
-		//echo 'CatalogModelAdmin';
+	
 		$catalogModel->setVisibleForCurienSection();
 		
 		
@@ -310,13 +307,6 @@ class SiteController extends Controller
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
-		
-		//$catalogModel->section=438;		
-		//$catalogModel->fillQuantitypageforqurientsection();		   
-	    // $catalogModel->fillarrElements();
-		//$catalogModel->fillImageForElementArray();
-		//$catalogModel->fillPriceForElementArray();		
-		//echo 'CatalogModelAdmin';
 		$catalogModel->setVisibleForCurienSection();
 		
 		
@@ -402,13 +392,8 @@ class SiteController extends Controller
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
 	    $catalogModel->fillBottomArrCurSection();
+
 		
-		//$catalogModel->section=438;		
-		//$catalogModel->fillQuantitypageforqurientsection();		   
-	    // $catalogModel->fillarrElements();
-		//$catalogModel->fillImageForElementArray();
-		//$catalogModel->fillPriceForElementArray();		
-		//echo 'CatalogModelAdmin';
 		$catalogModel->setVisibleForCurienSection();
 		
 		
@@ -524,23 +509,61 @@ class SiteController extends Controller
     {
 		
 		
-		$catalogModel=new CatalogModel();
-		 
-		$catalogModel->elementPerPage=50;
- 
+		$catalogModel=new CatalogModel();		 
+		$catalogModel->elementPerPage=50; 
 	    $catalogModel->fillarrSectioons(); 
 		$catalogModel->fillTopArrCurSection();  
-	    $catalogModel->fillBottomArrCurSection();
-		
-		 
+	    $catalogModel->fillBottomArrCurSection();	 
 		$catalogModel->setVisibleForCurienSection();
 		
+		
+		
+		
+		
+		
+		$model           	=new ProfileModel();		   
+		$modelProfileForm	= new ProfileForm();
+		
+		
+		 if ($modelProfileForm->load(Yii::$app->request->post())) {
+			 
+			 $modelProfileForm->changeProfileData();
+			 
+           
+        }
+          
+		  
+		  if (Yii::$app->user->isGuest){							 
+	                         
+							}else{	
+
+						 
+							
+							 
+							$model->userId=Yii::$app->user->id;
+							$model->validatePassword_reset_token();
+							
+							$model->fillDataUserById();
+						   
+						
+							
+							
+							$modelProfileForm->adress=$model->adress;
+							$modelProfileForm->phone=$model->phone;
+							$modelProfileForm->name=$model->name;
+							$modelProfileForm->password_reset_token=$model->password_reset_token;
+							
+							}
+									
+									
+		   
 		   
 		  
 			
 		   return $this->render('profile', [
-         'model' => $model,
-		 	 'catalogModel' => $catalogModel,
+			'model' => $model,
+			'modelProfileForm' => $modelProfileForm,
+			'catalogModel' => $catalogModel,
 			]);
 			
 		

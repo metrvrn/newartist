@@ -22,11 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]); ?>
                     <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>
                     <?= $form->field($model, 'password')->passwordInput()->textInput()->label('Пароль') ?>
-                    <?= $form->field($model, 'email')->textInput()->label('Email') ?>
+					<?= $form->field($model, 'name')->textInput()->label('ФИО') ?>
+				   <?= $form->field($model, 'email')->textInput()->label('Email') ?>
                     <?= $form->field($model, 'phone') ->textInput()->label('Телефон')?>
                     <?= $form->field($model, 'adress')->textInput()->label('Адрес') ?>
                     <div class="form-group">
-                        <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-lg signup-button', 'name' => 'signup-button']) ?>
+                        <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-lg button-default', 'name' => 'signup-button']) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
             </div>

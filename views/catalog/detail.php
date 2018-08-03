@@ -9,7 +9,7 @@ use app\models\CatalogMenuPresenter;
 use app\widgets\CatalogMenu;
 use app\widgets\PaginatorWidget;
 
-$this->title = 'Детальная страница';
+
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -37,92 +37,74 @@ $this->params['breadcrumbs'][0] = [
 	'url' => [Url::to(['catalog/index', 'section' => 'non', 'element' => 'non', 'page' => 0, ])]
 ];
 unset($this->params['breadcrumbs'][1]);
+$this->params['breadcrumbs'][] = trim($model->arrElements[0]['name']);
+//current product
+$item = $model->arrElements[0];
+$this->title = $item['name'];
 ?>
-<div class="row">
-	<div class="col-xs-12">
-		<h1><?= Html::encode($this->title)?></h1>
-		<p>
-			<?//="Page: ".$model->page;?>
-			<?//="Quantity: ".$model->quantityPageForCurSection;?>
-			<?//=$model->section;?>
-		</p>
-	</div>
-</div>
 <div class="row"> 
 	<div class="col-xs-12 col-md-3">
-	<?php
-			function printSection($arrSection, $cursection)
-			{
-				if (!isset($arrSection['id'])) {
-					return;
-				};
-				if ($arrSection['visible']) {
-					$qv = 0;
-					$q = 0;
-					foreach ($arrSection['childArray'] as $k => $el) {
-						if ($el[visible]) $qv = $qv + 1;
-						$q = $q + 1;
-					}
-					$last = 'notlast';
-					if ($q == 0) {
-						$last = 'last';
-					}
-		
-					echo '<li class="' . $last . '">';
-					echo '<a class="catalog-menu__link clearfix" href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
-					if (isset($last) and ($last === 'notlast')) {
-						echo '<div class="catalog-menu__icon"><i class="fas fa-plus icon"></i></div>';
-					}
-					echo '<div class="catalog-menu__name">'.$arrSection['name'].'</div>';
-					echo '</a>';
-					if (!$qv == 0) {
-						echo '<ul>';
-						foreach ($arrSection['childArray'] as $key => $children) {
-							printSection($children, $cursection);
-						}
-						echo '</ul>';
-					} else {
-						if ($q > 0 && $arrSection['id'] == $cursection) {
-							echo '<ul>';
-							foreach ($arrSection['childArray'] as $key => $children) {
-								echo '<li>';
-								echo '<a  href=' . Url::to(['catalog/index', 'section' => $children['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $children['name'] . '</a>';
-								echo '</li>';
-							}
-							echo '</ul>';
-						}
-					}
-					echo '</li>';
-				}
-			} 
-			
-			echo '<ul class="sidebar-menu__root">';
-			foreach ($model->arrSectioons as $topSection) {
-				printSection($topSection, $model->section);
-			};
-			echo '</ul>';
-			?>
-			
-	</div>
-	<div class="col-xs-12 col-md-9" >
-		<div class="container-fluid">
+		<?=CatalogMenu::widget(['model' => $model])?>
+  	</div>
+		<div class="product-detail__wrapper">
+		<div class="col-xs-12 col-md-9">
+		<div class="container-flud">
 			<div class="row">
-				<div class="col-xs-12">
-					детальная страница
-					
-					
-					<?echo $model->arrayDataForCurientElement; ?>
-					
+				<?php if($item) :?>
+					<div class="col-md-9">
+						<h3><?= Html::encode($item['name'])?></h3>
+					</div>
+					<div class="col-md-6">
+						<div class="detail-product" id="productCart" data-id="<?=$item['id'];?>">
+							<div class="detail-image">
+								<?php
+									if($item['imaged'] !== 'not'){
+										$image = 'https://metropt.ru/upload/'.$item['imaged'];
+									}
+									else{
+										$image = $_SERVER['HOSTNAME'].'/images/no-image-bg.jpg';
+									}
+								?>
+							<img src="<?=$image?>" alt="" class="image-responsive">
+						</div>
+					</div>
+					</div>
+					<div class="col-md-6">
+						<?php if($model->arrayDataForCurientElement) : ?>
+							<table class="table table-bordered">
+								<tbody>
+									<?php foreach($model->arrayDataForCurientElement as $prop) : ?>
+										<?php if($prop['PROPERTY_ID'] == '178') continue; ?>
+										<tr>
+											<td><?=$prop['NAME_PROPERTY']?></td>
+											<td><?=$prop['VALUE']?></td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						<?php endif; ?>
+						<div class="detail-bottom">
+							<div class="detail-quantity">
+								<b>Остатки: <span id="available"><?=$item['quantity']?></span></b>
+							</div>
+							<div id="detailControl" class="detail-control">
+								<div class="detail-control__btn-wrapper clearfix">
+									<button id="minusBtn" class="detail-control_btn detail-control__btn-minus"><i class="fas fa-minus"></i></button>
+									<input id="quantityInput" class="detail__quantity-input" type="text" value=1 data-oldValue="1">
+									<button id="plusBtn" class="detail-control_btn detail-control__btn-plus"><i class="fas fa-plus"></i></button>
+								</div>
+								<div class="detail-controll__basket-wrappper">
+									<button id="addBasketBtn" class="detail-control__basket-btn">Добавить в корзину</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php endif; ?>	
 				</div>
-				
-			</div>
 		</div>
-	</div>		
-</div>
-<div id="spinner" class="spinner closed">
-		<div class="bounce1"></div>
-		<div class="bounce2"></div>
-		<div class="bounce3"></div>
+		</div>
 	</div>
-<?php //$this->registerJsVar("addToBasketUrl", Url::to(['catalog/addtobasketajax']) , yii\web\View::POS_END); ?>
-<?php //$this->registerJsFile('/js/catalog.js',  ['position' => yii\web\View::POS_END]); ?>
+</div>
+<?php $this->registerJsVar("addToBasketUrl", Url::to(['catalog/addtobasketajax']) , yii\web\View::POS_END); ?>
+<?php $this->registerJsFile("/js/detail-catalog.js",  ['position' => yii\web\View::POS_END]); ?>
+
