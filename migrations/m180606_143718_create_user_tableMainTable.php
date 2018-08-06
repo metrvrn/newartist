@@ -23,6 +23,11 @@ class m180606_143718_create_user_tableMainTable extends Migration
 			'usersessition'=> $this->string(),
 			'summ'=> $this->string(),
 			'datatime'=> $this->dateTime(),
+			'datatimeuploade'=> $this->dateTime(),
+			'status'=> $this->integer(),
+			'dуlivery'=> $this->integer(),
+			'payment'=> $this->integer(),
+			
 			'md5'=> $this->string(),
 			
 			

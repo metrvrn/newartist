@@ -292,7 +292,7 @@ nav.navbar{
 .product-cart{
     position: relative;
     border-radius: 2px;
-    height: 260px;
+    height: 272px;
     margin-bottom: 24px;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.16);
 }
@@ -412,12 +412,22 @@ nav.navbar{
 .product-cart__btn-mns:focus{
     outline: none;
 }
+.product-cart__code{
+    width: 100%;
+    padding: 2px 8px;
+    border-top: 1px solid #eee;
+}
+.prodcut-price__quantity{
+    height: 100%;
+    float: left;
+}
 .prodcut-cart__info{
     position: absolute;
     bottom: 52px;
     left: 0;
     right: 0;
     padding: 4px 8px;
+    border-top: 1px solid #eee;
 }
 .prodcut-cart__price{
     font-size: 1.6rem;

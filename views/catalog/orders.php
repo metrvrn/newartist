@@ -19,21 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 	<div class="col-xs-12"><h1><?= Html::encode($this->title) ?></h1></div>
     
 	
-	<?		  /* 
-				 $intArray['id']=$order->id;
-				 $intArray['userid']=$order->userid;
-				 $intArray['usersessition']=$order->usersessition;
-				 $intArray['summ']=$order->summ; 
-				 $intArray['datatime']=$order->datatime;
-				 $intArray['md5']=$order->md5;
-				  
-				$intArray['md5']=$order->md5;
-				$intArray['email']=$order->email;
-				$intArray['phone']=$order->phone; */
+	<?
 	
-	foreach($model->arrayOrders as $orderArray){
+	foreach($model->arrayOrders as $order){
 		
-		echo $orderArray['md5'].'    '.$orderArray['email'].'<br>';
+		echo $order->md5.'<br>';
 		
 	}
 	

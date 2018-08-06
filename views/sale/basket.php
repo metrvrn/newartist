@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					<tr>
 						<th>Картинка</th>
 						<th>Название</th>
+						<th>Код</th>
 						<th>Цена</th>
 						<th>Количество</th>
 						<th>Сумма</th>
@@ -35,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 								<img class="img-responsive center-block" src="<?=$img;?>" alt="">
 							</td>
 							<td><?=$item['name']?></td>
+							<td><?=$item['code']?></td>
 							<td><?=$item['price']?></td>
 							<td><?=$item['quantity']?></td>
 							<td><?=$item['sum']?></td>

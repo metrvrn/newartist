@@ -80,12 +80,12 @@ if($showRootBreadcrumbs){
 							<?php endif; ?>
 							<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
 							<img class="img-responsive center-block prodcut-cart__image" src="<?=$img;?>" alt="">
+							<div class="product-cart__code">
+									Код: <?=$item['code'];?>
+							</div>
 							<div class="prodcut-cart__info clearfix">
-								<div class="prodcut-price__quantitty">
+								<div class="prodcut-price__quantity">
 									<span><?=$item['quantity'];?> шт.</span>
-								</div>
-								<div class="product-cart__code">
-									<?=$item['code'];?>
 								</div>
 								<div class="prodcut-cart__price">
 									<span class="product-cart__price-text"><?=$item['price'];?></span>

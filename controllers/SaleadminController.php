@@ -50,6 +50,8 @@ class SaleadminController extends Controller
     {
 		
 		$model=new SaleAdminModel();
+		$model->fillArrayOrders();
+		
 			
 		   return $this->render('orders', [
          'model' => $model]);
