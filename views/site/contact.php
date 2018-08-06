@@ -15,8 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
   	</div>
     <div class="col-xs-12 col-md-9">
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-heading">
                 <h1><?= Html::encode($this->title)?></h1>
+            </div>
+            <div class="panel-body">
                 <p>
                     Телефон: <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_phone')?> <br>
                     Адрес: <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_adressComppany')?> <br>

@@ -15,6 +15,18 @@ $this->title = 'Данные заказа';
 	<div class="col-xs-12 col-md-3">
 		<?=CatalogMenu::widget(['model' => $catalogModel])?>
   </div>
+	<?php if(isset($isNew) and $isNew == true) : ?>
+		<div class="col-xs-12 col-md-9">
+			<div class="alert alert-success">
+				<span>
+					<?=Html::a(
+						'Заказ № '.$model->orderId,
+						Html::encode(Url::to(['order/detail', 'md5' => $model->md5]))
+					);?> успешно оформлен. На ваш email отправлено уведомление. 
+				</span>
+			</div>
+		</div>
+	<?php endif; ?>
 	<div class="col-xs-12 col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-heading">

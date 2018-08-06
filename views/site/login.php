@@ -14,8 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-xs-12 col-md-offset-2 col-md-4">
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-heading">
                 <h1><?= Html::encode($this->title) ?></h1>
+            </div>
+            <div class="panel-body">
                 <p>Для входа на сайт просим ввести ваш логин и пароль указанный при регистрации:</p>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>

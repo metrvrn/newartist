@@ -1,12 +1,8 @@
 <?php
-
 namespace app\models;
-
 use Yii;
 use yii\base\Model;
 use app\models\LokalFileModel;
-
-
 /**
  * ContactForm is the model behind the contact form.
  */
@@ -33,7 +29,6 @@ class OrderModel extends Model
     public $adress;
 	public $comment;
 				
-
     /**
      * @return array the validation rules.
      */
@@ -44,19 +39,14 @@ class OrderModel extends Model
             
                ];
     }
-
-
    public function makeOrder()
       {
 		  
 		  
 					$session = Yii::$app->session;
 					if ($session->isActive){ 		 
-
 							$this->sessionForBasket=$session->getId();
 					};
-
-
 							if (Yii::$app->user->isGuest){							 
 	                         
 							}else{		  	 
@@ -167,7 +157,6 @@ class OrderModel extends Model
 													 $images=Image::find()
 													 ->where(['elementid'=>$intArrayOfIdElementInBasket])
 													 ->all();
-
 													if($images){														
 														foreach($images as $image){															
 															$imagesArray[$image['elementid']]=$image['filep'];															
@@ -181,7 +170,6 @@ class OrderModel extends Model
 													$elements=Element::find()
 													->where(['id'=>$intArrayOfIdElementInBasket])
 													->all();
-
 													if($elements){
 														foreach($elements as $element){
 															
@@ -256,7 +244,6 @@ class OrderModel extends Model
  
  
  
-
  
  
 		  
@@ -269,12 +256,11 @@ class OrderModel extends Model
 	public function fillArrOrderElements(){
 		
 		
-		
+		$this->basketArray=[];
 		
 		$order=Order::find()
 		->where(['md5'=>$this->orderMd5])
 		->one();
-
 		if($order){
 			
 			
@@ -286,12 +272,18 @@ class OrderModel extends Model
 			$this->orderId  =$order->id;
 			
 			
+			//
+			//echo $this->orderMd5;
 			
-			
+			//echo $this->orderMd5;
 			
 			  $baskets=Basket::find()
 			  ->where(['zakazid'=>$order->id])
 			  ->all();
+			  
+			  
+			 // echo $order->id;
+			  
 			  
 					 if($baskets){
 			                                          
@@ -308,7 +300,6 @@ class OrderModel extends Model
 													 $images=Image::find()
 													 ->where(['elementid'=>$intArrayOfIdElementInBasket])
 													 ->all();
-
 													if($images){														
 														foreach($images as $image){															
 															$imagesArray[$image['elementid']]=$image['filep'];															
@@ -322,7 +313,6 @@ class OrderModel extends Model
 													$elements=Element::find()
 													->where(['id'=>$intArrayOfIdElementInBasket])
 													->all();
-
 													if($elements){
 														foreach($elements as $element){
 															

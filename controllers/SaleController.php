@@ -181,18 +181,19 @@ class SaleController extends Controller
 		   
 		   
 		   
-		   
-		   
+		    
+		    
    
 		   
 		    $model->makeOrder();
-			$model->fillArrOrderElements();
+			//$model->fillArrOrderElements();
 			$model->sendOrderToCustomer();
 			
 		
 		  return $this->render('orderdetail', [
 			 'model' => $model,
-			 'catalogModel' => $catalogModel
+			 'catalogModel' => $catalogModel,
+			/// 'isNew' => true
 			]);
 		  
 		  
@@ -266,7 +267,10 @@ class SaleController extends Controller
 				
 				$model= new OrderModel();
 					
-				$model->orderMd5=$get['md5'];	
+				$model->orderMd5=$get['md5'];
+
+//echo $get['md5'];
+				
 				$model->fillArrOrderElements();
 				  return $this->render('orderdetail', [
 				 'model' => $model,
