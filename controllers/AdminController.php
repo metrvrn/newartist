@@ -242,6 +242,37 @@ class AdminController extends Controller
 	
 	
 	
+		 public function actionUploadeprice() 
+    {      
+	
+	
+	       $model_admin=new AdminModel();
+		   $model_admin->Uploadeprice();
+		   
+		   
+		   
+			$this->layout = 'ajaxl';	
+		
+		      Yii::$app->cache->flush();
+		 
+		      $model=new AjaxModel();
+		  
+		     $model->message=$model_admin->message;
+		  
+			
+		   return $this->render('ajaxv', [
+         'model' => $model,
+			]);
+			 
+		
+		
+	   
+    }
+	
+	
+	
+	
+	
 	public function actionActivedeactivelemensection(){
 		
 	
@@ -256,7 +287,7 @@ class AdminController extends Controller
 		 
 		      $model=new AjaxModel();
 		  
-		     $model->message="cach is clean  function Uploadequantityprice".$model_admin->message;
+		     $model->message="actionActivedeactivelemensection".$model_admin->message;
 		  
 			
 		   return $this->render('ajaxv', [

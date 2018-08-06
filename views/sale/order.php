@@ -15,7 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>		
 </div>
 <div class="row">
-
+	<div class="col-xs-12 col-md-3">
+		<?=CatalogMenu::widget(['model' => $catalogModel])?>
+    </div>
 	<div class="col-xs-12 col-md-9">
 		<table class="table table-bordered align-table">
 			<thead>

@@ -1,7 +1,5 @@
 <?php
 
-/* @var $this yii\web\View */
-
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\LokalFileModel;
@@ -15,13 +13,13 @@ $this->title = 'Данные заказа';
 	<div class="col-xs-12 col-md-3">
 		<?=CatalogMenu::widget(['model' => $catalogModel])?>
   </div>
-	<?php if(isset($isNew) and $isNew == true) : ?>
+	<?php if(isset($model->newOrderId)) : ?>
 		<div class="col-xs-12 col-md-9">
 			<div class="alert alert-success">
 				<span>
 					<?=Html::a(
 						'Заказ № '.$model->orderId,
-						Html::encode(Url::to(['order/detail', 'md5' => $model->md5]))
+						Html::encode(Url::to(['sale/orderdetail', 'md5' => $model->md5]))
 					);?> успешно оформлен. На ваш email отправлено уведомление. 
 				</span>
 			</div>
@@ -55,6 +53,7 @@ $this->title = 'Данные заказа';
 				<tr>
 					<th>Картинка</th>
 					<th>Название</th>
+					<th>Код</th>
 					<th>Цена</th>
 					<th>Колличество</th>
 					<th>Сумма</th>
@@ -67,6 +66,9 @@ $this->title = 'Данные заказа';
 							<img src="https://metropt.ru/upload/<?=$item['image']?>" alt="Картинка товара" class="order-detail__picture"></td>
 						<td>
 							<?=$item['name']?>
+						</td>
+						<td>
+							<?=$item['code']?>
 						</td>
 						<td>
 							<?=$item['price'];?> &#8381;

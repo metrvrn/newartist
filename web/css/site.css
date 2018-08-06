@@ -24,10 +24,27 @@ body {
 }
 .header-info__item{
     text-align: center;
+    color: #000;
+    transition: all 0.2s ease;
+}
+.header-info__item:hover{
+    color: #34a4c5;
+    transition: all 0.2s ease;
 }
 .header-info__icon{
     margin-right: 0.5rem;
     font-size: 2rem;
+}
+.header-info__link{
+    color: inherit;
+}
+.header-info__link:hover{
+    color: inherit;
+    text-decoration: none;
+}
+.header-info__link:visited{
+    color: inherit;
+    text-decoration: none;
 }
 .header-title{
     font-size: 6rem;
@@ -597,6 +614,9 @@ nav.navbar{
     background-color: #ffc367;
     transition: all 0.2s ease;
 }
+.button-default:disabled{
+    background-color: #d8d8d8;
+}
 .align-table td{
     vertical-align: middle !important;
     text-align: center !important;
@@ -669,7 +689,64 @@ nav.navbar{
     background-color: #ffc367;
     transition: all 0.2s ease;
 }
-
+.signup-privacy-wrapper{
+    margin-bottom: 12px;
+}
+.signup-privacy-wrapper > span{
+    margin-left: 12px;
+}
+.sale-basket-table td{
+    vertical-align: middle !important;
+    text-align: center;
+}
+.basket__delete-link{
+    color: #ff6b6b;
+    font-size: 2rem;
+    padding: 4px 6px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+.basket__delete-link:hover{
+    background-color: #ff6b6b;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+.basket__input-group{
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    min-width: 118px;
+}
+.basket__quantity-input{
+    float: left;
+    width: 40px;
+    font-weight: 700;
+    display: block;
+    border: none;
+    border-right: 1px solid #eee;
+    text-align: center;
+    padding: 8px 0px;
+    transition: all 0.2s ease;
+}
+.basket__quantity-input:focus{
+    background-color: #eee;
+    outline: none;
+    transition: all 0.2s ease;
+}
+.basket__quantity-link{
+    float: left;
+    display: block;
+    padding: 8px 6px;
+    color: #000;
+    background-color: #ffddaa;
+    transition: all 0.2s ease;
+}
+.basket__quantity-link:hover{
+    background-color: #ffc367;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
 @media screen and (max-width: 320px) {
     .header-title{
         font-size: 5rem;

@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 	<div class="col-xs-12 col-md-9">
 		<?php if($model->basketArray) : ?>
-			<table class="table table-bordered">
+			<table class="table table-bordered sale-basket-table">
 				<thead>
 					<tr>
 						<th>Картинка</th>
@@ -38,9 +38,18 @@ $this->params['breadcrumbs'][] = $this->title;
 							<td><?=$item['name']?></td>
 							<td><?=$item['code']?></td>
 							<td><?=$item['price']?></td>
-							<td><?=$item['quantity']?></td>
+							<td>
+								<div class="basket__input-group clearfix">
+									<input data-oldValue="<?=$item['quantity'];?>" type="text" value="<?=$item['quantity'];?>" class="basket__quantity-input">
+									<a class="basket__quantity-link" href="<?=Url::to(['sale/basket', 'id' => $item['id'], 'q' => $item['quantity']])?>">Обновить</a>
+								</div>
+							</td>
 							<td><?=$item['sum']?></td>
-							<td>X</td>
+							<td>
+								<a href="<?=Url::to(['sale/basket', 'id' => $item['id'], 'q' => 0])?>" class="basket__delete-link" title="Удалить">
+									<i class="far fa-trash-alt"></i>
+								</a>
+							</td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -58,3 +67,4 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php endif; ?>
 	</div>
 </div>
+<?php $this->registerJsFile('/js/basket.js',  ['position' => yii\web\View::POS_END]); ?>

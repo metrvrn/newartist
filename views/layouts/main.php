@@ -32,27 +32,31 @@ $this->beginPage() ?>
             <div class="row">
                 <div class="col-xs-4">
                     <div class="header-info__item header-info__phone">
-                        <span class="header-info__icon">
-                            <i class="fas fa-phone-square"></i>
-                        </span>
-                        <span class="header-info__text">
-                            <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_phone')?>
-                        </span>
+                        <a class="header-info__link" href="tel:<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_phone')?>">
+                            <span class="header-info__icon">
+                                <i class="fas fa-phone-square"></i>
+                            </span>
+                            <span class="header-info__text">
+                                <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_phone')?>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xs-4">
                     <div class="header-info__item header-info__address">
-                        <span class="header-info__icon">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </span>
-                        <span class="header-info__text" class="ymaps-geolink">
-                            <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_adressComppany')?>
-                        </span>
+                        <a href="<?=Url::to(['site/contact']);?>" target="_blank" class="header-info__link">
+                            <span class="header-info__icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </span>
+                            <span class="header-info__text" class="ymaps-geolink">
+                                <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_adressComppany')?>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xs-4">
                     <div class="header-info__item header-info__email">
-                        <a href="mailto:<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_email')?>">
+                        <a class="header-info__link" href="mailto:<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_email')?>">
                             <span class="header-info__icon">
                                 <i class="fas fa-envelope"></i>
                             </span>
@@ -118,6 +122,9 @@ $this->beginPage() ?>
             <div class="col-xs-12">
                 <div class="breadcreambs-wrapper">
                     <?= Breadcrumbs::widget([
+                            'homeLink' => ['label' => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'),  // required
+                                            'url' => Yii::$app->homeUrl,
+                    ],
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                         ]) ?>
                     <?= Alert::widget() ?>

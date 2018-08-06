@@ -512,6 +512,137 @@ class AdminModel extends Model
 	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	 public function Uploadeprice()
+     {
+									  $fp = fopen($_SERVER['DOCUMENT_ROOT'].'/upload/1cprice.csv', "r"); // Открываем файл в режиме чтения
+									
+									
+									$count=0;
+									$mes="";
+
+									 if ($fp) 
+									  {$mes='Uploadequantityprice'.'<br>';
+										 while (!feof($fp))
+										 {      $count=$count+1; //if($count==20){break;};
+										 $mytext = fgets($fp, 999);
+										 
+									
+										 $ar=str_getcsv($mytext,";");
+										 
+											 $this->procceccArrayOfStingFromFilePrice($ar);
+
+											//$mes=$mes.'  '.$ar[2].'<br>'; 
+											//$mes=$mes.'  '.$ar[9].'<br>'; 
+											//$mes=$mes.'  '.$ar[10].'<br>'; 
+											//$mes=$mes.'  '.$ar[11].'11<br>'; 						  
+											 ///$mes=$mes.'  '.$ar[12].'12<br>'; 		
+										
+										 }
+									   }
+									  else $mes=$mes."Ошибка при открытии файла";
+									  
+									  
+									  fclose($fp);
+						 
+						 
+						
+						
+						 
+						 
+						  $this->message=$this->message.$mes;
+		 
+		 
+		 
+		 
+     }
+	
+	
+	
+	
+	public function procceccArrayOfStingFromFilePrice($ar)
+		 {
+								
+								 
+						
+									$element = Element::find()
+									->where(['code' =>ltrim($ar[0])]) 
+									->one();
+									
+
+								
+									if($element){
+										
+								
+	
+									  
+									$quantity=Quantity::find()
+									->where(['elementid' =>$element->id])
+									 ->one();
+									
+										 if($quantity){
+											 	
+											 $quantity->quantity=200;//floatval( str_replace(' ','', str_replace(',','.',$ar[14])));
+											  $quantity->save();
+											 
+										 }else{
+											
+											 $quantity=new Quantity();
+											 $quantity->elementid=$element->id;						 
+											 $quantity->type=1;
+											  $quantity->quantity=200;//floatval( str_replace(' ','', str_replace(',','.',$ar[14])));
+											   $quantity->save();
+											 
+										 }
+										 
+												//   price
+											$price=Price::find()
+											->where(['elementid' =>$element->id])
+											->one();
+											 if($price){echo $ar[0].'finde <br>';
+													
+														$price->price=floatval( str_replace(' ','', str_replace(',','.',$ar[1])));
+														$price->type=2;
+														$price->save();
+
+													
+
+														}else{echo $ar[0].' not finde <br>';
+																
+																$price=new Price();
+																$price->elementid=$element->id;						 
+																$price->type=2;
+																$price->price=floatval( str_replace(' ','', str_replace(',','.',$ar[1])));
+																$price->save();
+															
+
+																}
+										 
+										 
+										 
+														 
+							
+									};
+								 
+								 
+								 
+								 
+								
+			 
+		 }
+	
+	
+	
+	
+	
+	
 		 public function procceccArrayOfStingFromFileQuantityPrice($ar)
 		 {
 								// $mes='procceccArrayOfStingFromFileQuantityPrice<br>'.$ar[12].'<br>';
@@ -634,7 +765,7 @@ class AdminModel extends Model
 				   
 				   
 				   
-						   
+						   /* 
 							 $quantity=Quantity::find()
 							 ->where(['quantity' =>0])
 							 ->all();
@@ -661,7 +792,7 @@ class AdminModel extends Model
 								   }
 								  
 							   }
-							   
+							    */
 							   
 							  // $this->message=$this->message.$mes;
 							   
@@ -673,15 +804,38 @@ class AdminModel extends Model
 				   
 							 // $mes='ActiveDeactivElemenSection';
 							   					   
-								 Yii::$app->db->createCommand('UPDATE element SET indexp=1')
+								 Yii::$app->db->createCommand('UPDATE element SET active=0')
 								->execute();	
+								
+								//SELECT element.id FROM element, quantity   WHERE element.id=quantity.elementid AND quantity.quantity>0
+							$el=Yii::$app->db->createCommand('SELECT element.id FROM element, quantity   WHERE element.id=quantity.elementid AND quantity.quantity>0')
+								->queryAll();
+							  
+							 //$arSql=;
+							  
+							  foreach(	$el as $ar){
+								  
+							  
+							 // $arSql= $arSql.$ar['id'].',';
+								// $arSql[]=$ar['id'] ;
+								 Yii::$app->db->createCommand('UPDATE element SET active=1 WHERE id='.$ar['id'])
+								->execute();
+								  
+							  }
+							  
+							  // Yii::$app->db->createCommand('UPDATE element set active =1 WHERE element.id=:id')
+							  //    ->bindParam(':id', $arSql)
+							//	->execute();
+							  ///UPDATE element set active =1 WHERE 
 							  
 							$this->FillarrayOfLastSection();
 							
-							$this->SetIndexpToZero();
+							//echo 'alex';
+							//print_r($el);
+							//$this->SetIndexpToZero();
 							 
 							  
-							   
+							   /* 
 									$elements = Element::find()
 										->where(['xmlcode' =>$this->arrayLastSection,])
 										->all();
@@ -706,10 +860,10 @@ class AdminModel extends Model
 										
 										 Yii::$app->db->createCommand('UPDATE element SET active=1')
 								->execute();	
-										
+										 */
 										///begin to deactivate
 										
-										
+										/* 
 									$elementsToDeactive = Element::find()
 										->where(['indexp' =>0,])
 										->all();
@@ -736,7 +890,7 @@ class AdminModel extends Model
 										
 										
 										
-										$this->MakeSections();
+										$this->MakeSections(); */
 										
 										
 										

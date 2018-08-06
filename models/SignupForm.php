@@ -25,20 +25,21 @@ namespace app\models;
         {
             return [
                 ['username', 'trim'],
-                ['username', 'required'],
-                ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
-                ['username', 'string', 'min' => 2, 'max' => 255],
+                ['username', 'required', 'message' => 'Введите логин.'],
+                ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Пользователь с таким логином уже зарегистрирован.'],
+                ['username', 'string', 'min' => 3, 'max' => 255, 'message' => 'Логин должен содержать от 3 до 255 символов.'],
                 ['email', 'trim'],
-                ['email', 'required'],
-                ['email', 'email'],
-                ['email', 'string', 'max' => 255],
-                ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
-                ['password', 'required'],
-                ['password', 'string', 'min' => 6],
-				
-				 ['adress', 'string', 'max' => 255],
-				 ['phone', 'string', 'max' => 255],
-				 ['name', 'string', 'max' => 255],
+                ['email', 'required', 'message' => 'Введите Email.'],
+                ['email', 'email', 'message' => 'Email введен не корректно.'],
+                ['email', 'string', 'max' => 255, 'message' => 'Максимальная длинна Email 255 символов.'],
+                ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Пользователь с таким Email уже зарегистрирован.'],
+                ['password', 'required', 'message' => 'Введите пароль.'],
+                ['password', 'string', 'min' => 6, 'max' => 255, 'message' => 'Пароль должен содержать от 6 до 255 символов.'],
+                ['phone', 'required', 'message' => 'Укажите ваш телефон для связи.'],
+                ['phone', 'string', 'max' => 255, 'message' => 'Телефон должен содержать не более 255 символов.'],
+                ['name', 'string', 'max' => 255, 'message' => 'Имя должен содержать не более 255 символов.'],
+                ['adress', 'string', 'max' => 255, 'message' => 'Адрес должен содержать не более 255 символов.'],
+               
 				
             ];
         }

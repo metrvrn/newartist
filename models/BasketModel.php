@@ -160,8 +160,9 @@ class BasketModel extends Model
 				}	
 				 
 				 
-				 
+				  $codeArray=[];
 				  $nameArray=[];
+				  
 			     $elements=Element::find()
 				 ->where(['id'=>$intArrayOfIdElementInBasket])
 				 ->all();
@@ -171,6 +172,7 @@ class BasketModel extends Model
 					foreach($elements as $element){
 						
 						$nameArray[$element[id]]=$element['name'];
+						$codeArray[$element[id]]=$element['code'];
 						
 					}
 					
@@ -193,6 +195,7 @@ class BasketModel extends Model
 					
 					if(isset($nameArray[$basket['elementid']])){
 						$intForeach['name']=$nameArray[$basket['elementid']];
+						$intForeach['code']=$codeArray[$basket['elementid']];
 						
 					}else{     
 					

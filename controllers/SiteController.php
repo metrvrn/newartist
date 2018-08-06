@@ -365,10 +365,10 @@ class SiteController extends Controller
  
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'На ваш Email отправлено письмо с ссылкой для восстановления пароля.');
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+                Yii::$app->session->setFlash('error', 'Ошибка отправки письма.');
             }
         }
  
@@ -406,7 +406,7 @@ class SiteController extends Controller
         }
  
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password was saved.');
+            Yii::$app->session->setFlash('success', 'Ваш пароль изменен.');
             return $this->goHome();
         }
  
@@ -593,6 +593,17 @@ class SiteController extends Controller
 			 
 		
 	   
+    }
+
+    public function actionPrivacy()
+    {
+        $catalogModel=new CatalogModel();		 
+		$catalogModel->elementPerPage=50; 
+	    $catalogModel->fillarrSectioons(); 
+		$catalogModel->fillTopArrCurSection();  
+	    $catalogModel->fillBottomArrCurSection();	 
+		$catalogModel->setVisibleForCurienSection();
+        return $this->render('privacy', ['catalogModel' => $catalogModel]);
     }
 	
 	

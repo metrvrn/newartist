@@ -23,6 +23,8 @@ class OrderModel extends Model
     public $sessionForBasket;
 	public $userId;
 	
+	
+	public $md5;
 	public $name;
     public $email;
     public $phone;
@@ -86,6 +88,7 @@ class OrderModel extends Model
 			$order->save();
 			
 			$this->newOrderId=$order->id;
+			$this->md5=$order->md5;
 			$this->orderId =$order->id;
 			
 			$this->newOrderDatetime=$order->datatime;;
@@ -167,6 +170,7 @@ class OrderModel extends Model
 				 				 
 				 
 													$nameArray=[];
+													$codeArray=[];
 													$elements=Element::find()
 													->where(['id'=>$intArrayOfIdElementInBasket])
 													->all();
@@ -174,6 +178,7 @@ class OrderModel extends Model
 														foreach($elements as $element){
 															
 															$nameArray[$element[id]]=$element['name'];
+															$codeArray[$element[id]]=$element['code'];
 															
 														}
 													}
@@ -194,6 +199,7 @@ class OrderModel extends Model
 					
 					if(isset($nameArray[$basket['elementid']])){
 						$intForeach['name']=$nameArray[$basket['elementid']];
+						$intForeach['code']=$codeArray[$basket['elementid']];
 						
 					}else{     
 					
@@ -310,6 +316,8 @@ class OrderModel extends Model
 				 				 
 				 
 													$nameArray=[];
+													$codeArray=[];
+													
 													$elements=Element::find()
 													->where(['id'=>$intArrayOfIdElementInBasket])
 													->all();
@@ -317,6 +325,7 @@ class OrderModel extends Model
 														foreach($elements as $element){
 															
 															$nameArray[$element[id]]=$element['name'];
+															$codeArray[$element[id]]=$element['code'];
 															
 														}
 													}
@@ -337,6 +346,7 @@ class OrderModel extends Model
 													
 													if(isset($nameArray[$basket['elementid']])){
 														$intForeach['name']=$nameArray[$basket['elementid']];
+														$intForeach['code']=$codeArray[$basket['elementid']];
 														
 													}else{     
 													
@@ -402,9 +412,9 @@ class OrderModel extends Model
                     ['html' => 'sendOrderToCustomer-html', 'text' => 'sendOrderToCustomer-text'],
                     ['order' => $this]
                 )
-                ->setFrom([LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order') => LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany'). ' robot'])
+                ->setFrom([LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order') => "Интернет магазин " . LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')])
                 ->setTo($this->email)
-                ->setSubject('создан заказ ' . Yii::$app->name)
+                ->setSubject('Заказ № ' . $this->orderId)
                 ->send();
 		
 	}
