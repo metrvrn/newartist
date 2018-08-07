@@ -37,19 +37,27 @@ $this->params['breadcrumbs'][0] = [
 	'label' => 'Каталог',
 	'url' => [Url::to(['catalog/index', 'section' => 'non', 'element' => 'non', 'page' => 0, ])]
 ];
-$showRootBreadcrumbs = (bool) LokalFileModel::getDataByKeyFromLocalfile('show_root_section');
-if($showRootBreadcrumbs){
+$showRootBreadcrumbs = LokalFileModel::getDataByKeyFromLocalfile('show_root_section') === 'true' ? true : false;
+if(!$showRootBreadcrumbs){
 	unset($this->params['breadcrumbs'][1]);
 };
+$sectionsCount = count($this->params['breadcrumbs']);
+if($sectionsCount > 1){
+	if($showRootBreadcrumbs){
+		$sectionName = $this->params['breadcrumbs'][$sectionsCount - 1]['label'];
+	}else{
+		$sectionName = $this->params['breadcrumbs'][$sectionsCount]['label'];
+	}
+}
 ?>
 <div class="row">
 	<div class="col-xs-12">
-		<h1><?= Html::encode($this->title)?></h1>
-		<p>
-			<?//="Page: ".$model->page;?>
-			<?//="Quantity: ".$model->quantityPageForCurSection;?>
-			<?//=$model->section;?>
-		</p>
+		<h1>
+			<?= Html::encode($this->title)?>
+			<?php if(isset($sectionName)) : ?>
+				<small> - <?=$sectionName?></small>
+			<?php endif; ?>
+		</h1>
 	</div>
 </div>
 <div class="row"> 

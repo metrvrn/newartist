@@ -188,7 +188,7 @@ class SaleController extends Controller
 		    $model->makeOrder();
 			//$model->fillArrOrderElements();
 			$model->sendOrderToCustomer();
-			
+			$model->sendOrderToAdmin();
 		
 		  return $this->render('orderdetail', [
 			 'model' => $model,

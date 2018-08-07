@@ -8,6 +8,14 @@ use app\widgets\CatalogMenu;
 
 $this->title = 'Контакты';
 $this->params['breadcrumbs'][] = $this->title;
+
+$phone = LokalFileModel::getDataByKeyFromLocalfile('local_data_phone');
+$watsappNum =  LokalFileModel::getDataByKeyFromLocalfile('watsapp_number');
+$viberNum = LokalFileModel::getDataByKeyFromLocalfile('viber_number');
+$workingTimeWorkday = LokalFileModel::getDataByKeyFromLocalfile('working_time_workday');
+$workingTimeSaturday = LokalFileModel::getDataByKeyFromLocalfile('working_time_saturday');
+$workingTimeSunday = LokalFileModel::getDataByKeyFromLocalfile('working_time_sunday');
+$workingTime = ((bool) ($workingTimeWorkday or $workingTimeSaturday or $workingTimeSunday));
 ?>
 <div class="row">
     <div class="col-xs-12 col-md-3">
@@ -20,9 +28,21 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="panel-body">
                 <p>
-                    Телефон: <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_phone')?> <br>
+                    Телефон: <?=Html::a($phone, 'tel:'.$phone)?> <br>
                     Адрес: <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_adressComppany')?> <br>
                     E-mail: <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_email')?> <br>
+                    <?php if(!empty($workingTime)) : ?>
+                        Время работы: <br>
+                        Пн-Пт - <?= $workingTimeWorkday ? $workingTimeWorkday : 'Нет';?><br>
+                        Суббота - <?= $workingTimeSaturday ? $workingTimeSaturday : 'Нет';?><br>   
+                        Воскресенье - <?= $workingTimeSunday ? $workingTimeSunday : 'Нет';?><br>
+                    <?php endif; ?>
+                    <?php if($watsappNum) : ?>
+                         <?=Html::a('Watsapp: '.$watsappNum, 'tel:'.$watsappNum);?><br>
+                    <?php endif; ?>
+                    <?php if($viberNum) : ?>
+                        <?=Html::a('Viber: '.$viberNum, 'tel:'.$viberNum);?><br>
+                    <?php endif; ?>
                 </p>
                 <script
                     id="yandexMap"

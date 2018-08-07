@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						<tr>
 							<td><?=Html::a(
 								$order['id'],
-								Html::encode(Url::to(['saleadmin/detail', 'md5' => $order['md5']])))
+								Html::encode(Url::to(['saleadmin/orderdetail', 'md5' => $order['md5']])))
 								?></a></td>
 							<td><?=$order['name']?></td>
 							<td><?=$order['phone']?></td>

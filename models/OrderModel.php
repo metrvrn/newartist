@@ -1,11 +1,12 @@
 <?php
 namespace app\models;
+
 use Yii;
 use yii\base\Model;
 use app\models\LokalFileModel;
-/**
- * ContactForm is the model behind the contact form.
- */
+
+
+
 class OrderModel extends Model
 {
 	public $message;
@@ -31,9 +32,8 @@ class OrderModel extends Model
     public $adress;
 	public $comment;
 				
-    /**
-     * @return array the validation rules.
-     */
+    
+	
     public function rules()
     {
         return [            
@@ -404,20 +404,20 @@ class OrderModel extends Model
 	
 	
 	
-	if(isset($this->email)){
-		
-		    Yii::$app
-                ->mailer
-                ->compose(
-                    ['html' => 'sendOrderToCustomer-html', 'text' => 'sendOrderToCustomer-text'],
-                    ['order' => $this]
-                )
-                ->setFrom([LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order') => "Интернет магазин " . LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')])
-                ->setTo($this->email)
-                ->setSubject('Заказ № ' . $this->orderId)
-                ->send();
-		
-	}
+		if(isset($this->email)){
+			
+				Yii::$app
+					->mailer
+					->compose(
+						['html' => 'sendOrderToCustomer-html', 'text' => 'sendOrderToCustomer-text'],
+						['order' => $this]
+					)
+					->setFrom([LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order') => "Интернет магазин " . LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')])
+					->setTo($this->email)
+					->setSubject('Заказ № ' . $this->orderId)
+					->send();
+			
+		}
 	
 	  
 	
@@ -425,7 +425,30 @@ class OrderModel extends Model
 	
 	}
 	
+		public function sendOrderToAdmin(){
 	
+	
+	
+		if(isset($this->email)){
+			
+				Yii::$app
+					->mailer
+					->compose(
+						['html' => 'sendOrderToAdmin-html', 'text' => 'sendOrderToAdmin-text'],
+						['order' => $this]
+					)
+					->setFrom([LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order') => "Интернет магазин " . LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')])
+					->setTo(LokalFileModel::getDataByKeyFromLocalfile('local_data_email_admin_for_order'))
+					->setSubject('Заказ № ' . $this->orderId)
+					->send();
+			
+		}
+	
+	  
+	
+	
+	
+	}
 	
 	
 }

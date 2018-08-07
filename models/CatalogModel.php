@@ -19,6 +19,9 @@ class CatalogModel extends Model
 	public $elementForAddToBasket;
 	public $sessionForBasket;
 	public $userId;
+
+	public $viewType;//table   cart
+	
 	
 	
 	public $sectionNoParentArray;

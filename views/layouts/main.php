@@ -12,6 +12,23 @@ use app\models\LokalFileModel;
 
 AppAsset::register($this);
 
+$watsappNum =  LokalFileModel::getDataByKeyFromLocalfile('watsapp_number');
+$viberNum = LokalFileModel::getDataByKeyFromLocalfile('viber_number');
+$showViberOrWatsapp = (((bool)$watsappNum) or ((bool)$viberNum));
+$isViberWatsappSameNumber = $watsappNum === $viberNum;
+$showOnlyViberOrWatsapp = !(((bool) $watsappNum) and ((bool) $viberNum));
+//select column type of header info section
+if($showViberOrWatsapp){
+    if($isViberWatsappSameNumber or $showOnlyViberOrWatsapp){
+        $headerInfoColumn = 'col-xs-3';
+    }
+    else{
+        //show viber AND watsupp
+        $headerInfoColumn = 'col-xs-5ths';
+    }
+}else{
+    $headerInfoColumn = 'col-xs-4';
+}
 $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -19,6 +36,7 @@ $this->beginPage() ?>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="yandex-verification" content="<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_yandexMeta')?>"/>
     <?= Html::csrfMetaTags() ?>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&load=Geolink" type="text/javascript"></script>
     <title><?= Html::encode($this->title) ?></title>
@@ -30,8 +48,8 @@ $this->beginPage() ?>
     <div class="header-info">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-4">
-                    <div class="header-info__item header-info__phone">
+                <div class="<?=$headerInfoColumn?>">
+                    <div class="header-info__item">
                         <a class="header-info__link" href="tel:<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_phone')?>">
                             <span class="header-info__icon">
                                 <i class="fas fa-phone-square"></i>
@@ -42,8 +60,8 @@ $this->beginPage() ?>
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-4">
-                    <div class="header-info__item header-info__address">
+                <div class="<?=$headerInfoColumn?>">
+                    <div class="header-info__item">
                         <a href="<?=Url::to(['site/contact']);?>" target="_blank" class="header-info__link">
                             <span class="header-info__icon">
                                 <i class="fas fa-map-marked-alt"></i>
@@ -54,8 +72,8 @@ $this->beginPage() ?>
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-4">
-                    <div class="header-info__item header-info__email">
+                <div class="<?=$headerInfoColumn?>">
+                    <div class="header-info__item">
                         <a class="header-info__link" href="mailto:<?=LokalFileModel::getDataByKeyFromLocalfile('local_data_email')?>">
                             <span class="header-info__icon">
                                 <i class="fas fa-envelope"></i>
@@ -66,6 +84,52 @@ $this->beginPage() ?>
                         </a>
                     </div>
                 </div>
+                <?php if($showViberOrWatsapp) : ?>
+                    <?php if($isViberWatsappSameNumber) : ?>
+                        <div class="<?=$headerInfoColumn?>">
+                            <div class="header-info__item">
+                                <a class="header-info__link" href="tel:<?=$watsappNum?>">
+                                    <span class="header-info__icon">
+                                        <i class="fab fa-viber"></i>
+                                        <i class="fab fa-whatsapp"></i>
+                                    </span>
+                                    <span class="header-info__text">
+                                        <?=$watsappNum?>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    <?php else : ?>
+                        <?php if($watsappNum) : ?>
+                            <div class="<?=$headerInfoColumn?>">
+                                <div class="header-info__item">
+                                    <a class="header-info__link" href="tel:<?=$watsappNum?>">
+                                        <span class="header-info__icon">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </span>
+                                        <span class="header-info__text">
+                                            <?=$watsappNum?>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if($viberNum) : ?>
+                            <div class="<?=$headerInfoColumn?>">
+                                <div class="header-info__item">
+                                    <a class="header-info__link" href="tel:<?=$viberNum?>">
+                                        <span class="header-info__icon">
+                                            <i class="fab fa-viber"></i>
+                                        </span>
+                                        <span class="header-info__text">
+                                            <?=$viberNum?>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif;?>
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -61,6 +61,8 @@ class CatalogController extends Controller
 		
 		  
 		$model->fillArrayDataForCurientElement();
+		$model->viewType='cart';
+		
 		
 		
 		
