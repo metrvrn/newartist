@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\caching\Cache;
-
+use app\models\LokalFileModel;
 
 
 
@@ -96,7 +96,7 @@ class CatalogModel extends Model
 		
 		
 		$sectionsNoPar = Section::find()
-		->where(['xmlcodep' =>'b17cf5b5-b563-11e5-8c42-74d435abdf35' ,'active'=>true])  
+		->where(['xmlcodep' =>LokalFileModel::getDataByKeyFromLocalfile('local_data_section_xmlcode') ,'active'=>true])  
 		->all();
 		
 		if($sectionsNoPar){

@@ -38,10 +38,10 @@ $workingTime = ((bool) ($workingTimeWorkday or $workingTimeSaturday or $workingT
                         Воскресенье - <?= $workingTimeSunday ? $workingTimeSunday : 'Нет';?><br>
                     <?php endif; ?>
                     <?php if($watsappNum) : ?>
-                         <?=Html::a('Watsapp: '.$watsappNum, 'tel:'.$watsappNum);?><br>
+                         <?=Html::a('Watsapp: '.$watsappNum, 'whatsapp://send?phone='.$watsappNum);?><br>
                     <?php endif; ?>
                     <?php if($viberNum) : ?>
-                        <?=Html::a('Viber: '.$viberNum, 'tel:'.$viberNum);?><br>
+                        <?=Html::a('Viber: '.$viberNum, 'viber://add?'.$viberNum);?><br>
                     <?php endif; ?>
                 </p>
                 <script

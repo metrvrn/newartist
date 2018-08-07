@@ -103,7 +103,7 @@ $this->beginPage() ?>
                         <?php if($watsappNum) : ?>
                             <div class="<?=$headerInfoColumn?>">
                                 <div class="header-info__item">
-                                    <a class="header-info__link" href="tel:<?=$watsappNum?>">
+                                    <a class="header-info__link" href="whatsapp://send?phone=<?=$watsappNum?>">
                                         <span class="header-info__icon">
                                             <i class="fab fa-whatsapp"></i>
                                         </span>
@@ -117,7 +117,7 @@ $this->beginPage() ?>
                         <?php if($viberNum) : ?>
                             <div class="<?=$headerInfoColumn?>">
                                 <div class="header-info__item">
-                                    <a class="header-info__link" href="tel:<?=$viberNum?>">
+                                    <a class="header-info__link" href="viber://add?<?=$viberNum?>">
                                         <span class="header-info__icon">
                                             <i class="fab fa-viber"></i>
                                         </span>
