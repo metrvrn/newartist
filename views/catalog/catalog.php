@@ -75,46 +75,20 @@ if($sectionsCount > 1){
 						'sectionID' => $model->section
 					])?>
 				</div>
-				<?php foreach($model->arrElements as $item) : ?>
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="product-cart">
-							<a href="<?=Url::to(['catalog/index', 'section' => $model->section, 'element' => $item['id'], 'page' => 0, ])?>" class="product-cart__title">
-								<span><?=$item['name'];?></span>
-							</a>
-							<?php if(isset($item['imaged']) and ($item['imaged'] !== 'not')) : ?>
-								<div data-full="<?=$item['imaged'];?>" class="product-cart__magnifier">
-									<i class="fas fa-search-plus"></i>
-								</div>
-							<?php endif; ?>
-							<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
-							<img class="img-responsive center-block prodcut-cart__image" src="<?=$img;?>" alt="">
-							<div class="product-cart__code">
-									Код: <?=$item['code'];?>
-							</div>
-							<div class="prodcut-cart__info clearfix">
-								<div class="prodcut-price__quantity">
-									<span><?=$item['quantity'];?> шт.</span>
-								</div>
-								<div class="prodcut-cart__price">
-									<span class="product-cart__price-text"><?=$item['price'];?></span>
-									<span class="prodcut-cart__price-icon">&#8381;</span>
-								</div>
-							</div>
-							<div id="<?=$item['id']?>"  class="product-cart__controll clearfix">
-								<button class="product-cart__btn-mns">
-									<i class="fas fa-minus"></i>
-								</button>
-								<input value="1" data-old="1" id="input-<?=$item['id'];?>" data-available="<?=$item['quantity'];?>" type="text" class="product-cart__q-input">
-								<button class="product-cart__btn-pls">
-									<i class="fas fa-plus"></i>
-								</button>
-								<button class="product-cart__add-basket">
-									<i class="fas fa-cart-plus"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				<?php endforeach; ?>
+					<?php
+						$productsView = '';
+						switch($model->viewType){
+							case 'cart':
+								$productsView = 'catalog-cart';
+								break;
+							case 'table':
+								$productsView = 'catalog-table';
+								break;
+							default:
+								$productsView = 'catalog-cart';
+						}
+						echo $this->render('catalog-cart', ['items' => $model->arrElements]);
+					?>
 			</div>
 		</div>
 	</div>		

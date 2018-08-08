@@ -101,7 +101,7 @@ class CatalogController extends Controller
 		 //  return;  
 		
 			
-		   return $this->render('catalog', [
+		   return $this->render('catalog_table', [
          	'model' => $model,
 			]);
 			

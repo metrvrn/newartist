@@ -747,6 +747,47 @@ nav.navbar{
     text-decoration: none;
     transition: all 0.2s ease;
 }
+.table-text-centered td{
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+.catalog-table__input-group{
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    min-width: 119px;
+}
+.catalog__quantity-input{
+    float: left;
+    width: 40px;
+    font-weight: 700;
+    display: block;
+    border: none;
+    border-right: 1px solid #eee;
+    text-align: center;
+    padding: 8px 0px;
+    transition: all 0.2s ease;
+}
+.catalog__quantity-input:focus{
+    background-color: #eee;
+    outline: none;
+    transition: all 0.2s ease;
+}
+.catalog-table__quantity-btn{
+    float: left;
+    display: block;
+    padding: 8px 6px;
+    color: #000;
+    border: none;
+    background-color: #ffddaa;
+    transition: all 0.2s ease;
+}
+.catalog-table__quantity-btn:hover{
+    background-color: #ffc367;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
 @media screen and (max-width: 320px) {
     .header-title{
         font-size: 5rem;
