@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Администратор инт�
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="row">
 	<div class="col-xs-12">
 		<h1><?= Html::encode($this->title) ?></h1>

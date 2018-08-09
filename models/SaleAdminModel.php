@@ -32,25 +32,37 @@ class SaleAdminModel
 		 if($orders){
 			 			 
 			 foreach($orders as $order ){
-				 //echo $order->md5;
-				 
-				 $intArray=[];
-				 $intArray['id']=$order->id;
-				 $intArray['userid']=$order->userid;
-				 $intArray['usersessition']=$order->usersessition;
-				 $intArray['summ']=$order->summ; 
-				 $intArray['datatime']=$order->datatime;
-				 $intArray['md5']=$order->md5;
-				  
-				$intArray['md5']=$order->md5;
-				$intArray['email']=$order->email;
-				$intArray['phone']=$order->phone;
-				  
 			 
+				  
+				
+			$intArray['id' 					]= $order->id;
+			$intArray['userid'				]= $order->userid;
+			$intArray['usersessition'		]= $order->usersessition;
+			$intArray['summ'				]= $order->summ;
+			$intArray['datatime'			]= $order->datatime;
+			$intArray['datatimeuploade'		]= $order->datatimeuploade;
+			$intArray['status'				]= $order->status;
+			$intArray['dуlivery'			]= $order->dуlivery;
+			$intArray['payment'				]= $order->payment;		
+			$intArray['md5'					]= $order->md5;		
+			$intArray['name'				]= $order->name;
+			$intArray['email' 				]= $order->email;
+			$intArray['phone' 				]= $order->phone;
+			$intArray['adress'				]= $order->adress;
+			$intArray['comment'				]= $order->comment;
+			
+			 
+				
+				
+				
 				$this->arrayOrders[]=$intArray;
 				
 				 
-				 
+				
+
+
+
+				
 				 
 				 
 			 }

@@ -469,6 +469,7 @@ nav.navbar{
     white-space: nowrap;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.4);
+    cursor: zoom-out;
 }
 .image-modal__wrapper-helper{
     display: inline-block;
@@ -786,6 +787,24 @@ nav.navbar{
     background-color: #ffc367;
     color: #000;
     text-decoration: none;
+    transition: all 0.2s ease;
+}
+.catalog-table__image{
+    cursor: zoom-in;
+}
+.catalog__view-link{
+    padding: 2px 4px;
+    margin-right: 12px;
+    font-size: 2.4rem;
+    color: #4e4e4e;
+    transition: all 0.2s ease;
+    background-color: #ffddaa;
+    border: 1px solid #d8d8d8;;
+    border-radius: 5px;
+}
+.catalog__view-link:hover{
+    background-color: #ffc367;
+    color: #000;
     transition: all 0.2s ease;
 }
 @media screen and (max-width: 320px) {

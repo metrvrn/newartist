@@ -59,7 +59,7 @@ $config = [
 			//'catalog' => 'catalog/index',
 			//'catalog/index' => 'catalog/index', 
 			//'catalog/index/<section>/<element>'=>'catalog/index', 
-			'catalog/index/<section>/<element>/<page>'=>'catalog/index', 
+			'catalog/index/<section>/<element>/<page>/<view>'=>'catalog/index', 
             ],
         ],
        

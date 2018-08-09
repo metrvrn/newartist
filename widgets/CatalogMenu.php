@@ -45,7 +45,7 @@ class CatalogMenu extends \yii\bootstrap\Widget
             }
 
             echo '<li class="' . $last . '">';
-            echo '<a class="catalog-menu__link clearfix" href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, ]) . '>';
+            echo '<a class="catalog-menu__link clearfix" href=' . Url::to(['catalog/index', 'section' => $arrSection['id'], 'element' => 'non', 'page' => 0, 'view' => $this->model->view]) . '>';
             if (isset($last) and ($last === 'notlast')) {
                 echo '<div class="catalog-menu__icon"><i class="fas fa-plus icon"></i></div>';
             }
@@ -62,7 +62,7 @@ class CatalogMenu extends \yii\bootstrap\Widget
                     echo '<ul>';
                     foreach ($arrSection['childArray'] as $key => $children) {
                         echo '<li>';
-                        echo '<a  href=' . Url::to(['catalog/index', 'section' => $children['id'], 'element' => 'non', 'page' => 0, ]) . ' >' . $children['name'] . '</a>';
+                        echo '<a  href=' . Url::to(['catalog/index', 'section' => $children['id'], 'element' => 'non', 'page' => 0, 'view' => $this->model->view]) . ' >' . $children['name'] . '</a>';
                         echo '</li>';
                     }
                     echo '</ul>';

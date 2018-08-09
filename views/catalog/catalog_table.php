@@ -68,12 +68,27 @@ if($sectionsCount > 1){
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
-					<?=PaginatorWidget::widget([
-						'perPage' => 50,
-						'curPage' => $model->page,
-						'totalPage' => $model->quantityPageForCurSection,
-						'sectionID' => $model->section
-					])?>
+					<div class="pull-left">
+						<?=PaginatorWidget::widget([
+							'perPage' => 50,
+							'curPage' => $model->page,
+							'totalPage' => $model->quantityPageForCurSection,
+							'sectionID' => $model->section,
+							'view' => $mode->view
+						])?>
+					</div>
+					<div class="pull-right">
+						<a class="catalog__view-link" href="<?=Url::to(['catalog/index',
+							'section' => $model->section,
+							'element' => 'non',
+							'page' => $model->page,
+							'view' => 'table']);?>" title="Таблица"><i class="fas fa-table"></i></a>
+						<a class="catalog__view-link" href="<?=Url::to(['catalog/index',
+							'section' => $model->section,
+							'element' => 'non',
+							'page' => $model->page,
+							'view' => 'cart']);?>" title="Карточка"><i class="fas fa-columns"></i></a>
+					</div>
 				</div>
                 <?php if($model->arrElements) : ?>
 					<table class="table table-bordered table-hover table-text-centered">
@@ -81,9 +96,9 @@ if($sectionsCount > 1){
 							<tr>
 								<th>Картинка</th>
 								<th>Название</th>
-								<th>Код</th>
+								<th class="hidden-xs hidden-sm">Код</th>
 								<th>Цена</th>
-								<th>Остатки</th>
+								<th class="hidden-xs hidden-sm">Остатки</th>
 								<th>В корзину</th>
 							</tr>
 						</thead>
@@ -91,21 +106,25 @@ if($sectionsCount > 1){
 							<?php foreach($model->arrElements as $item) : ?>
 								<tr>
 									<td>
-										<?php $img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg' ?>
-										<img class="img-responsive center-block" src="<?=$img;?>" alt="">
+										<?php
+											$img = ($item['image'] !== 'not') ? "https://metropt.ru/upload/".$item['image'] : '/images/no-image.jpg';
+											$bigimage = ($item['imaged'] !== 'not') ? "https://metropt.ru/upload/".$item['imaged'] : '';	
+										?>
+										<img data-bigimage="<?=$bigimage;?>" class="img-responsive center-block catalog-table__image" src="<?=$img;?>" alt="">
 									</td>
 									<td>
 										<a href="<?=Url::to(['catalog/index', 'section' => $model->section, 'element' => $item['id'], 'page' => 0, ])?>">
 											<span><?=$item['name'];?></span>
 										</a>
 									</td>
-									<td><?=$item['code'];?></td>
+									<td class="hidden-xs hidden-sm"><?=$item['code'];?></td>
 									<td><?=$item['price'];?>&#8381;</td>
-									<td><?=$item['quantity'];?></td>
+									<td class="hidden-xs hidden-sm"><?=$item['quantity'];?></td>
 									<td>
 										<div class="catalog-table__input-group clearfix">
+											<input type="hidden" class="catalog-table__available-input" value="<?=$item['quantity'];?>">
 											<input data-oldValue=1 data-available="<?=$item['quantity'];?>" type="text" value=1 class="catalog__quantity-input">
-											<button class="catalog-table__quantity-btn">Добавить</button>
+											<button data-id="<?=$item['id'];?>" class="catalog-table__quantity-btn">Добавить</button>
 										</div>
 									</td>
 								</tr>

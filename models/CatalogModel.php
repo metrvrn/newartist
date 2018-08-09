@@ -33,6 +33,9 @@ class CatalogModel extends Model
 	public  $section;
 	public  $element;
 	public  $page;
+	public  $view;
+	
+	
 	public  $sectionXmlCode;
 	public  $elementXmlCode;
 	
@@ -69,7 +72,7 @@ class CatalogModel extends Model
 		return [
 		
 		
-		[['section', 'element', 'page'], 'safe'],
+		[['section', 'element', 'page','view'], 'safe'],
 		
 		
 		
@@ -82,7 +85,7 @@ class CatalogModel extends Model
 	
 	public function scenarios()
 	{
-		$scenarios['default'] = ['section', 'element', 'page'];
+		$scenarios['default'] = ['section', 'element', 'page', 'view'];
 		
 		return $scenarios;
 	}

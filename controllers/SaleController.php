@@ -31,6 +31,7 @@ use app\models\ AddLogingModel;
 use app\models\Usersessitions; 
 use app\models\Image;
 
+
 class SaleController extends Controller
 {
      
@@ -96,6 +97,36 @@ class SaleController extends Controller
 	
 	 public function actionBasket()
     {
+		///we have to change basket entity  by id if set id
+				
+		$getAr=Yii::$app->request->get();
+		
+		if(isset($getAr['id'])&&isset($getAr['q'])){
+			
+			
+			
+			$modelBasket=new BasketModel();
+			$modelBasket->idForChangeBasket=$getAr['id'];
+			$modelBasket->quantityForChangeBasket=$getAr['q'];
+			
+			$modelBasket->changeBasketViaId();
+				//echo $getAr['id'].'     '.$getAr['q'];
+			//$basket=Basket::find()
+			//->where(['id'=>$getAr['id']])
+			//->one();
+			
+			//if($basket){ echo 'find';
+				
+				
+			//}
+			
+			
+		}
+		
+		
+		
+		
+		
 		$catalogModel=new CatalogModel();
 		 
 		$catalogModel->elementPerPage=50;
@@ -108,7 +139,11 @@ class SaleController extends Controller
 		$catalogModel->setVisibleForCurienSection();
 		
 		 $modelBasket= new BasketModel();	 
-          $modelZakazForm= new ZakazForm();	
+         $modelZakazForm= new ZakazForm();
+
+
+		
+		  
 		  
 
             //sessionid

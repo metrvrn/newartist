@@ -13,7 +13,7 @@ use app\models\BasketModel;
 
 use app\models\AjaxModel;
 
-
+use app\models\LokalFileModel;
   
 
 class CatalogController extends Controller
@@ -37,10 +37,17 @@ class CatalogController extends Controller
 		
 		$model->load(Yii::$app->request->get(),'');
 		
-		//if set elementForAddToBasket
+		$viewForControler=LokalFileModel::getDataByKeyFromLocalfile('local_data_default_table');
+		
+		if(!isset($model->view)){
+		$model->view=$viewForControler;	
+			
+		}
 		
 		
 		
+		
+		///it is detail page
 		if(isset($model->element)&&($model->element!=='non')){
 			
 			 
@@ -100,10 +107,25 @@ class CatalogController extends Controller
 			
 		 //  return;  
 		
+		
 			
-		   return $this->render('catalog_table', [
-         	'model' => $model,
-			]);
+			if($model->view==='table'){
+				
+				return $this->render('catalog_table', [
+				'model' => $model,
+				]);	
+				
+			}else{
+				
+				
+				return $this->render('catalog_cart', [
+				'model' => $model,
+				]);		
+				
+			}
+			
+			
+		   
 			
     }
  

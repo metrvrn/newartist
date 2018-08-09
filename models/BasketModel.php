@@ -23,6 +23,10 @@ class BasketModel extends Model
 	public $userId;
 	public $quantityForAddToBasket;
 	 
+	public $idForChangeBasket;
+    public $quantityForChangeBasket;
+	 
+	 
 	 
 	 public $basketArray;
 	 public $basketSum;
@@ -240,7 +244,24 @@ class BasketModel extends Model
 	 
 	 
 	
-	 
+	 public function changeBasketViaId(){
+		 
+		 
+		 $basket=Basket::find()
+		 ->where(['id'=>$this->idForChangeBasket])
+		 ->one();
+		 
+		 if($basket){
+			 
+			 $basket->quantity=$this->quantityForChangeBasket;
+			  $basket->sum=$this->quantityForChangeBasket*$basket->price;;
+			  $basket->save();
+			 
+		 }
+		 
+		 
+		 
+	 }
 	 
 	 
 }
