@@ -1,10 +1,8 @@
 (function(){
     window.addEventListener('click', function(e){
         if(e.target.className.indexOf('catalog-table__image') < 0) return;
-        var spinner = window.spinner.cloneNode(true);
-	    spinner.className = "spinner";
-	    document.body.appendChild(spinner);
         var src = e.target.dataset.bigimage;
+        if(src === '') return;
         var wrapper = document.createElement('div');
         wrapper.className = 'image-modal__wrapper';
         var img = document.createElement('img');
@@ -15,7 +13,6 @@
         wrapper.appendChild(helper);
         img.src = src;
         img.onload = function(e){
-            document.body.removeChild(spinner);
             document.body.appendChild(wrapper);
             wrapper.addEventListener('click', function(e){
                 document.body.removeChild(wrapper);

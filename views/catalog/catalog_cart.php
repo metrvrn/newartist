@@ -28,14 +28,14 @@ if ($countTopArray > 0) {
 if (isset($model->TopArrCurSection) && $countTopArray > 0) {
 	$reverseArray = array_reverse($model->TopArrCurSection);
 	foreach ($reverseArray as $val) {
-		$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($val), 'url' => [Url::to(['catalog/index', 'section' => $val, 'element' => 'non', 'page' => 0, ])]];
+		$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($val), 'url' => [Url::to(['catalog/index', 'section' => $val, 'element' => 'non', 'page' => 0, 'view' => $model->view])]];
 
 	};
 };
-$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, ])]];
+$this->params['breadcrumbs'][] = ['label' => $model->getSectionNameById($model->section), 'url' => [Url::to(['catalog/index', 'section' => $model->section, 'element' => 'non', 'page' => 0, 'view' => $model->view])]];
 $this->params['breadcrumbs'][0] = [
 	'label' => 'Каталог',
-	'url' => [Url::to(['catalog/index', 'section' => 'non', 'element' => 'non', 'page' => 0, ])]
+	'url' => [Url::to(['catalog/index', 'section' => 'non', 'element' => 'non', 'page' => 0, 'view' => $model->view])]
 ];
 $showRootBreadcrumbs = LokalFileModel::getDataByKeyFromLocalfile('show_root_section') === 'true' ? true : false;
 if(!$showRootBreadcrumbs){
@@ -68,17 +68,32 @@ if($sectionsCount > 1){
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
-					<?=PaginatorWidget::widget([
-						'perPage' => 50,
-						'curPage' => $model->page,
-						'totalPage' => $model->quantityPageForCurSection,
-						'sectionID' => $model->section
-					])?>
+					<div class="pull-left">
+						<?=PaginatorWidget::widget([
+							'perPage' => 50,
+							'curPage' => $model->page,
+							'totalPage' => $model->quantityPageForCurSection,
+							'sectionID' => $model->section,
+							'view' => $model->view
+						])?>
+					</div>
+					<div class="pull-right">
+						<a class="catalog__view-link" href="<?=Url::to(['catalog/index',
+							'section' => $model->section,
+							'element' => 'non',
+							'page' => $model->page,
+							'view' => 'cart']);?>" title="Карточка"><i class="fas fa-columns"></i></a>
+						<a class="catalog__view-link" href="<?=Url::to(['catalog/index',
+							'section' => $model->section,
+							'element' => 'non',
+							'page' => $model->page,
+							'view' => 'table']);?>" title="Таблица"><i class="fas fa-table"></i></a>
+					</div>
 				</div>
 				<?php foreach($model->arrElements as $item) : ?>
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="product-cart">
-							<a href="<?=Url::to(['catalog/index', 'section' => $model->section, 'element' => $item['id'], 'page' => 0, ])?>" class="product-cart__title">
+							<a href="<?=Url::to(['catalog/index', 'section' => $model->section, 'element' => $item['id'], 'page' => 0, 'view' => $model->view])?>" class="product-cart__title">
 								<span><?=$item['name'];?></span>
 							</a>
 							<?php if(isset($item['imaged']) and ($item['imaged'] !== 'not')) : ?>

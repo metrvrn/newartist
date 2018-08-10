@@ -10,6 +10,7 @@ use app\assets\AppAsset;
 use yii\helpers\Url;
 use app\models\LokalFileModel;
 use app\widgets\HeaderInfo;
+use app\widgets\FooterInfo;
 
 AppAsset::register($this);
 
@@ -98,10 +99,53 @@ $this->beginPage() ?>
 <footer class="footer">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6 col-md-3">
                     <h3 class="footer-logo">
                         <?=LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppany')?>
                     </h3>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <h4>Меню:</h4>
+                        <ul>
+                            <li><a href="<?=Url::to(['/catalog/index'])?>">Каталог</a></li>
+                            <li><a href="<?=Url::to(['/site/contact'])?>">Контакты</a></li>
+                            <?php if(Yii::$app->user->isGuest) : ?>
+                                <li><a href="<?=Url::to('/site/signup')?>">Регистрация</a></li>
+                                <li><a href="<?=Url::to('/site/login')?>">Войти</a></li>
+                            <?php else : ?>
+                                <li>
+                                    <a href="<?=Url::to('/sale/index')?>">Заказы</a>
+                                </li>
+                                <li><a href="<?=Url::to('/site/profile')?>">Профиль</a></li>
+                                <li>
+                                    <?=Html::beginForm(Url::to('/site/logout'), 'post')?>
+                                        <input class="footer-logout-btn" type="submit" value="Выйти(<?=Yii::$app->user->identity->username?>)">
+                                    <?=Html::endForm() ?>
+                                </li>
+                            <?php endif; ?>
+                            <li>
+                                <a href="<?=Url::to('/sale/basket')?>">Корзина</a>
+                            </li>
+                        </ul>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <h4>Контакты:</h4>
+                        <?=FooterInfo::widget();?>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <?php
+                        $workday = LokalFileModel::getDataByKeyFromLocalfile('working_time_workday');
+                        $saturday = LokalFileModel::getDataByKeyFromLocalfile('working_time_saturday');
+                        $sunday = LokalFileModel::getDataByKeyFromLocalfile('working_time_sunday');
+                    ?>
+                    <?php if($workday or $saturday or $sunday) :?>
+                        <h4>Время работы:</h4>
+                            <ul>
+                                <?=$workday ? "<li>Пн-Пт: $workday</li>" : false?>
+                                <?=$saturday ? "<li>Сб: $saturday</li>" : false?>
+                                <?=$sunday ? "<li>Вс: $workday</li>" : false?>
+                            </ul>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

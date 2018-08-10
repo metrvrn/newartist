@@ -5,7 +5,7 @@ namespace app\widgets;
 use app\models\LokalFileModel;
 use yii\helpers\Url;
 
-class HeaderInfo extends \yii\bootstrap\Widget
+class FooterInfo extends \yii\bootstrap\Widget
 {
 
     protected $sections = [
@@ -82,74 +82,14 @@ class HeaderInfo extends \yii\bootstrap\Widget
     public function run()
     {
         $content = '';
-        $columnClass = $this->getColumnClass(count($this->sections));
         foreach($this->sections as $s){
-            $content .= $this->getColumnWrapper($columnClass, $s['icon'], $s['link'], $s['text']);
+            $content .= $this->getItem($s['icon'], $s['link'], $s['text']);
         }
-        echo $this->getHeaderInfoWrapper($content);
+        echo "<ul>$content</ul>";
     }
 
-    protected function getIcon($name)
+    protected function getItem($icon, $link, $text)
     {
-        return $this->$icons[$name];
-    }
-
-    protected function getColumnWrapper($columnClass, $icon, $link, $text)
-    {
-        return <<<WRAPPER
-        <div class="$columnClass">
-                    <div class="header-info__item">
-                        <a class="header-info__link" href="$link">
-                            <span class="header-info__icon">
-                                $icon
-                            </span>
-                            <span class="header-info__text">
-                                $text
-                            </span>
-                        </a>
-                    </div>
-                </div>
-WRAPPER;
-    }
-
-    protected function getHeaderInfoWrapper($content)
-    {
-        return <<<HEADERINFO
-        <div class="header-info">
-            <div class="container-fluid">
-                <div class="row">
-                    $content
-                </div>
-            </div>
-        </div>
-HEADERINFO;
-    }
-
-    protected function getColumnClass($count)
-    {
-        $column  = '';
-        switch($count){
-            case 1:
-                $column = 'col-xs-12';
-                break;
-            case 2:
-                $column = 'col-xs-6';
-                break;
-            case 3:
-                $column = 'col-xs-4';
-                break;
-            case 4:
-                $column = 'col-xs-3';
-                break;
-            case 5:
-                $column = 'col-xs-5ths';
-                break;
-            case 6:
-                $column = 'col-xs-6';
-                break;
-            default:
-                $column = 'col-xs-12';
-        }
-        return $column;
+        return "<li class=\"footer-contacts__element-item\"><span class=\"footer-contacts__icon\">$icon</span><a href=\"$link\">$text</a></li>";
     }
 }

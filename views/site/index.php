@@ -28,12 +28,12 @@ $this->title = LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppan
             <div class="row">
                 <div class="col-xs-6">
                     <a href="/images/store-image-small/1.jpg">
-                        <img class="img-responsive" src="/images/store-image-small/1.jpg" alt="Banana">
+                        <img class="img-responsive" src="/images/store-image-small/1.jpg">
                     </a>
                 </div>
                 <div class="col-xs-6">
                     <a href="/images/store-image-small/2.jpg">
-                        <img class="img-responsive" src="/images/store-image-small/2.jpg" alt="Banana">
+                        <img class="img-responsive" src="/images/store-image-small/2.jpg">
                     </a>
                 </div>
             </div>
@@ -41,12 +41,12 @@ $this->title = LokalFileModel::getDataByKeyFromLocalfile('local_data_nameComppan
             <div class="row">
                 <div class="col-xs-6">
                     <a href="/images/store-image-small/3.jpg">
-                        <img class="img-responsive" src="/images/store-image-small/2.jpg" alt="Banana">
+                        <img class="img-responsive" src="/images/store-image-small/2.jpg">
                     </a>
                 </div>
                 <div class="col-xs-6">
                     <a href="/images/store-image-small/4.jpg">
-                        <img class="img-responsive" src="/images/store-image-small/4.jpg" alt="Banana">
+                        <img class="img-responsive" src="/images/store-image-small/4.jpg">
                     </a>
                 </div>
             </div>

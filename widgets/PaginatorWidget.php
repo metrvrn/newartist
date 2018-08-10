@@ -15,6 +15,7 @@ class PaginatorWidget extends Widget
     public $totalPage;
     //current section id for url
     public $sectionID;
+    public $view;
     protected $activeLinkClass = "pagination__link";
     protected $disabledLinkClass = "pagination__link pagination__link--disabled";
     protected $currentLinkClass = "pagination__link pagination__link--current";
@@ -86,7 +87,7 @@ class PaginatorWidget extends Widget
         return sprintf(
             "<a class=\"%s\" href=\"%s\">%s</a>",
             $this->activeLinkClass,
-            Url::to(['catalog/index/'.$this->sectionID."/non/$page"]),
+            Url::to(['catalog/index/', 'section' => $this->sectionID, 'element' => 'non', 'page' => $page, 'view' => $this->view]),
             is_null($title) ? (string)$page + 1 : (string)$title
         );
     }
@@ -94,9 +95,8 @@ class PaginatorWidget extends Widget
     protected function getCurrentLink($page, $title = null)
     {
         return sprintf(
-            "<i class=\"%s\" href=\"%s\">%s</i>",
+            "<i class=\"%s\">%s</i>",
             $this->currentLinkClass,
-            Url::to(['catalog/index/'.$this->sectionID."/non/$page"]),
             is_null($title) ? (string)$page + 1 : (string)$title
         );
     }

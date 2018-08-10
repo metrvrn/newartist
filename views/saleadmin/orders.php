@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
 	<div class="col-xs-12">
 		<h1><?= Html::encode($this->title) ?></h1>
+		<p><?=$model->message;?></p>
 	</div>
 	<div class="col-xs-12">
 		<?php if($model->arrayOrders) : ?>
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							<td><?=$order['summ']?></td>
 							<td><?=Html::a(
 								'Заказать',
-								Html::encode(Url::to(['saleadmin/metr-order', 'md5' => $order['md5']])),
+								Html::encode(Url::to(['md5' => $order['md5']])),
 								['class' => 'btn button-default'])
 							?></td>
 						</tr>

@@ -31,6 +31,7 @@ use app\models\ AddLogingModel;
 
 use app\models\Usersessitions; 
 use app\models\Image;
+use app\models\Basket;
 use app\models\SaleAdminModel;
  
  
@@ -69,7 +70,31 @@ class SaleadminController extends Controller
 	 public function actionOrders()
     {
 		
+		
 		$model=new SaleAdminModel();
+		$g=Yii::$app->request->get();
+		
+		if(isset($g['md5'])){
+			
+			$model->md5=$g['md5'];
+			$model->sendOrderToSite();
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		$model->fillArrayOrders();
 		
 			
