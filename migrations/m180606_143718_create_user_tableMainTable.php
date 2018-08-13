@@ -15,6 +15,16 @@ class m180606_143718_create_user_tableMainTable extends Migration
 	
 	
 	
+	
+	
+	
+			$this->createTable('{{%session}}', [
+				'id' => $this->char(64)->notNull(),
+				'expire' => $this->integer(),
+				'data' => $this->binary()
+			]);
+			$this->addPrimaryKey('pk-id', '{{%session}}', 'id');
+	
 		
 			 $this->createTable('order', [
             
@@ -218,7 +228,7 @@ class m180606_143718_create_user_tableMainTable extends Migration
      */
     public function safeDown()
     {
-		
+		 $this->dropTable('{{%session}}');
 		 $this->dropTable('order');
 		 $this->dropTable('image');
         $this->dropTable('user');

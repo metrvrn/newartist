@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use Yii;
@@ -80,6 +81,7 @@ class OrderModel extends Model
 			$order->md5=md5($this->sessionForBasket.$order->datatime);
 			
 			$order->name=$this->name;
+			$order->status=1;
 			$order->email=$this->email;
 			$order->phone=$this->phone; 
 			$order->adress=$this->adress;
@@ -452,3 +454,5 @@ class OrderModel extends Model
 	
 	
 }
+
+?>

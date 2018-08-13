@@ -83,12 +83,38 @@ class SaleAdminModel
 	public function sendOrderToSite(){
 		
 		$mainArray=[];
+		$orderArray=[];
 		
 		$order=Order::find()
 		->where(['md5'=>$this->md5])
 		->one();
 		
 		if($order){	}else{return;}
+		
+		
+		
+			$userId=LokalFileModel::getDataByKeyFromLocalfile('local_data_default_site_order');
+			
+			$orderArray['userid'] = $userId;
+			
+			$orderArray['id'] = $order->id;
+			$orderArray['userid'] = $order->userid;
+			$orderArray['usersessition'] = $order->usersessition;
+			$orderArray['summ'] = $order->summ;
+			$orderArray['datatime'] = $order->datatime;
+			$orderArray['datatimeuploade'] = $order->datatimeuploade;
+			$orderArray['status'] = $order->status;
+			$orderArray['dуlivery'] = $order->dуlivery;
+			$orderArray['payment'] = $order->payment;
+			$orderArray['md5'] = $order->md5;
+			$orderArray['name'] = $order->name;
+			$orderArray['email'] = $order->email;
+			$orderArray['phone'] = $order->phone;
+			$orderArray['adress'] = $order->adress;
+			$orderArray['comment'] = $order->comment;
+			$orderArray['index'] = $order->index;
+		
+		
 		
 		
 		$comment='заказ интернет магазина художник //';
@@ -137,16 +163,24 @@ class SaleAdminModel
 			
 		}
 		
-				
+		
+			$mainArray['items']=$itemsArray;
+			$mainArray['orderdata']=$orderArray;
+			
+
+		$order->status=2;
+		$order->save();
+		
+		
 		$url=LokalFileModel::getDataByKeyFromLocalfile('local_data_default_site_order');
 		
-		$this->message=$url;
+		//$this->message=$url;
 		
 		
 		            if($curl = curl_init()) { 
 					curl_setopt($curl,CURLOPT_URL, $url);
 					curl_setopt($curl, CURLOPT_POST, 1);	
-					curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($itemsArray));					
+					curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($mainArray));					
 					curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
 					curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
 					curl_setopt($curl,CURLOPT_CONNECTTIMEOUT,30); 
@@ -157,7 +191,7 @@ class SaleAdminModel
 					
 					 
 					
-					$arrProp=$html;//json_decode($html); 
+				 $arrProp=$html;//json_decode($html); 
 		
 		          $this->message=$this->message.$html;
 		

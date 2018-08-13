@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						<th>Телефон</th>
 						<th>Email</th>
 						<th>Адрес</th>
+						<th>Статус</th>
 						<th>Комментарий</th>
 						<th>Сумма</th>
 						<th>Заказать в "Мэтр"</th>
@@ -45,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							<td><?=$order['phone']?></td>
 							<td><?=$order['email']?></td>
 							<td><?=$order['adress']?></td>
+							<td><?=$order['status']?></td>
 							<td><?=$order['comment']?></td>
 							<td><?=$order['summ']?></td>
 							<td><?=Html::a(
