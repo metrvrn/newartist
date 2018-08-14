@@ -37,9 +37,11 @@ class CatalogController extends Controller
 		
 		$model->load(Yii::$app->request->get(),'');
 		
-		$viewForControler=LokalFileModel::getDataByKeyFromLocalfile('local_data_default_table');
 		
 		if(!isset($model->view)){
+		$viewForControler=LokalFileModel::getDataByKeyFromLocalfile('local_data_default_table');
+			
+			
 		$model->view=$viewForControler;	
 			
 		}
@@ -63,7 +65,7 @@ class CatalogController extends Controller
 		$model->fillImageForElementArray();		
 		$model->fillPriceForElementArray();		
 		$model->fillQuantityForElementArray();
-		
+		 
 		$model->fillArrProperyMetr();
 		
 		  
@@ -145,19 +147,7 @@ class CatalogController extends Controller
 	  if(isset ($postArray)){
 	   
                            
-							$model->elementForAddToBasket=$postArray['elementid']; 
-                            $model->quantityForAddToBasket=$postArray['quanty']; 						
-						  
-                           
-							$session = Yii::$app->session;
-							if ($session->isActive){
-								
-									$model->sessionForBasket=$session ->getId();
-
-							};
-
-							
-							if (Yii::$app->user->isGuest){
+						   if (Yii::$app->user->isGuest){
 
 							}else{
  
@@ -165,7 +155,25 @@ class CatalogController extends Controller
  
 							}
 							  
+							
+						   
+						   
+							$model->elementForAddToBasket=$postArray['elementid']; 
+                            $model->quantityForAddToBasket=$postArray['quanty']; 						
+						  
+                           
+						   
+							$session = Yii::$app->session;
+									$model->sessionForBasket=$session ->getId();
+									//$model->message=$session ->getId();
+							if ($session->isActive){
+								
+							
+
+							};
+
 							$model->addElementToBasket();
+							
 
 					}
 	  

@@ -43,7 +43,7 @@ class CatalogModel extends Model
 	
 	private $id_tovar;///the main   grup  tovar;
 	
-    public $arrProperyMetr;
+    public $arrPropery;
 
 	
 	
@@ -973,16 +973,18 @@ class CatalogModel extends Model
      public function fillArrProperyMetr(){
 		 $key='arrProperyMetr';
 		 
-		 	$this->arrProperyMetr = Yii::$app->cache->get($key);
+		 	$this->arrPropery = Yii::$app->cache->get($key);
  
 
-		if ($this->arrProperyMetr === false) {
+		if ($this->arrPropery === false) {
 			
 			
-            $this->arrProperyMetr=[];
+            $this->arrPropery=[];
 			  
-				
-					$url = 'https://metropt.ru/test/metr/newartist/newartistprop.php'; 
+				//
+					//$url = 'https://metropt.ru/test/metr/newartist/newartistprop.php'; 
+					
+					$url=LokalFileModel::getDataByKeyFromLocalfile('local_data_property_array_site');
 					if($curl = curl_init()) { 
 					curl_setopt($curl,CURLOPT_URL, $url); 
 					curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
@@ -999,27 +1001,30 @@ class CatalogModel extends Model
 					 
 				//print_r($arrProp);
 				//echo '<br>';
-				
-				foreach($arrProp as $prop){
-					 $intArray=[];
-					  $intArray['NAME']=$prop->NAME;
+				if(count($arrProp)>0){
+					
+					 foreach($arrProp as $prop){
+					   $intArray=[];
+					   $intArray['NAME']=$prop->NAME;
 					   $intArray['CODE']=$prop->CODE;
 					   $intArray['ID']=$prop->ID;
 					 
 					 
-					$this->arrProperyMetr[$prop->ID]= $intArray;
+					  $this->arrPropery[$prop->ID]= $intArray;
 					 
 					
+				     }
 				}
+				     
 				
 
 				
 		 
-			     //Yii::$app->cache->set($key, $this->arrProperyMetr);
+			     Yii::$app->cache->set($key, $this->arrPropery);
 		}
 		 
-		 //  print_r( $this->arrProperyMetr);
-		   
+		
+		  // print_r($this->arrPropery);
 		  		   
 	 }
 		 
@@ -1035,7 +1040,10 @@ class CatalogModel extends Model
 		
 		 
 		 
-		 $url = 'https://metropt.ru/test/metr/newartist/newartistpropdata.php?id='.$this->elementXmlCode;; 
+		 $url = LokalFileModel::getDataByKeyFromLocalfile('local_data_default_detail_data_url').$this->elementXmlCode;; 
+		 
+		 
+		// echo $url ;
 					if($curl = curl_init()) { 
 					curl_setopt($curl,CURLOPT_URL, $url); 
 					curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
@@ -1052,7 +1060,10 @@ class CatalogModel extends Model
 					$arrPropData=json_decode($html); 
 					 
 				//print_r($arrPropData);
-				foreach($arrPropData as $PropData){
+				
+				if(count($arrPropData)>0){
+					
+						foreach($arrPropData as $PropData){
 					 
 					 $intArray=[];
 					 $intArray['PROPERTY_ID']=$PropData->PROPERTY_ID;
@@ -1061,7 +1072,7 @@ class CatalogModel extends Model
 					 $intArray['VALUE']=$PropData->VALUE;
 					 
 					 
-					 $intArray['NAME_PROPERTY']=$this->arrProperyMetr[$PropData->PROPERTY_ID]['NAME'];
+					 $intArray['NAME_PROPERTY']=$this->arrPropery[$PropData->PROPERTY_ID]['NAME'];
 					 ;
 					 
 					 
@@ -1069,6 +1080,9 @@ class CatalogModel extends Model
 					 
 					
 				}
+				}
+				
+			
 		 
 		 
 		 

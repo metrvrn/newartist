@@ -144,7 +144,18 @@ class SaleController extends Controller
 
 		
 		  
-		  
+		  	//user id;
+							if (Yii::$app->user->isGuest){
+
+								//$AjaxModel->message= $AjaxModel->message.'<br> user is guest';
+
+							}else{
+
+                                   
+									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
+									$modelBasket->userId=Yii::$app->user->id;
+	                               
+							}
 
             //sessionid
 							$session = Yii::$app->session;
@@ -157,18 +168,7 @@ class SaleController extends Controller
 							};
 
 							
-							//user id;
-							if (Yii::$app->user->isGuest){
-
-								//$AjaxModel->message= $AjaxModel->message.'<br> user is guest';
-
-							}else{
-
-                                   
-									//$AjaxModel->message= $AjaxModel->message.'<br> user is user  ';
-									$modelBasket->userId=Yii::$app->user->id;
-	                               
-							}
+						
 
 
 		 $modelBasket->fillBasketArray();
@@ -234,18 +234,7 @@ class SaleController extends Controller
 		  
 	  }
        
-		  
-
-            //sessionid
-							$session = Yii::$app->session;
-							if ($session->isActive){// $AjaxModel->message= $AjaxModel->message.'  isAllaiv';
-
-							 		$modelBasket->sessionForBasket=$session ->getId();
-
-							};
-
-							
-							//user id;
+		  	//user id;
 							if (Yii::$app->user->isGuest){
 
 								//$AjaxModel->message= $AjaxModel->message.'<br> user is guest';
@@ -262,6 +251,17 @@ class SaleController extends Controller
 									$modelZakazForm->email=Yii::$app->user->identity->email;
 									//email
 							}
+
+            //sessionid
+							$session = Yii::$app->session;
+							if ($session->isActive){// $AjaxModel->message= $AjaxModel->message.'  isAllaiv';
+
+							 		$modelBasket->sessionForBasket=$session ->getId();
+
+							};
+
+							
+						
 
 							
 							

@@ -46,11 +46,7 @@ class OrderModel extends Model
       {
 		  
 		  
-					$session = Yii::$app->session;
-					if ($session->isActive){ 		 
-							$this->sessionForBasket=$session->getId();
-					};
-							if (Yii::$app->user->isGuest){							 
+		  if (Yii::$app->user->isGuest){							 
 	                         
 							}else{		  	 
 									$this->userId=Yii::$app->user->id;
@@ -63,6 +59,13 @@ class OrderModel extends Model
 									$this->email=Yii::$app->user->identity->email;
 									 
 							}
+		  
+		  
+					$session = Yii::$app->session;
+					if ($session->isActive){ 		 
+							$this->sessionForBasket=$session->getId();
+					};
+							
 		  
 		  
 		  

@@ -53,6 +53,7 @@ class BasketModel extends Model
 		 $basket->userid= $this->userId;
 		 $basket->sessionid= $this->sessionForBasket;
 		  
+		  $mes=$this->sessionForBasket;
 		 
 		 $price=Price::find()
 		 ->where(['elementid'=>$this->elementForAddToBasket])
@@ -77,9 +78,9 @@ class BasketModel extends Model
 		  $basket->sum=$basket->price*$basket->quantity ;
 		 
 			
-		$basket->save();
+		$basket->save(); 
 	 
-         $this->message='{"quantity":"'.$this->quantityForAddToBasket.'" }';
+         $this->message= ' message {"quantity":"'.$this->quantityForAddToBasket.'" }';
      }
 	 
 	 
